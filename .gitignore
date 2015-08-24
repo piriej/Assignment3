@@ -1,3 +1,7 @@
+# Generated Project Files
+/NewLibrary/NewLibrary/bin/
+/NewLibrary/NewLibrary/obj/
+
 # Compiled Object files
 *.slo
 *.lo

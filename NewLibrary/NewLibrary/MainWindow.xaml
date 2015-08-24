@@ -1,0 +1,18 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NewLibrary"
+        xmlns:Library="clr-namespace:NewLibrary.Library" 
+        xmlns:Panels="clr-namespace:NewLibrary.Library.Panels" 
+        xmlns:Borrow="clr-namespace:NewLibrary.Library.Panels.Borrow" 
+        x:Class="NewLibrary.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="480">
+
+    <Grid>
+        <Panels:MainPanel   x:Name="MainPanel"   HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="670" Width="470" Visibility="Hidden"/>
+        <Borrow:BorrowPanel x:Name="BorrowPanel" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Height="670" Width="470" Visibility="Hidden"/>
+    </Grid>
+</Window>
