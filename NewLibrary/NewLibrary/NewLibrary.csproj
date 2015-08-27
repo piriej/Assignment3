@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Library\Hardware\CardReader.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Library\Panels\Borrow\BorrowPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +75,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Library\Hardware\CardReader.xaml.cs">
+      <DependentUpon>CardReader.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Library\Interfaces\Hardware\CardReaderListenerInterface.cs" />
+    <Compile Include="Library\Interfaces\Hardware\CardReaderInterface.cs" />
     <Compile Include="Library\MainController.cs" />
     <Compile Include="Library\Panels\Borrow\BorrowPanel.xaml.cs">
       <DependentUpon>BorrowPanel.xaml</DependentUpon>
@@ -113,10 +122,8 @@
   <ItemGroup>
     <Folder Include="Library\Daos\" />
     <Folder Include="Library\Entities\" />
-    <Folder Include="Library\Hardware\" />
     <Folder Include="Library\Interfaces\Daos\" />
     <Folder Include="Library\Interfaces\Entities\" />
-    <Folder Include="Library\Interfaces\Hardware\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

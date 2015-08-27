@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,5 +35,24 @@ namespace NewLibrary
             BorrowPanel.setController(controller);
         }
 
+        void ClosingEventHandler(object sender, CancelEventArgs e)
+        {
+            string msg = "Data is dirty. Close without saving?";
+            MessageBoxResult result =
+              MessageBox.Show(
+                msg,
+                "Data App",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No)
+            {
+                // If user doesn't want to close, cancel closure
+                e.Cancel = true;
+            }
+            else
+            {
+                controller.shutdown();
+            }
+        }
     }
 }

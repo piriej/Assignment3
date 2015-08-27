@@ -9,6 +9,7 @@
         xmlns:Borrow="clr-namespace:NewLibrary.Library.Panels.Borrow" 
         x:Class="NewLibrary.MainWindow"
         mc:Ignorable="d"
+        Closing="ClosingEventHandler"
         Title="MainWindow" Height="700" Width="480">
 
     <Grid>
