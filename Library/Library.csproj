@@ -128,6 +128,18 @@
     <Compile Include="Interfaces\Controllers\Borrow\IBorrowListener.cs" />
     <Compile Include="Interfaces\Controllers\IMainMenuListener.cs" />
     <Compile Include="Interfaces\Controls\Borrow\IBorrowUI.cs" />
+    <Compile Include="Interfaces\Daos\IBookDAO.cs" />
+    <Compile Include="Interfaces\Daos\ILoanDAO.cs" />
+    <Compile Include="Interfaces\Daos\IMemberDAO.cs" />
+    <Compile Include="Interfaces\Entities\EBookConstants.cs" />
+    <Compile Include="Interfaces\Entities\ELoanConstants.cs" />
+    <Compile Include="Interfaces\Entities\EMemberConstants.cs" />
+    <Compile Include="Interfaces\Entities\IBook.cs" />
+    <Compile Include="Interfaces\Entities\IBookHelper.cs" />
+    <Compile Include="Interfaces\Entities\ILoan.cs" />
+    <Compile Include="Interfaces\Entities\ILoanHelper.cs" />
+    <Compile Include="Interfaces\Entities\IMember.cs" />
+    <Compile Include="Interfaces\Entities\IMemberHelper.cs" />
     <Compile Include="Interfaces\Hardware\ICardReader.cs" />
     <Compile Include="Interfaces\Hardware\ICardReaderListener.cs" />
     <Compile Include="Interfaces\Hardware\IDisplay.cs" />
@@ -166,7 +178,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Daos\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
