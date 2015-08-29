@@ -47,5 +47,61 @@ namespace Library.Controls.Borrow
             _listener.cancelled();
         }
 
+
+        public override void DisplayAtLoanLimitMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayConfirmingLoan(string loanDetails)
+        {
+            if (confirmLoanBox.Text.Length > 0)
+            {
+                confirmLoanBox.AppendText("\n\n");
+            }
+            confirmLoanBox.AppendText(loanDetails);
+
+            confirmLoanBox.ScrollToLine(confirmLoanBox.LineCount - 1);
+        }
+
+        public override void DisplayErrorMessage(string errorMesg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayExistingLoan(string loanDetails)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayMemberDetails(int memberID, string memberName, string memberPhone)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayOutstandingFineMessage(float amountOwing)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayOverDueMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayOverFineLimitMessage(float amountOwing)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayPendingLoan(string loanDetails)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayScannedBookDetails(string bookDetails)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -55,7 +55,7 @@ namespace Library.Hardware
             }
             set
             {
-                Console.WriteLine("CardReader settng listener");
+                Console.WriteLine("CardReader setting listener to " + value);
                 _listener = value;
             }
         }

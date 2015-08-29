@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="470">
     <Grid Background="#FFE6E6E6">
-        <Button x:Name="borrowButton" Content="Borrow" HorizontalAlignment="Left" Margin="115,100,0,0" VerticalAlignment="Top" Width="75" Click="borrowButton_Click"/>
-        <Label x:Name="label" Content="Main Menu" HorizontalAlignment="Left" Margin="93,28,0,0" VerticalAlignment="Top" FontSize="21.333"/>
+        <Label x:Name="label" Content="Main Menu" HorizontalAlignment="Left" Margin="142,31,0,0" VerticalAlignment="Top" FontSize="32"/>
+        <Button x:Name="borrowButton" Content="Borrow" HorizontalAlignment="Left" Margin="177,103,0,564" VerticalAlignment="Center" Width="103" Click="borrowButton_Click" FontSize="18.667" Height="33" RenderTransformOrigin="0.52,0.564"/>
     </Grid>
 </UserControl>

@@ -30,61 +30,6 @@ namespace Library.Controls.Borrow
             InitializeComponent();
         }
 
-        public void displayAtLoanLimitMessage()
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayConfirmingLoan(string loanDetails)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayErrorMessage(string errorMesg)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayExistingLoan(string loanDetails)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayMemberDetails(int memberID, string memberName, string memberPhone)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayOutstandingFineMessage(float amountOwing)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayOverDueMessage()
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayOverFineLimitMessage(float amountOwing)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayPendingLoan(string loanDetails)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void displayScannedBookDetails(string bookDetails)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
-        public void setState(EBorrowState state)
-        {
-            throw new ApplicationException("Illegal operation in current state");
-        }
-
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             _listener.cancelled();
@@ -93,6 +38,71 @@ namespace Library.Controls.Borrow
         private void completeButton_Click(object sender, RoutedEventArgs e)
         {
             _listener.scansCompleted();
+        }
+
+        public override void DisplayAtLoanLimitMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayConfirmingLoan(string loanDetails)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayErrorMessage(string errorMesg)
+        {
+            errorMessage.Content = errorMesg;
+        }
+
+        public override void DisplayExistingLoan(string loanDetails)
+        {
+            if (existingLoanBox.Text.Length > 0)
+            {
+                existingLoanBox.AppendText("\n\n");
+            }
+            existingLoanBox.AppendText(loanDetails);
+
+            existingLoanBox.ScrollToLine(existingLoanBox.LineCount - 1);
+        }
+
+        public override void DisplayMemberDetails(int memberID, string memberName, string memberPhone)
+        {
+            idLabel.Content = memberID;
+            nameLabel.Content = memberName;
+            contactLabel.Content = memberPhone;
+        }
+
+        public override void DisplayOutstandingFineMessage(float amountOwing)
+        {
+            outstandingFineLabel.Content =
+                String.Format("Borrower has outstanding fines. Amount owing: ${0:0.00}", amountOwing);
+        }
+
+        public override void DisplayOverDueMessage()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayOverFineLimitMessage(float amountOwing)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DisplayPendingLoan(string loanDetails)
+        {
+            if (pendingLoanBox.Text.Length > 0)
+            {
+                pendingLoanBox.AppendText("\n\n");
+            }
+            pendingLoanBox.AppendText(loanDetails);
+
+            pendingLoanBox.ScrollToLine(pendingLoanBox.LineCount-1);
+        }
+
+        public override void DisplayScannedBookDetails(string bookDetails)
+        {
+            currentbookBox.Text = bookDetails;
         }
     }
 }

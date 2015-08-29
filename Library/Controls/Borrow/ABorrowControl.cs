@@ -9,61 +9,37 @@ using Library.Interfaces.Controllers.Borrow;
 
 namespace Library.Controls.Borrow
 {
-    public class ABorrowControl : UserControl, IBorrowUI
+    public abstract class ABorrowControl : UserControl, IBorrowUI
     {
-        public void displayAtLoanLimitMessage()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void DisplayAtLoanLimitMessage();
 
-        public void displayConfirmingLoan(string loanDetails)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void displayErrorMessage(string errorMesg)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void DisplayConfirmingLoan(string loanDetails);
 
-        public void displayExistingLoan(string loanDetails)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void displayMemberDetails(int memberID, string memberName, string memberPhone)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void DisplayErrorMessage(string errorMesg);
 
-        public void displayOutstandingFineMessage(float amountOwing)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void displayOverDueMessage()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void DisplayExistingLoan(string loanDetails);
 
-        public void displayOverFineLimitMessage(float amountOwing)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void displayPendingLoan(string loanDetails)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void DisplayMemberDetails(int memberID, string memberName, string memberPhone);
 
-        public void displayScannedBookDetails(string bookDetails)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void setState(EBorrowState state)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void DisplayOutstandingFineMessage(float amountOwing);
+
+
+        public abstract void DisplayOverDueMessage();
+
+
+        public abstract void DisplayOverFineLimitMessage(float amountOwing);
+
+
+        public abstract void DisplayPendingLoan(string loanDetails);
+
+
+        public abstract void DisplayScannedBookDetails(string bookDetails);
+
+        //public abstract void setState(EBorrowState state);
     }
 }

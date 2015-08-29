@@ -9,27 +9,27 @@ namespace Library.Interfaces.Controls.Borrow
 {
     public interface IBorrowUI
     {
-        void displayMemberDetails(int memberID, string memberName, string memberPhone);
+        void DisplayMemberDetails(int memberID, string memberName, string memberPhone);
 
-        void displayExistingLoan(string loanDetails);
+        void DisplayExistingLoan(string loanDetails);
 
-        void displayOverDueMessage();
+        void DisplayOverDueMessage();
 
-        void displayAtLoanLimitMessage();
+        void DisplayAtLoanLimitMessage();
 
-        void displayOutstandingFineMessage(float amountOwing);
+        void DisplayOutstandingFineMessage(float amountOwing);
 
-        void displayOverFineLimitMessage(float amountOwing);
+        void DisplayOverFineLimitMessage(float amountOwing);
 
-        void displayScannedBookDetails(String bookDetails);
+        void DisplayScannedBookDetails(String bookDetails);
 
-        void displayPendingLoan(string loanDetails);
+        void DisplayPendingLoan(string loanDetails);
 
-        void displayConfirmingLoan(string loanDetails);
+        void DisplayConfirmingLoan(string loanDetails);
 
-        void displayErrorMessage(string errorMesg);
+        void DisplayErrorMessage(string errorMesg);
 
-        void setState(EBorrowState state);
+        //void setState(EBorrowState state);
 
     }
 }
