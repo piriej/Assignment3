@@ -17,7 +17,7 @@ namespace Library.Controllers.Borrow
     {
         private IDisplay _display;
         private UserControl _previousDisplay;
-        private ABorrowControl _currentControl;
+        private ABorrowControl _ui;
         private ICardReader _reader;
         private ICardReaderListener _previousReaderListener;
         private IScanner _scanner;
@@ -47,6 +47,8 @@ namespace Library.Controllers.Borrow
             _bookDAO = bookDAO;
             _loanDAO = loanDAO;
             _memberDAO = memberDAO;
+
+            _ui = new BorrowControl(this);
         }
 
 
@@ -57,6 +59,7 @@ namespace Library.Controllers.Borrow
             _previousScannerListener = _scanner.Listener;
             _previousDisplay = _display.Display;
             Console.WriteLine("BorrowController Initialising, previous display = " + _previousDisplay);
+            _display.Display = _ui;
             setState(EBorrowState.INITIALIZED);
         }
 
@@ -80,7 +83,7 @@ namespace Library.Controllers.Borrow
             _borrower = _memberDAO.GetMemberByID(memberID);
             if (_borrower == null)
             {
-                _currentControl.DisplayErrorMessage(String.Format("Member ID {0} not found", memberID));
+                _ui.DisplayErrorMessage(String.Format("Member ID {0} not found", memberID));
                 _reader.Enabled = true;
                 return;
             }
@@ -103,39 +106,34 @@ namespace Library.Controllers.Borrow
             int mID = _borrower.ID;
             string mName = _borrower.FirstName + " " + _borrower.LastName;
             String mContact = _borrower.ContactPhone;
-            _currentControl.DisplayMemberDetails(mID, mName, mContact);
+            _ui.DisplayMemberDetails(mID, mName, mContact);
 
             if (overdue)
             {
-                _currentControl.DisplayOverDueMessage();
+                _ui.DisplayOverDueMessage();
             }
             if (atLoanLimit)
             {
-                _currentControl.DisplayAtLoanLimitMessage();
+                _ui.DisplayAtLoanLimitMessage();
             }
             if (hasFines)
             {
                 float amountOwing = _borrower.FineAmount;
-                _currentControl.DisplayOutstandingFineMessage(amountOwing);
+                _ui.DisplayOutstandingFineMessage(amountOwing);
             }
 
             if (overFineLimit)
             {
                 Console.WriteLine("State: " + _state);
                 float amountOwing = _borrower.FineAmount;
-                _currentControl.DisplayOverFineLimitMessage(amountOwing);
+                _ui.DisplayOverFineLimitMessage(amountOwing);
             }
 
             //display existing loans
             foreach (ILoan ln in _borrower.Loans)
             {
-                _currentControl.DisplayExistingLoan(ln.ToString());
+                _ui.DisplayExistingLoan(ln.ToString());
             }
-
-            //initialize scanCount with number of existing loans
-            //so that member doesn't borrow more than they should
-            scanCount = _borrower.Loans.Count;
-
         }
 
         public void bookScanned(int barcode)
@@ -146,24 +144,24 @@ namespace Library.Controllers.Borrow
                 throw new ApplicationException(
                         String.Format("BorrowUC_CTL : bookScanned : illegal operation in state: {0}", _state));
             }
-            _currentControl.DisplayErrorMessage("");
+            _ui.DisplayErrorMessage("");
             IBook book = _bookDAO.GetBookByID(barcode);
             if (book == null)
             {
-                _currentControl.DisplayErrorMessage(
+                _ui.DisplayErrorMessage(
                     String.Format("Book {0} not found", barcode));
                 return;
             }
 
             if (book.State != BookState.AVAILABLE)
             {
-                _currentControl.DisplayErrorMessage(
+                _ui.DisplayErrorMessage(
                     String.Format("Book {0} is not available: {1}", book.ID, book.State));
                 return;
             }
             if (_bookList.Contains(book))
             {
-                _currentControl.DisplayErrorMessage(
+                _ui.DisplayErrorMessage(
                     String.Format("Book {0} already scanned: ", book.ID));
                 return;
             }
@@ -176,11 +174,12 @@ namespace Library.Controllers.Borrow
             scanCount++;
             _bookList.Add(book);
             _loanList.Add(loan);
+            Console.WriteLine("scancount = {0}", scanCount);
 
             //display current book
-            _currentControl.DisplayScannedBookDetails(book.ToString());
+            _ui.DisplayScannedBookDetails(book.ToString());
             //display pending loans
-            _currentControl.DisplayPendingLoan(loan.ToString());
+            _ui.DisplayPendingLoan(buildLoanListDisplay(_loanList));
 
 
             if (scanCount >= MemberConstants.LOAN_LIMIT)
@@ -211,53 +210,50 @@ namespace Library.Controllers.Borrow
            Console.WriteLine("Setting state: " + state);
 
             this._state = state;
+            _ui.State = state;
 
             switch (state)
             {
                 case EBorrowState.INITIALIZED:
                     _reader.Listener = this;
                     _scanner.Listener = this;
-                    _currentControl = new SwipeCardControl(this);
                     _reader.Enabled = true;
                     _scanner.Enabled = false;
                     break;
 
-                case EBorrowState.BORROWING_RESTRICTED:
-                    _currentControl = new RestrictedControl(this);
-                    _reader.Enabled = false;
-                    _scanner.Enabled = false;
-                    _currentControl.DisplayErrorMessage(String.Format("Member {0} cannot borrow at this time.", _borrower.ID));
-                    break;
-
                 case EBorrowState.SCANNING_BOOKS:
-                    _currentControl = new ScanBookControl(this);
                     _reader.Enabled = false;
                     _scanner.Enabled = true;
                     _bookList = new List<IBook>();
                     _loanList = new List<ILoan>();
+                    scanCount = _borrower.Loans.Count;
+
+                    _ui.DisplayScannedBookDetails("");
+                    _ui.DisplayPendingLoan("");
+
+                    break;
+
+                case EBorrowState.BORROWING_RESTRICTED:
+                    _reader.Enabled = false;
+                    _scanner.Enabled = false;
+                    _ui.DisplayErrorMessage(String.Format("Member {0} cannot borrow at this time.", _borrower.ID));
                     break;
 
                 case EBorrowState.CONFIRMING_LOANS:
-                    _currentControl = new ConfirmLoanControl(this);
                     _reader.Enabled = false;
                     _scanner.Enabled = false;
                     //display pending loans
-                    foreach (ILoan loan in _loanList)
-                    {
-                        _currentControl.DisplayConfirmingLoan(loan.ToString());
-                    }
+                    _ui.DisplayConfirmingLoan(buildLoanListDisplay(_loanList));
                     break;
 
                 case EBorrowState.COMPLETED:
                     _reader.Enabled = false;
                     _scanner.Enabled = false;
-                    StringBuilder bld = new StringBuilder();
                     foreach (ILoan loan in _loanList)
                     {
                         _loanDAO.CommitLoan(loan);
-                        bld.Append(loan.ToString() + "\n\n");
                     }
-                    _printer.print(bld.ToString());
+                    _printer.print(buildLoanListDisplay(_loanList));
                     close();
                     return;
 
@@ -270,7 +266,6 @@ namespace Library.Controllers.Borrow
                 default:
                     throw new ApplicationException("Unknown state");
             }
-            _display.Display = _currentControl;
         }
 
 
@@ -281,5 +276,19 @@ namespace Library.Controllers.Borrow
             _scanner.Listener = _previousScannerListener;
         }
 
+
+        private string buildLoanListDisplay(List<ILoan> loanList)
+        {
+            StringBuilder bld = new StringBuilder();
+            foreach (ILoan loan in loanList)
+            {
+                if (bld.Length > 0)
+                {
+                    bld.Append("\n\n");
+                }
+                bld.Append(loan.ToString());
+            }
+            return bld.ToString();
+        }
     }
 }

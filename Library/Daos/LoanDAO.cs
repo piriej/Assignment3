@@ -12,7 +12,6 @@ namespace Library.Daos
     {
         private ILoanHelper helper;
         private Dictionary<int, ILoan> loanDict;
-        private int nextID;
 
 
         public LoanDAO(ILoanHelper helper)
@@ -24,7 +23,7 @@ namespace Library.Daos
             }
             this.helper = helper;
             this.loanDict = new Dictionary<int, ILoan>();
-            this.nextID = 1;
+            this.NextID = 1;
         }
 
 
@@ -42,8 +41,7 @@ namespace Library.Daos
                 throw new ArgumentException(
                     String.Format("LoanDAO : createPendingLoan : borrowDate cannot be after dueDate."));
             }
-            int id = NextID;
-            ILoan loan = helper.MakeLoan(book, borrower, borrowDate, dueDate, id);
+            ILoan loan = helper.MakeLoan(book, borrower, borrowDate, dueDate);
             return loan;
         }
 
@@ -57,13 +55,8 @@ namespace Library.Daos
                 throw new ArgumentException(
                     String.Format("LoanDAO : commitLoans : loan cannot be null."));
             }
-            IMember borrower = loan.Borrower;
-            borrower.AddLoan(loan);
-            IBook book = loan.Book;
-            book.Borrow(loan);
-            loan.Commit();
-            int id = loan.ID;
-            loanDict.Add(id, loan);
+            loan.Commit(NextID);
+            loanDict.Add(loan.ID, loan);
         }
 
 
@@ -163,9 +156,11 @@ namespace Library.Daos
             return list;
         }
 
+        private int _nextID;
         private int NextID
         {
-            get { return nextID++; }
+            get { return _nextID++; }
+            set { _nextID = value; }
         }
 
     }

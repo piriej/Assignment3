@@ -9,7 +9,6 @@ namespace Library.Entities
 {
     public class Loan : ILoan
     {
-        private int id;
         private IMember borrower;
         private IBook book;
         private DateTime borrowDate;
@@ -17,9 +16,9 @@ namespace Library.Entities
         private LoanState state;
 
 
-        public Loan(IBook book, IMember borrower, DateTime borrowDate, DateTime dueDate, int id)
+        public Loan(IBook book, IMember borrower, DateTime borrowDate, DateTime dueDate)
         {
-            if (!sane(book, borrower, borrowDate, dueDate, id))
+            if (!sane(book, borrower, borrowDate, dueDate))
             {
                 throw new ArgumentException("Loan: constructor : bad parameters");
             }
@@ -27,24 +26,23 @@ namespace Library.Entities
             this.borrower = borrower;
             this.borrowDate = borrowDate;
             this.dueDate = dueDate;
-            this.id = id;
+            this._id = 0;
             this.state = LoanState.PENDING;
 
         }
 
 
-        private bool sane(IBook book, IMember borrower, DateTime borrowDate, DateTime returnDate, int loanID)
+        private bool sane(IBook book, IMember borrower, DateTime borrowDate, DateTime returnDate)
         {
             return (book != null &&
                       borrower != null &&
                       borrowDate != null &&
                       returnDate != null &&
-                      DateTime.Compare(borrowDate, returnDate) <= 0 &&
-                      loanID > 0);
+                      DateTime.Compare(borrowDate, returnDate) <= 0);
         }
 
 
-        public void Commit()
+        public void Commit(int id)
         {
             if (!(state == LoanState.PENDING))
             {
@@ -52,7 +50,15 @@ namespace Library.Entities
                         String.Format("Loan : commit : incorrect state transition  : {0} -> {1}\n",
                                 state, LoanState.CURRENT));
             }
+            if (id <= 0)
+            {
+                throw new ApplicationException(
+                        String.Format("Loan : commit : loan ID must be positive integer\n"));
+            }
+            _id = id;
             state = LoanState.CURRENT;
+            book.Borrow(this);
+            borrower.AddLoan(this);
         }
 
 
@@ -102,9 +108,10 @@ namespace Library.Entities
             get { return book; }
         }
 
+        private int _id;
         public int ID
         {
-            get { return id; }
+            get { return _id; }
         }
 
         public LoanState State
@@ -130,7 +137,7 @@ namespace Library.Entities
                                   "{0}{10,-20}\t{11:d} " +
                                   "{0}{12,-20}\t{13:d}",
                     cr,
-                    "Loan ID:     ", id,
+                    "Loan ID:     ", _id,
                     "Author:      ", book.Author,
                     "Title:       ", book.Title,
                     "Borrower:    ", borrower.FirstName, borrower.LastName,
