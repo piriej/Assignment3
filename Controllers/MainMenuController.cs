@@ -3,37 +3,32 @@ using Library.Controls;
 using Library.Interfaces.Controllers;
 using Library.Interfaces.Daos;
 using Library.Interfaces.Hardware;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Controllers
 {
     class MainMenuController : IMainMenuListener
     {
-        private IDisplay _display;
-        private ICardReader _reader;
-        private IScanner _scanner;
-        private IPrinter _printer;
+        readonly IDisplay _display;
+        readonly ICardReader _reader;
+        readonly IScanner _scanner;
+        readonly IPrinter _printer;
 
-        private IBookDAO _bookDAO;
-        private ILoanDAO _loanDAO;
-        private IMemberDAO _memberDAO;
-
+        readonly IBookDAO _bookDao;
+        readonly ILoanDAO _loanDao;
+        readonly IMemberDAO _memberDao;
+                
 
         public MainMenuController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
-                                    IBookDAO bookDAO, ILoanDAO loanDAO, IMemberDAO memberDAO)
+                                    IBookDAO bookDao, ILoanDAO loanDao, IMemberDAO memberDao)
         {
             _display = display;
             _reader = reader;
             _scanner = scanner;
             _printer = printer;
 
-            _bookDAO = bookDAO;
-            _loanDAO = loanDAO;
-            _memberDAO = memberDAO;
+            _bookDao = bookDao;
+            _loanDao = loanDao;
+            _memberDao = memberDao;
         }
 
         public void initialise()
@@ -45,7 +40,7 @@ namespace Library.Controllers
         public void borrowBook()
         {
             BorrowController borrowController = new BorrowController(_display, _reader, _scanner, _printer,
-                                                                     _bookDAO, _loanDAO, _memberDAO);
+                                                                     _bookDao, _loanDao, _memberDao);
             borrowController.initialise();
         }
     }

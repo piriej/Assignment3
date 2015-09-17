@@ -1,57 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.ComponentModel;
 
 using Library.Interfaces.Hardware;
 using Library.Controllers;
 using Library.Hardware;
 using Library.Interfaces.Daos;
-//using Library.Daos;
-//using Library.Entities;
 using Library.Interfaces.Entities;
 
 namespace Library
 {
-
-
     public partial class MainWindow : Window, IDisplay
     {
-        private UserControl _currentControl;
-        private CardReader _reader;
-        private Scanner _scanner;
-        private Printer _printer;
+        UserControl _currentControl;
 
-        private IBookDAO _bookDAO;
-        private ILoanDAO _loanDAO;
-        private IMemberDAO _memberDAO;
+        IBookDAO _bookDAO;
+        ILoanDAO _loanDAO;
+        IMemberDAO _memberDAO;
 
-        public MainWindow()
+        public MainWindow(CardReader reader, Scanner scanner, Printer printer)
         {
-            _reader = new CardReader();
-            _scanner = new Scanner();
-            _printer = new Printer();
             InitializeComponent();
-            _reader.Show();
-            _scanner.Show();
-            _printer.Show();
 
+            reader.Show();
+            scanner.Show();
+            printer.Show();
 
-            //SetUpTestData();
-
-            MainMenuController mainController =
-                new MainMenuController(this, _reader, _scanner, _printer, 
+            var mainController =
+                new MainMenuController(this, reader, scanner, printer, 
                                         null, null, null);
             mainController.initialise();
         }
