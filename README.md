@@ -1,2 +1,5 @@
-# Assignment3
-Assignment 3
+Test projects:
+	* Acceptance Tests
+	* Integration Tests
+	* Unit Tests
+
