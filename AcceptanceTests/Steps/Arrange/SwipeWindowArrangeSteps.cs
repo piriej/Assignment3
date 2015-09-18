@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Windows.Automation;
 using AcceptanceTests.PageObjects;
 using FluentAssertions;
 using TechTalk.SpecFlow;
@@ -14,23 +12,15 @@ namespace AcceptanceTests.Steps.Arrange
         [Given(@"The loan self service station prompts the user to swipe their card")]
         public void GivenTheLoanSelfServiceStationPromptsTheUserToSwipeTheirCard()
         {
-            // Identify the window components.
-            //Thread.Sleep(2000);
-            //var app = AutomationElement.RootElement.FindByName("MainWindow");
-            //var automationElement = app.FindById("borrowButton");
+            var mainWindowPageObject = new PageObjects.PageObject();
 
-            //automationElement.Should().NotBeNull();
+            mainWindowPageObject.IsBorrowButtonEnabled().Should().BeTrue("The borrow button is not enabled.");
 
-            //automationElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty).Should().Be(true);
+            var cardReaderPageObject = mainWindowPageObject.ClickBorrowButton();
 
-            //var patterns = automationElement.GetSupportedPatterns();
-            //var invokePattern = automationElement.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
-            //invokePattern.Invoke();
-            var pageObject = new MainWindowPageObject();
+           
 
-            pageObject.IsBorrowButtonEnabled().Should().BeTrue("The borrow button is not enabled.");
 
-            pageObject.ClickBorrowButton();
         }
 
     }

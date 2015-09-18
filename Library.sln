@@ -13,11 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6E03B8AF-7A9E-4616-8ACD-4031EA0E7B6D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{1BAB9790-5937-4CB2-AE8E-6665625E8963}"
-	ProjectSection(SolutionItems) = preProject
-		AcceptanceTests\Steps\Arrange\AutomationElementHelpers.cs = AcceptanceTests\Steps\Arrange\AutomationElementHelpers.cs
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +43,5 @@ Global
 		{12262819-D652-41B4-9F96-2FA418F47CB5} = {6E03B8AF-7A9E-4616-8ACD-4031EA0E7B6D}
 		{09C7035B-1C0A-4439-9376-3C41EA6F582A} = {6E03B8AF-7A9E-4616-8ACD-4031EA0E7B6D}
 		{F3353527-B5EF-4B5D-B62A-C3CA685D38BB} = {6E03B8AF-7A9E-4616-8ACD-4031EA0E7B6D}
-		{1BAB9790-5937-4CB2-AE8E-6665625E8963} = {6E03B8AF-7A9E-4616-8ACD-4031EA0E7B6D}
 	EndGlobalSection
 EndGlobal

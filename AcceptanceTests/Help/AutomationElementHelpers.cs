@@ -1,7 +1,9 @@
-﻿using System.Threading;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Windows.Automation;
 
-namespace AcceptanceTests.Steps.Arrange
+namespace AcceptanceTests.Help
 {
     static class AutomationElementHelpers
     {
@@ -39,6 +41,21 @@ namespace AcceptanceTests.Steps.Arrange
             } while (node == null || waitCount == wait);
 
             return node;
+        }
+
+        public static void DisplayChildren(this AutomationElement aeRoot)
+        {
+            var separator = string.Concat(Enumerable.Repeat("*", 20));
+            var collection = aeRoot.FindAll(TreeScope.Descendants, Condition.TrueCondition);
+
+            Console.WriteLine(separator);
+            Console.WriteLine(@"Number of elements:{0}", collection.Count);
+            foreach (AutomationElement ae in collection)
+            {
+                Console.WriteLine(@"Name,Label,ClassName:{0},{1},{2}", ae.Current.Name, ae.Current.AutomationId,
+                    ae.Current.ClassName);
+            }
+            Console.WriteLine(separator);
         }
 
     }
