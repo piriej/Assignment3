@@ -44,9 +44,9 @@ namespace Library
             set
             {
                 Console.WriteLine("Setting Display : " + value);
-                Panel.Children.Remove(_currentControl);
+                //Panel.Children.Remove(_currentControl);
                 _currentControl = value;
-                Panel.Children.Add(_currentControl);
+                //Panel.Children.Add(_currentControl);
 
             }
         }

@@ -138,6 +138,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Borrowing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -147,7 +151,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AutofacDataBindingProvider.cs" />
-    <Compile Include="ViewModels\BorrowViewModel.cs" />
+    <Compile Include="ViewModels\BorrowingViewModel.cs" />
     <Compile Include="ContainerBootstrapper.cs" />
     <Compile Include="Controls\Borrow\BorrowControl.xaml.cs">
       <DependentUpon>BorrowControl.xaml</DependentUpon>
@@ -202,6 +206,9 @@
     <Compile Include="Interfaces\Hardware\IScanner.cs" />
     <Compile Include="Interfaces\Hardware\IScannerListener.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\Borrowing.xaml.cs">
+      <DependentUpon>Borrowing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

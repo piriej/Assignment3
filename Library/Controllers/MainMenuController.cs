@@ -34,7 +34,7 @@ namespace Library.Controllers
         public void initialise()
         {
             MainMenuControl mainMenuControl = new MainMenuControl(this);
-            _display.Display = mainMenuControl;
+            //_display.Display = mainMenuControl;
         }
 
         public void borrowBook()
