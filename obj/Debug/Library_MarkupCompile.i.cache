@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\App.xaml
 101827580808
 
-431973982220
-15-1075227541
+45-1134063980
+79-2081177462
 Controls\Borrow\BorrowControl.xaml;Controls\Borrow\ConfirmLoanControl.xaml;Controls\Borrow\RestrictedControl.xaml;Controls\Borrow\ScanBookControl.xaml;Controls\Borrow\SwipeCardControl.xaml;Controls\MainMenuControl.xaml;Hardware\CardReader.xaml;Hardware\Printer.xaml;Hardware\Scanner.xaml;MainWindow.xaml;
 
-False
+True
 
