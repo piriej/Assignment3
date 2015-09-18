@@ -72,7 +72,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Borrowing.feature</DependentUpon>
     </Compile>
+    <Compile Include="PageObjects\MainWindowPageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\Arrange\AutomationElementHelpers.cs" />
     <Compile Include="Steps\Arrange\SwipeWindowArrangeSteps.cs" />
     <Compile Include="Steps\TestManager.cs" />
   </ItemGroup>
