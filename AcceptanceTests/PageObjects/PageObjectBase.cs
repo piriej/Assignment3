@@ -21,5 +21,36 @@ namespace AcceptanceTests.PageObjects
                 throw new ElementNotAvailableException("Cannot find page" + pageName);
         }
 
+        protected bool IsElementEnabled(string elementName)
+        {
+            var automationElement = Page.FindById(elementName);
+
+            if (automationElement == null)
+                throw new ElementNotAvailableException("Cannot find element " + elementName);
+
+            return (bool) automationElement.GetCurrentPropertyValue(AutomationElement.IsEnabledProperty);
+        }
+
+        protected void SetElementText(string elementName, string text)
+        {
+            var automationElement = Page.FindById(elementName);
+            if (automationElement == null)
+                throw new ElementNotAvailableException("Cannot find element " + elementName);
+
+
+            var textBoxPattern = automationElement.GetCurrentPattern(ValuePattern.Pattern) as ValuePattern;
+            textBoxPattern?.SetValue(text);
+        }
+
+        protected void ClickElement(string elementName)
+        {
+            var automationElement = Page.FindById(elementName);
+
+            if (automationElement == null)
+                throw new ElementNotAvailableException("Cannot find element " + elementName);
+
+            var invokePattern = automationElement.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
+            invokePattern.Invoke();
+        }
     }
 }

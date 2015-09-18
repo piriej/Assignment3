@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Automation;
-using AcceptanceTests.PageObjects;
-using FluentAssertions;
+﻿using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Steps.Arrange
@@ -18,7 +15,9 @@ namespace AcceptanceTests.Steps.Arrange
 
             var cardReaderPageObject = mainWindowPageObject.ClickBorrowButton();
 
-           
+            cardReaderPageObject.IsCardDataBoxEnabled().Should().BeTrue("The user has not been prompted for the scanner, the field is disabled");
+
+            cardReaderPageObject.SetTextOnCardDataBox("This is a test");
 
 
         }

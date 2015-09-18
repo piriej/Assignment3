@@ -10,7 +10,7 @@ namespace AcceptanceTests.Help
         const int ImplicitWait = 2;
         const int ImplicitWaitInterval = 1000;
 
-        public static AutomationElement FindByName(this AutomationElement root, string name, int wait = ImplicitWait)
+        static AutomationElement FindBy(AutomationElement root, int wait, PropertyCondition condition)
         {
             var waitCount = 0;
             AutomationElement node;
@@ -19,28 +19,24 @@ namespace AcceptanceTests.Help
                 Thread.Sleep(ImplicitWaitInterval);
                 node = root.FindFirst(
                     TreeScope.Descendants,
-                    new PropertyCondition(AutomationElement.NameProperty, name));
+                    condition);
                 waitCount++;
-            } while (node == null || waitCount == wait);
+            } while (node == null && waitCount <= wait);
 
             return node;
+        }
+        public static AutomationElement FindByName(this AutomationElement root, string name, int wait = ImplicitWait)
+        {
+            var condition = new PropertyCondition(AutomationElement.NameProperty, name);
+
+            return FindBy(root, wait, condition);
         }
 
         public static AutomationElement FindById(this AutomationElement root, string id, int wait = ImplicitWait)
         {
+            var condition =  new PropertyCondition(AutomationElement.AutomationIdProperty, id);
 
-            var waitCount = 0;
-            AutomationElement node;
-            do
-            {
-                Thread.Sleep(ImplicitWaitInterval);
-                node = root.FindFirst(
-                    TreeScope.Descendants,
-                    new PropertyCondition(AutomationElement.AutomationIdProperty, id));
-                waitCount++;
-            } while (node == null || waitCount == wait);
-
-            return node;
+            return FindBy(root, wait, condition);
         }
 
         public static void DisplayChildren(this AutomationElement aeRoot)
