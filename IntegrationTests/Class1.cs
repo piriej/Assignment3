@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace IntegrationTests
 {
+    //[Fact]
     public class Class1
     {
     }

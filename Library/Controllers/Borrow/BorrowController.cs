@@ -1,39 +1,36 @@
 ﻿using Library.Controls.Borrow;
 using Library.Interfaces.Controllers.Borrow;
-using Library.Interfaces.Controls.Borrow;
 using Library.Interfaces.Daos;
 using Library.Interfaces.Entities;
 using Library.Interfaces.Hardware;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Library.Controllers.Borrow
 {
     class BorrowController : IBorrowListener, ICardReaderListener, IScannerListener
     {
-        private IDisplay _display;
-        private UserControl _previousDisplay;
-        private ABorrowControl _ui;
-        private ICardReader _reader;
-        private ICardReaderListener _previousReaderListener;
-        private IScanner _scanner;
-        private IScannerListener _previousScannerListener;
-        private IPrinter _printer;
+        readonly IDisplay _display;
+        UserControl _previousDisplay;
+        readonly ABorrowControl _ui;
+        ICardReader _reader;
+        ICardReaderListener _previousReaderListener;
+        IScanner _scanner;
+        IScannerListener _previousScannerListener;
+        IPrinter _printer;
 
-        private IBookDAO _bookDAO;
-        private ILoanDAO _loanDAO;
-        private IMemberDAO _memberDAO;
+        IBookDAO _bookDAO;
+        ILoanDAO _loanDAO;
+        IMemberDAO _memberDAO;
 
-        private IMember _borrower;
-        private int scanCount = 0;
-        private EBorrowState _state;
+        IMember _borrower;
+        int scanCount = 0;
+        EBorrowState _state;
 
-        private List<IBook> _bookList;
-        private List<ILoan> _loanList;
+        List<IBook> _bookList;
+        List<ILoan> _loanList;
 
 
         public BorrowController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
@@ -43,7 +40,6 @@ namespace Library.Controllers.Borrow
             _reader = reader;
             _scanner = scanner;
             _printer = printer;
-
 
             _ui = new BorrowControl(this);
 
@@ -101,7 +97,7 @@ namespace Library.Controllers.Borrow
 
         public void close()
         {
-            _display.Display  = _previousDisplay;
+            _display.Display = _previousDisplay;
         }
 
 
