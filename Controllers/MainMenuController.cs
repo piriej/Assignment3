@@ -6,7 +6,7 @@ using Library.Interfaces.Hardware;
 
 namespace Library.Controllers
 {
-    class MainMenuController : IMainMenuListener
+    public class MainMenuController : IMainMenuListener
     {
         readonly IDisplay _display;
         readonly ICardReader _reader;
@@ -34,7 +34,7 @@ namespace Library.Controllers
         public void initialise()
         {
             MainMenuControl mainMenuControl = new MainMenuControl(this);
-            _display.Display = mainMenuControl;
+            //_display.Display = mainMenuControl;
         }
 
         public void borrowBook()

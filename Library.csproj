@@ -67,11 +67,16 @@
       <HintPath>..\packages\Prism.Autofac.6.0.1\lib\net45\Prism.Autofac.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Prism.Mef.Wpf, Version=6.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Prism.Mef.6.0.1\lib\net45\Prism.Mef.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Prism.Wpf, Version=6.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Wpf.6.0.1\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -84,10 +89,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="TechTalk.SpecFlow, Version=1.4.0.0, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpecFlow.1.4.0\lib\TechTalk.SpecFlow.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -106,6 +107,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ContentRegionModule.cs" />
+    <Compile Include="ViewModels\CardReaderWindowViewModel.cs" />
+    <Compile Include="ViewModels\RegionNames.cs" />
+    <Compile Include="ViewModels\ScanBookViewModel.cs" />
+    <Compile Include="ViewModels\SwipeCardViewModel.cs" />
+    <Compile Include="ViewModels\ViewNames.cs" />
+    <Compile Include="Views\CardReaderWindow.xaml.cs">
+      <DependentUpon>CardReaderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScanBookControl.xaml.cs">
+      <DependentUpon>ScanBookControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SwipeCard.xaml.cs">
+      <DependentUpon>SwipeCard.xaml</DependentUpon>
+    </Compile>
     <Page Include="Controls\Borrow\BorrowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,7 +158,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Views\Borrowing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CardReaderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -150,7 +174,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AutofacDataBindingProvider.cs" />
+    <Compile Include="ViewModels\BorrowingViewModel.cs" />
     <Compile Include="ContainerBootstrapper.cs" />
     <Compile Include="Controls\Borrow\BorrowControl.xaml.cs">
       <DependentUpon>BorrowControl.xaml</DependentUpon>
@@ -204,10 +228,22 @@
     <Compile Include="Interfaces\Hardware\IPrinter.cs" />
     <Compile Include="Interfaces\Hardware\IScanner.cs" />
     <Compile Include="Interfaces\Hardware\IScannerListener.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="Views\Borrowing.xaml.cs">
+      <DependentUpon>Borrowing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\ScanBookControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SwipeCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

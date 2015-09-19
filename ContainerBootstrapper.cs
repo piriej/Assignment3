@@ -1,86 +1,65 @@
-﻿
+﻿using System;
 using System.Windows;
 using Autofac;
+using Library.Controllers;
 using Library.Hardware;
-using Library.Interfaces.Hardware;
+using Library.ViewModels;
+using Library.Views;
 using Prism.Autofac;
+using Prism.Modularity;
 
 namespace Library
 {
     public class ContainerBootstrapper : AutofacBootstrapper
     {
+        protected override void ConfigureModuleCatalog()
+        {
+            base.ConfigureModuleCatalog();
+
+            // register prism module
+            Type contentRegionModule = typeof(ContentRegionModule);
+            ModuleCatalog.AddModule(new ModuleInfo(contentRegionModule.Name, contentRegionModule.AssemblyQualifiedName));
+        }
+
+        protected override DependencyObject CreateShell()
+        {
+            return Container.Resolve<MainWindow>();
+        }
+
         protected override void InitializeShell()
         {
             base.InitializeShell();
 
-            // hook the main application window with your Shell
             Application.Current.MainWindow = (Window)Shell;
             Application.Current.MainWindow.Show();
         }
 
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
-            builder.RegisterType<CardReader>().SingleInstance();//.As<ICardReader>();
-            builder.RegisterType<Scanner>().SingleInstance();//.As<IScanner>();
-            builder.RegisterType<Printer>().SingleInstance();//.As<IPrinter>();
+            base.ConfigureContainerBuilder(builder);
+
+            //builder.RegisterType<CardReader>().SingleInstance();
+            builder.RegisterType<CardReaderWindow>().SingleInstance();
+            builder.RegisterType<Scanner>().SingleInstance();
+            builder.RegisterType<Printer>().SingleInstance();
+            builder.RegisterType<MainMenuController>().SingleInstance();
+
+            // View Models
+            builder.RegisterType<MainWindowViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderWindowViewModel>().SingleInstance();
+            builder.RegisterType<BorrowingViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
+            builder.RegisterType<ScanBookViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
+
+            builder.RegisterType<SwipeCard>().Named("SwipeCard", typeof(SwipeCard));
 
             builder.RegisterType<MainWindow>().SingleInstance();
+            builder.RegisterType<Borrowing>().SingleInstance();
+            builder.RegisterType<SwipeCard>().SingleInstance();
 
-            base.ConfigureContainerBuilder(builder);
+            builder.RegisterType<ContentRegionModule>();
+
         }
 
-        protected override DependencyObject CreateShell()
-        {
-            // here allow the ServiceLocator to create an instance of Shell, passing it dependencies
-            return Container.Resolve<MainWindow>();
-        }
     }
 }
 
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Windows;
-//using Autofac;
-//using Prism.Autofac;
-//using Prism.Modularity;
-
-//namespace Library
-//{
-//    class Bootstrapper : AutofacBootstrapper
-//    {
-
-//        protected override void ConfigureContainerBuilder(ContainerBuilder builder)
-//        {
-//            base.ConfigureContainerBuilder(builder);
-//            builder.RegisterType<Shell>();
-
-//            // register autofac module
-//            builder.RegisterModule<MyModuleConfiguration>();
-//        }
-
-//        protected override void ConfigureModuleCatalog()
-//        {
-//            base.ConfigureModuleCatalog();
-
-//            // register prism module
-//            Type typeNewsModule = typeof(MyModule);
-//            ModuleCatalog.AddModule(new ModuleInfo(typeNewsModule.Name, typeNewsModule.AssemblyQualifiedName));
-//        }
-
-//        protected override DependencyObject CreateShell()
-//        {
-//            return Container.Resolve<Shell>();
-//        }
-
-//        protected override void InitializeShell()
-//        {
-//            base.InitializeShell();
-
-//            Application.Current.MainWindow = (Shell)this.Shell;
-//            Application.Current.MainWindow.Show();
-//        }
-//    }
-//}

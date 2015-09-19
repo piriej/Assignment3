@@ -17,21 +17,5 @@ namespace Library
             bootstrapper.Run(true);
 
         }
-        //public static IContainer Container { get; private set; }
-
-        //protected override void OnStartup(StartupEventArgs e)
-        //{
-        //    base.OnStartup(e);
-        //    var bootstrapper = new Prism.Bootstrapper();
-        //    bootstrapper.Run();
-        //}
     }
-
-    //public class MainWindowViewModel
-    //{
-    //}
-
-    //public interface IMainWindowViewModel
-    //{
-    //}
 }
