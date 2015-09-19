@@ -1,11 +1,30 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Regions;
 
 namespace Library.ViewModels
 {
-    class MainWindowViewModel:BindableBase
+    public class MainWindowViewModel : BindableBase
     {
+        public MainWindowViewModel()
+        {
+            this.CloseWindowCommand = new DelegateCommand(CloseWindow);
+        }
+
+        public ICommand CloseWindowCommand { get; set; }
+
+        public Action CloseWindowDelegate { get; set; } = () =>
+        {
+            Application.Current.Shutdown();
+        };
+
+        void CloseWindow()
+        {
+            Console.WriteLine("detected Window closing");
+            CloseWindowDelegate.Invoke();
+        }
     }
 }
+

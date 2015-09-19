@@ -9,7 +9,7 @@ using Library.Hardware;
 using Library.Interfaces.Daos;
 using Library.Interfaces.Entities;
 
-namespace Library
+namespace Library.Views
 {
     public partial class MainWindow : Window, IDisplay
     {
@@ -52,11 +52,11 @@ namespace Library
         }
 
 
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            Console.WriteLine("detected Window closing");
-            Application.Current.Shutdown();
-        }
+        //private void Window_Closing(object sender, CancelEventArgs e)
+        //{
+        //    Console.WriteLine("detected Window closing");
+        //    Application.Current.Shutdown();
+        //}
 
         private void SetUpTestData()
         {

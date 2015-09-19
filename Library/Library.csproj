@@ -108,9 +108,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ContentRegionModule.cs" />
+    <Compile Include="ViewModels\CardReaderWindowViewModel.cs" />
     <Compile Include="ViewModels\RegionNames.cs" />
     <Compile Include="ViewModels\SwipeCardViewModel.cs" />
     <Compile Include="ViewModels\ViewNames.cs" />
+    <Compile Include="Views\CardReaderWindow.xaml.cs">
+      <DependentUpon>CardReaderWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SwipeCard.xaml.cs">
       <DependentUpon>SwipeCard.xaml</DependentUpon>
     </Compile>
@@ -151,6 +155,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Borrowing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CardReaderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

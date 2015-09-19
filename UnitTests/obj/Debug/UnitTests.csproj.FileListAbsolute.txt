@@ -43,3 +43,9 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\zh-Hant\Sys
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.runner.utility.desktop.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.abstractions.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.Core.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.Core.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.Core.xml
