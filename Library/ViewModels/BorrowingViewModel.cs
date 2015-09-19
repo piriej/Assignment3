@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -26,12 +25,8 @@ namespace Library.ViewModels
 
         void Borrow(string uri)
         {
-
-            Console.WriteLine("Tests");
             Borrowing = false;
             _regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
         }
-
-
     }
 }
