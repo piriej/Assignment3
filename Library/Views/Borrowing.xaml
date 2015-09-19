@@ -3,15 +3,13 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    xmlns:local="clr-namespace:Library.Views"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewModels="clr-namespace:Library.ViewModels"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d" 
-    d:DesignHeight="700" d:DesignWidth="470"
-    >
-    <Grid Background="#FFE6E6E6">
-        <TextBlock VerticalAlignment="Center" Text="{Binding Borrowing}"/>
-        <Label x:Name="label" Content="Main Menu" HorizontalAlignment="Left" Margin="142,31,0,0" VerticalAlignment="Top" FontSize="32"/>
-        <Button x:Name="borrowButton" Content="Borrow?" HorizontalAlignment="Left" Margin="177,103,0,564" VerticalAlignment="Center" Width="103" FontSize="18.667" Height="33" RenderTransformOrigin="0.52,0.564" Command="{Binding BorrowCommand}" CommandParameter="SwipeCard"/>
+    d:DesignHeight="700" d:DesignWidth="470">
+    <Grid>
+        <Label x:Name="Label" Content="Main Menu"  Margin="142,31,0,0"/>
+        <Button x:Name="BorrowButton" Content="Borrow" Style="{StaticResource Standard-Button}" RenderTransformOrigin="0.52,0.564" Command="{Binding BorrowCommand}" CommandParameter="SwipeCard"/>
     </Grid>
 </UserControl>

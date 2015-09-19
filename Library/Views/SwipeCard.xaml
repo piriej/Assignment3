@@ -4,8 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Library.Views"
-      mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="470">
+             xmlns:viewModels="clr-namespace:Library.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="470"
+            >
     <Grid Background="#FFE6E6E6">
         <Label x:Name="label" Content="Please Swipe Card" HorizontalAlignment="Left" Margin="155,60,0,0" VerticalAlignment="Top" FontSize="18.667"/>
         <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="312,631,0,0" VerticalAlignment="Top" Width="75" />

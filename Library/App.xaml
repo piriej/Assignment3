@@ -6,9 +6,32 @@
 
     <Application.Resources>
         <ResourceDictionary>
+            <Style TargetType="Button" x:Key="Standard-Button">
+                <Setter Property="HorizontalAlignment" Value="Left" />
+                <Setter Property="Margin" Value="177,103,0,564" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Width" Value="103" />
+                <Setter Property="FontSize" Value="18.667" />
+                <Setter Property="Height" Value="33" />
+            </Style>
+
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="#FFE6E6E6" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="FontSize" Value="32"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+            </Style>
+            
             <viewModels:RegionNames
             xmlns:infrastructure="clr-namespace:Library"
             x:Key="RegionNames" />
+
+            <viewModels:ViewNames
+            xmlns:infrastructure="clr-namespace:Library"
+            x:Key="ViewNames" />
         </ResourceDictionary>
     </Application.Resources>
 

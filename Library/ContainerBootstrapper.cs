@@ -2,16 +2,14 @@
 using System.Windows;
 using Autofac;
 using Library.Hardware;
+using Library.Views;
 using Prism.Autofac;
 using Prism.Modularity;
-//using Prism.Modularity;
 
 namespace Library
 {
     public class ContainerBootstrapper : AutofacBootstrapper
     {
-
-        
 
         protected override void ConfigureModuleCatalog()
         {
@@ -31,7 +29,7 @@ namespace Library
         {
             base.InitializeShell();
 
-            Application.Current.MainWindow = (Window)this.Shell;
+            Application.Current.MainWindow = (Window)Shell;
             Application.Current.MainWindow.Show();
         }
 
@@ -43,7 +41,12 @@ namespace Library
             builder.RegisterType<Scanner>().SingleInstance();
             builder.RegisterType<Printer>().SingleInstance();
 
+            builder.RegisterType<SwipeCard>().Named("SwipeCard", typeof(SwipeCard));
+
             builder.RegisterType<MainWindow>().SingleInstance();
+            builder.RegisterType<Borrowing>().SingleInstance();
+            builder.RegisterType<SwipeCard>().SingleInstance();
+
             builder.RegisterType<ContentRegionModule>();
 
         }

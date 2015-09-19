@@ -2,7 +2,9 @@ namespace Library.ViewModels
 {
     public class ViewNames
     {
-        public static string SwipeView =>  "SwipeView";
-        public static string BorrowingView => "Borrowing";
+        public static string SwipeControl =>  "SwipeCard";
+        public static string BorrowingControl => "Borrowing";
+        public static string MainWindowView => "MainWindow";
+        public static string CardReaderControl => "CardReader";
     }
 }

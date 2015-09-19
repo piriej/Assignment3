@@ -1,4 +1,6 @@
-﻿using FluentAssertions;
+﻿using AcceptanceTests.PageObjects;
+using FluentAssertions;
+using Library.ViewModels;
 using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Steps.Arrange
@@ -9,17 +11,26 @@ namespace AcceptanceTests.Steps.Arrange
         [Given(@"The loan self service station prompts the user to swipe their card")]
         public void GivenTheLoanSelfServiceStationPromptsTheUserToSwipeTheirCard()
         {
-            var mainWindowPageObject = new PageObjects.PageObject();
+            // Get the page object for the current page.
+            var mainWindowPageObject = new PageObjects.Pages.PageObject();
 
-            mainWindowPageObject.IsBorrowButtonEnabled().Should().BeTrue("The borrow button is not enabled.");
+            // Ensure the borrow region is visible.
+            mainWindowPageObject.ContentRegionIs<BorrowingRegion>().Should().BeTrue();
 
-            var cardReaderPageObject = mainWindowPageObject.ClickBorrowButton();
+            // Ensure the borrow button is enabled before it is clicked.
+            mainWindowPageObject.ContentRegion<BorrowingRegion>().IsBorrowButtonEnabled().Should().BeTrue("The borrow button is not enabled.");
 
+            // Click the borrow button.
+            var cardReaderPageObject = mainWindowPageObject.ContentRegion<BorrowingRegion>().ClickBorrowButton();
+
+            // Check that the main window prompts the user to swipe their card.
+            mainWindowPageObject.ContentRegionIs<SwipeCardRegion>().Should().BeTrue();
+
+            // Ensure the user is prompted to swipe their card.
             cardReaderPageObject.IsCardDataBoxEnabled().Should().BeTrue("The user has not been prompted for the scanner, the field is disabled");
 
+            // Swipe card...
             cardReaderPageObject.SetTextOnCardDataBox("This is a test");
-
-
         }
 
     }

@@ -1,15 +1,15 @@
-using AcceptanceTests.Help;
+using AcceptanceTests.PageObjects.Infrastructure;
+using Library.ViewModels;
 
-namespace AcceptanceTests.PageObjects
+namespace AcceptanceTests.PageObjects.Pages
 {
     public class CardReaderPageObject : PageObjectBase
     {
         const string CardReaderDataField = "cardDataBox";
 
 
-        public CardReaderPageObject() : base("CardReader")
+        public CardReaderPageObject() : base(ViewNames.CardReaderControl)
         {
-           Page.DisplayChildren();
         }
 
 

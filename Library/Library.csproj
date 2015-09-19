@@ -109,6 +109,7 @@
     </ApplicationDefinition>
     <Compile Include="ContentRegionModule.cs" />
     <Compile Include="ViewModels\RegionNames.cs" />
+    <Compile Include="ViewModels\SwipeCardViewModel.cs" />
     <Compile Include="ViewModels\ViewNames.cs" />
     <Compile Include="Views\SwipeCard.xaml.cs">
       <DependentUpon>SwipeCard.xaml</DependentUpon>

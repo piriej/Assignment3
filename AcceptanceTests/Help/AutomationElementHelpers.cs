@@ -7,19 +7,23 @@ namespace AcceptanceTests.Help
 {
     static class AutomationElementHelpers
     {
-        const int ImplicitWait = 2;
+        const int ImplicitWait = 1;
         const int ImplicitWaitInterval = 1000;
 
         static AutomationElement FindBy(AutomationElement root, int wait, PropertyCondition condition)
         {
             var waitCount = 0;
             AutomationElement node;
+
             do
             {
-                Thread.Sleep(ImplicitWaitInterval);
                 node = root.FindFirst(
                     TreeScope.Descendants,
                     condition);
+           
+                if(node == null && waitCount <= wait)
+                    Thread.Sleep(ImplicitWaitInterval);
+
                 waitCount++;
             } while (node == null && waitCount <= wait);
 
@@ -28,6 +32,13 @@ namespace AcceptanceTests.Help
         public static AutomationElement FindByName(this AutomationElement root, string name, int wait = ImplicitWait)
         {
             var condition = new PropertyCondition(AutomationElement.NameProperty, name);
+
+            return FindBy(root, wait, condition);
+        }
+
+        public static AutomationElement FindByClass(this AutomationElement root, string name, int wait = ImplicitWait)
+        {
+            var condition = new PropertyCondition( AutomationElement.ClassNameProperty, name);
 
             return FindBy(root, wait, condition);
         }

@@ -10,7 +10,6 @@ namespace Library.Views
     {
         public Borrowing()
         {
-            //DataContext = new BorrowingViewModel();
             InitializeComponent();
         }
     }
