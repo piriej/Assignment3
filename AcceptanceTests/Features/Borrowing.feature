@@ -4,7 +4,6 @@
 	I Want to be able to find and borrow books
 
 Scenario: A users details are presented when a library card is swiped.
-	Given The loan self service station prompts the user to swipe their card
-	And The borrower 'Jim' is a member of the library with a valid membership card
-	When 'Jim' Swipes his card
-	Then The system displays the borrowers details
+	Given The loan self service station prompts the user to scan their card
+	When The borrowers card scans as '0001'
+	Then The system displays the borrowers details 

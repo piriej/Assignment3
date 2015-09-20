@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Library.Views
+namespace Library.Views.CardReaderWindow
 {
     /// <summary>
     /// Interaction logic for CardReaderWindow.xaml

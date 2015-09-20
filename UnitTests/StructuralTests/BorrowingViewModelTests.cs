@@ -1,5 +1,6 @@
 ﻿using System;
 using Library.ViewModels;
+using Library.Views.Borrowing;
 using NSubstitute;
 using Prism.Regions;
 using Xunit.Extensions;

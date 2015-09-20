@@ -6,5 +6,6 @@ namespace Library.ViewModels
         public static string BorrowingControl => "Borrowing";
         public static string MainWindowView => "MainWindow";
         public static string CardReaderControl => "CardReader";
+        public static string ScanBookControl => "ScanBookControl";
     }
 }

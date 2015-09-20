@@ -1,4 +1,5 @@
 ﻿using AcceptanceTests.PageObjects;
+using BoDi;
 using FluentAssertions;
 using Library.ViewModels;
 using TechTalk.SpecFlow;
@@ -8,8 +9,16 @@ namespace AcceptanceTests.Steps.Arrange
     [Binding]
     public sealed class SwipeWindowArrangeSteps
     {
-        [Given(@"The loan self service station prompts the user to swipe their card")]
-        public void GivenTheLoanSelfServiceStationPromptsTheUserToSwipeTheirCard()
+        readonly IObjectContainer objectContainer;
+
+        public SwipeWindowArrangeSteps(IObjectContainer objectContainer)
+        {
+            this.objectContainer = objectContainer;
+        }
+
+
+        [Given(@"The loan self service station prompts the user to scan their card")]
+        public void GivenTheLoanSelfServiceStationPromptsTheUserToScanTheirCard()
         {
             // Get the page object for the current page.
             var mainWindowPageObject = new PageObjects.Pages.PageObject();
@@ -29,8 +38,10 @@ namespace AcceptanceTests.Steps.Arrange
             // Ensure the user is prompted to swipe their card.
             cardReaderPageObject.IsCardDataBoxEnabled().Should().BeTrue("The user has not been prompted for the scanner, the field is disabled");
 
-            // Swipe card...
-            cardReaderPageObject.SetTextOnCardDataBox("This is a test");
+            // Store these objects in the container for later reference.
+            objectContainer.RegisterInstanceAs(cardReaderPageObject);
+            objectContainer.RegisterInstanceAs(mainWindowPageObject);
+
         }
 
     }

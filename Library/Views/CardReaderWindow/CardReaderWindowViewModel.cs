@@ -1,18 +1,59 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Linq.Expressions;
+using System.Windows.Input;
+using Library.ViewModels;
+using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 
-namespace Library.ViewModels
+namespace Library.Views.CardReaderWindow
 {
-    class CardReaderWindowViewModel : BindableBase
+    public class CardReaderWindowViewModel : BindableBase
     {
-        bool _enabled = true;
+        readonly IRegionManager _regionManager;
+        // Injected properties.
+        //IRegionManager RegionManager { get; set; }
 
+        public CardReaderWindowViewModel(IRegionManager RegionManager)
+        {
+            _regionManager = RegionManager;
+            //RegionManager = regionManager;
+            this.ScanCommand = new DelegateCommand<string>(Scan).ObservesCanExecute((p) => Enabled);
+        }
+
+        // View Model Properties
+        bool _enabled = false;
         public bool Enabled
         {
             get { return _enabled; }
             set { SetProperty(ref this._enabled, value); }
+        }
+
+        string _cardData;
+        public string CardData
+        {
+            get { return _cardData; }
+            set { SetProperty(ref this._cardData, value); }
+        }
+
+        // Commands
+        public ICommand CloseWindowCommand { get; set; }
+
+        public Action CloseWindowDelegate { get; set; } = () =>
+        {
+            // Do Nothing
+        };
+
+        void CloseWindow()
+        {
+            Console.WriteLine(@"detected Window closing");
+            CloseWindowDelegate.Invoke();
+        }
+
+        public ICommand ScanCommand { get; set; }
+        void Scan(string uri)
+        {
+            Enabled = false;
+            _regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
         }
 
         //protected void OnPropertyChanged(params Expression<Func<T>>[] propertyExpressions)

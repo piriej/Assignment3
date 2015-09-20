@@ -25,9 +25,14 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="FontSize" Value="18.667"/>
             </Style>
-
+            
             <Style TargetType="Label" x:Key="Title-Label"  BasedOn="{StaticResource {x:Type Label}}">
                 <Setter Property="FontSize" Value="32"/>
+            </Style>
+
+            <Style TargetType="Label" x:Key="Error-Label" BasedOn="{StaticResource {x:Type Label}}">
+                <Setter Property="Foreground" Value="#FFF70606"/>
+                <Setter Property="Width" Value="274"/>
             </Style>
             
             <Style TargetType="TextBox">
@@ -38,6 +43,13 @@
                 <Setter Property="FontSize" Value="18.667"/>
             </Style>
 
+            <Style TargetType="GroupBox">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Height" Value="290"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="Width" Value="450"/>
+            </Style>
+            
             <viewModels:RegionNames
             xmlns:infrastructure="clr-namespace:Library"
             x:Key="RegionNames" />

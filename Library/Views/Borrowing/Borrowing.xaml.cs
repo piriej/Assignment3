@@ -1,7 +1,6 @@
 ﻿using System.Windows.Controls;
-using Library.ViewModels;
 
-namespace Library.Views
+namespace Library.Views.Borrowing
 {
     /// <summary>
     /// Interaction logic for BorrowView.xaml

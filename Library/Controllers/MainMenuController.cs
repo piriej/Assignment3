@@ -6,7 +6,7 @@ using Library.Interfaces.Hardware;
 
 namespace Library.Controllers
 {
-    class MainMenuController : IMainMenuListener
+    public class MainMenuController : IMainMenuListener
     {
         readonly IDisplay _display;
         readonly ICardReader _reader;

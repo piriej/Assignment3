@@ -66,7 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Features\Borrowing.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -81,6 +80,7 @@
     <Compile Include="PageObjects\Infrastructure\PageObjectBase.cs" />
     <Compile Include="PageObjects\Regions\SwipeCardRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\Act\CardReaderActSteps.cs" />
     <Compile Include="Steps\Arrange\SwipeWindowArrangeSteps.cs" />
     <Compile Include="Steps\TestManager.cs" />
   </ItemGroup>
@@ -106,7 +106,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Steps\Act\" />
     <Folder Include="Steps\Assert\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

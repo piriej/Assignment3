@@ -15,8 +15,9 @@ namespace Library
 
         public void Initialize()
         {
-            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.Borrowing));
+            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.Borrowing.Borrowing));
             _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.SwipeCard));
+            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.ScanBookControl));
         }
     }
 }
