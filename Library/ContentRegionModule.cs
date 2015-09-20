@@ -1,5 +1,8 @@
-﻿using Prism.Regions;
-using Library.ViewModels;
+﻿using Library.ApplicationInfratructure;
+using Library.Features.Borrowing;
+using Library.Features.ScanBook;
+using Library.Features.SwipeCard;
+using Prism.Regions;
 using Prism.Modularity;
 
 namespace Library
@@ -15,9 +18,9 @@ namespace Library
 
         public void Initialize()
         {
-            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.Borrowing.Borrowing));
-            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.SwipeCard));
-            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(Views.ScanBookControl));
+            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(BorrowingView));
+            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(SwipeCardView));
+            _regionViewRegistry.RegisterViewWithRegion(RegionNames.ContentRegion, typeof(ScanBookView));
         }
     }
 }

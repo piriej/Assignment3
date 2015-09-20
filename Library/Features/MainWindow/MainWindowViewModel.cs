@@ -6,7 +6,7 @@ using Library.Interfaces.Hardware;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace Library.Views.MainWindow
+namespace Library.Features.MainWindow
 {
     public class MainWindowViewModel : BindableBase, IDisplay
     {

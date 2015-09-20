@@ -1,5 +1,5 @@
 using AcceptanceTests.PageObjects.Infrastructure;
-using Library.ViewModels;
+using Library.ApplicationInfratructure;
 
 namespace AcceptanceTests.PageObjects.Pages
 {

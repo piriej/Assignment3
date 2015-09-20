@@ -108,19 +108,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ContentRegionModule.cs" />
-    <Compile Include="Views\CardReaderWindow\CardReaderWindowViewModel.cs" />
-    <Compile Include="ViewModels\RegionNames.cs" />
-    <Compile Include="ViewModels\ScanBookViewModel.cs" />
-    <Compile Include="ViewModels\SwipeCardViewModel.cs" />
-    <Compile Include="ViewModels\ViewNames.cs" />
-    <Compile Include="Views\CardReaderWindow\CardReaderWindow.xaml.cs">
-      <DependentUpon>CardReaderWindow.xaml</DependentUpon>
+    <Compile Include="Features\CardReaderWindow\CardReaderWindowViewModel.cs" />
+    <Compile Include="ApplicationInfratructure\RegionNames.cs" />
+    <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
+    <Compile Include="Features\SwipeCard\SwipeCardViewModel.cs" />
+    <Compile Include="ApplicationInfratructure\ViewNames.cs" />
+    <Compile Include="Features\CardReaderWindow\CardReaderWindowView.xaml.cs">
+      <DependentUpon>CardReaderWindowView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ScanBookControl.xaml.cs">
-      <DependentUpon>ScanBookControl.xaml</DependentUpon>
+    <Compile Include="Features\ScanBook\ScanBookView.xaml.cs">
+      <DependentUpon>ScanBookView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SwipeCard.xaml.cs">
-      <DependentUpon>SwipeCard.xaml</DependentUpon>
+    <Compile Include="Features\SwipeCard\SwipeCardView.xaml.cs">
+      <DependentUpon>SwipeCardView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\Borrow\BorrowControl.xaml">
       <SubType>Designer</SubType>
@@ -158,15 +158,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Borrowing\Borrowing.xaml">
+    <Page Include="Features\Borrowing\BorrowingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CardReaderWindow\CardReaderWindow.xaml">
+    <Page Include="Features\CardReaderWindow\CardReaderWindowView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow\MainWindow.xaml">
+    <Page Include="Features\MainWindow\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -174,7 +174,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Borrowing\BorrowingViewModel.cs" />
+    <Compile Include="Features\Borrowing\BorrowingViewModel.cs" />
     <Compile Include="ContainerBootstrapper.cs" />
     <Compile Include="Controls\Borrow\BorrowControl.xaml.cs">
       <DependentUpon>BorrowControl.xaml</DependentUpon>
@@ -228,19 +228,19 @@
     <Compile Include="Interfaces\Hardware\IPrinter.cs" />
     <Compile Include="Interfaces\Hardware\IScanner.cs" />
     <Compile Include="Interfaces\Hardware\IScannerListener.cs" />
-    <Compile Include="Views\MainWindow\MainWindowViewModel.cs" />
-    <Compile Include="Views\Borrowing\Borrowing.xaml.cs">
-      <DependentUpon>Borrowing.xaml</DependentUpon>
+    <Compile Include="Features\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="Features\Borrowing\BorrowingView.xaml.cs">
+      <DependentUpon>BorrowingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindow\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Features\MainWindow\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ScanBookControl.xaml">
+    <Page Include="Features\ScanBook\ScanBookView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SwipeCard.xaml">
+    <Page Include="Features\SwipeCard\SwipeCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

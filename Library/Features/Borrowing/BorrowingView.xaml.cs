@@ -1,13 +1,13 @@
 ﻿using System.Windows.Controls;
 
-namespace Library.Views.Borrowing
+namespace Library.Features.Borrowing
 {
     /// <summary>
     /// Interaction logic for BorrowView.xaml
     /// </summary>
-    public partial class Borrowing : UserControl
+    public partial class BorrowingView : UserControl
     {
-        public Borrowing()
+        public BorrowingView()
         {
             InitializeComponent();
         }

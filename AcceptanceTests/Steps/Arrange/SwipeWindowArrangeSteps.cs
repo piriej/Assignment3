@@ -1,7 +1,6 @@
 ﻿using AcceptanceTests.PageObjects;
 using BoDi;
 using FluentAssertions;
-using Library.ViewModels;
 using TechTalk.SpecFlow;
 
 namespace AcceptanceTests.Steps.Arrange

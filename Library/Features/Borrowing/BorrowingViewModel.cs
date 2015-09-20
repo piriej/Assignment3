@@ -1,11 +1,11 @@
 ﻿using System.Windows.Input;
-using Library.ViewModels;
-using Library.Views.CardReaderWindow;
+using Library.ApplicationInfratructure;
+using Library.Features.CardReaderWindow;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
-namespace Library.Views.Borrowing
+namespace Library.Features.Borrowing
 {
     public class BorrowingViewModel : BindableBase
     {

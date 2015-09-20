@@ -1,8 +1,7 @@
 ﻿using System;
 using FluentAssertions;
+using Library.Features.MainWindow;
 using Library.Hardware;
-using Library.ViewModels;
-using Library.Views.MainWindow;
 using NSubstitute;
 using Ploeh.AutoFixture.Xunit;
 using Xunit.Extensions;

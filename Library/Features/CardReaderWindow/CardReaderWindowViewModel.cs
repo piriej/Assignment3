@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows.Input;
-using Library.ViewModels;
+using Library.ApplicationInfratructure;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 
-namespace Library.Views.CardReaderWindow
+namespace Library.Features.CardReaderWindow
 {
     public class CardReaderWindowViewModel : BindableBase
     {

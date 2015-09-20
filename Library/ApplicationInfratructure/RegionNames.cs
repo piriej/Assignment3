@@ -1,4 +1,4 @@
-namespace Library.ViewModels
+namespace Library.ApplicationInfratructure
 {
     public class RegionNames
     {

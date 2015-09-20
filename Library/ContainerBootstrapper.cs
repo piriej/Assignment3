@@ -4,12 +4,12 @@ using System.Reflection;
 using System.Windows;
 using Autofac;
 using Library.Controllers;
+using Library.Features.Borrowing;
+using Library.Features.CardReaderWindow;
+using Library.Features.MainWindow;
+using Library.Features.ScanBook;
+using Library.Features.SwipeCard;
 using Library.Hardware;
-using Library.ViewModels;
-using Library.Views;
-using Library.Views.Borrowing;
-using Library.Views.CardReaderWindow;
-using Library.Views.MainWindow;
 using Prism.Autofac;
 using Prism.Modularity;
 using Prism.Mvvm;
@@ -30,32 +30,29 @@ namespace Library
         protected override DependencyObject CreateShell()
         {
 
-            //ViewModelLocationProvider.SetDefaultViewModelFactory((t) => _container.Resolve(t));
+            //TODO: Replace with container registration.
+            //ViewModelLocationProvider.SetDefaultViewModelFactory((t) => Container.Resolve<t>());
 
             // Modify the default convention to use feature folders, and separate projects for devices.
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType =>
             {
+                
                 // Use initial convention if it can be found under views.
-                var viewName = viewType.FullName;
                 var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-                var viewModelName = string.Format(CultureInfo.InvariantCulture, " {0}Model, {1} ", viewName.Replace("Views", "ViewModels"), viewAssemblyName);
-                var viewModelWithStandardConvention = Type.GetType(viewModelName);
-                if (viewModelWithStandardConvention != null)
-                    return viewModelWithStandardConvention;
 
                 // Convention: The name of the view is the same as the name of the namespace
                 var assemblyName = viewType.GetTypeInfo().Assembly.GetName().Name;
-                var featuresRoot = "Views";
-                var featureFolder = viewType.Name;
+                var featuresRoot = "Features";
+                var featureFolder = viewType.Name.Replace("View","");
                 var viewIdentifier = viewType.Name;
-                var modelSuffix = "ViewModel";
+                var modelSuffix = "Model";
                 var featureFullName = $"{assemblyName}.{featuresRoot}.{featureFolder}.{viewIdentifier}{modelSuffix}, {viewAssemblyName}";
                 var viewModelWithFeatureConvention = Type.GetType(featureFullName);
               
                 return viewModelWithFeatureConvention;
             });
 
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<MainWindowView>();
         }
 
 
@@ -72,7 +69,7 @@ namespace Library
             base.ConfigureContainerBuilder(builder);
 
             //builder.RegisterType<CardReader>().SingleInstance();
-            builder.RegisterType<CardReaderWindow>().SingleInstance();
+            builder.RegisterType<CardReaderWindowView>().SingleInstance();
             builder.RegisterType<Scanner>().SingleInstance();
             builder.RegisterType<Printer>().SingleInstance();
             builder.RegisterType<MainMenuController>().SingleInstance();
@@ -83,11 +80,11 @@ namespace Library
             builder.RegisterType<BorrowingViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
             builder.RegisterType<ScanBookViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
 
-            builder.RegisterType<SwipeCard>().Named("SwipeCard", typeof(SwipeCard));
+            builder.RegisterType<SwipeCardView>().Named("SwipeCard", typeof(SwipeCardView));
 
-            builder.RegisterType<MainWindow>().SingleInstance();
-            builder.RegisterType<Borrowing>().SingleInstance();
-            builder.RegisterType<SwipeCard>().SingleInstance();
+            builder.RegisterType<MainWindowView>().SingleInstance();
+            builder.RegisterType<BorrowingView>().SingleInstance();
+            builder.RegisterType<SwipeCardView>().SingleInstance();
 
             builder.RegisterType<ContentRegionModule>();
 
