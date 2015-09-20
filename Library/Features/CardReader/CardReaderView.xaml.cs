@@ -1,15 +1,16 @@
 ﻿using System.Windows;
 
-namespace Library.Features.CardReaderWindow
+namespace Library.Features.CardReader
 {
     /// <summary>
     /// Interaction logic for CardReaderWindow.xaml
     /// </summary>
-    public partial class CardReaderWindowView : Window
+    public partial class CardReaderView : Window
     {
-        public CardReaderWindowView()
+        public CardReaderView()
         {
             InitializeComponent();
+            Show();
         }
     }
 }

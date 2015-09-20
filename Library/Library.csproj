@@ -55,6 +55,10 @@
       <HintPath>..\packages\CommonServiceLocator.AutofacAdapter.Unofficial.3.5.0.0\lib\Net40\CommonServiceLocator.AutofacAdapter.Unofficial.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DataAnnotationsExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=358a5681c50fd84c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -77,6 +81,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -108,13 +113,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ContentRegionModule.cs" />
-    <Compile Include="Features\CardReaderWindow\CardReaderWindowViewModel.cs" />
+    <Compile Include="Features\CardReader\CardReaderModel.cs" />
+    <Compile Include="Features\CardReader\CardReaderViewModel.cs" />
     <Compile Include="ApplicationInfratructure\RegionNames.cs" />
+    <Compile Include="Features\CardReader\ICardReader.cs" />
+    <Compile Include="Features\CardReader\ICardReaderModel.cs" />
+    <Compile Include="Features\CardReader\ValidatedBindableBase.cs" />
     <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
+    <Compile Include="Features\StringToIntValidationRule.cs" />
     <Compile Include="Features\SwipeCard\SwipeCardViewModel.cs" />
     <Compile Include="ApplicationInfratructure\ViewNames.cs" />
-    <Compile Include="Features\CardReaderWindow\CardReaderWindowView.xaml.cs">
-      <DependentUpon>CardReaderWindowView.xaml</DependentUpon>
+    <Compile Include="Features\CardReader\CardReaderView.xaml.cs">
+      <DependentUpon>CardReaderView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Features\ScanBook\ScanBookView.xaml.cs">
       <DependentUpon>ScanBookView.xaml</DependentUpon>
@@ -162,7 +172,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Features\CardReaderWindow\CardReaderWindowView.xaml">
+    <Page Include="Features\CardReader\CardReaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

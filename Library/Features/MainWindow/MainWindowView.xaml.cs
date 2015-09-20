@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Library.Features.CardReaderWindow;
+using Library.Features.CardReader;
 using Library.Hardware;
 using Library.Interfaces.Hardware;
 
@@ -15,13 +15,13 @@ namespace Library.Features.MainWindow
         //ILoanDAO _loanDAO;
         //IMemberDAO _memberDAO;
 
-        public MainWindowView(CardReaderWindowView reader, Scanner scanner, Printer printer)
+        public MainWindowView(CardReaderView reader, Scanner scanner, Printer printer)
         {
             InitializeComponent();
 
-            reader.Show();
-            scanner.Show();
-            printer.Show();
+            //reader.Show();
+            //scanner.Show();
+            //printer.Show();
 
             //var mainController =
             //    new MainMenuController(this, reader, scanner, printer, 

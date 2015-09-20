@@ -1,18 +1,22 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
 using Library.Controllers;
 using Library.Features.Borrowing;
-using Library.Features.CardReaderWindow;
+using Library.Features.CardReader;
 using Library.Features.MainWindow;
 using Library.Features.ScanBook;
 using Library.Features.SwipeCard;
 using Library.Hardware;
+using Library.Interfaces.Hardware;
 using Prism.Autofac;
 using Prism.Modularity;
 using Prism.Mvvm;
+using ICardReader = Library.Features.CardReader.ICardReader;
 
 namespace Library
 {
@@ -29,14 +33,12 @@ namespace Library
 
         protected override DependencyObject CreateShell()
         {
-
             //TODO: Replace with container registration.
-            //ViewModelLocationProvider.SetDefaultViewModelFactory((t) => Container.Resolve<t>());
+            ViewModelLocationProvider.SetDefaultViewModelFactory((t) => Container.Resolve(t));
 
             // Modify the default convention to use feature folders, and separate projects for devices.
             ViewModelLocationProvider.SetDefaultViewTypeToViewModelTypeResolver(viewType =>
             {
-                
                 // Use initial convention if it can be found under views.
                 var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
 
@@ -47,9 +49,10 @@ namespace Library
                 var viewIdentifier = viewType.Name;
                 var modelSuffix = "Model";
                 var featureFullName = $"{assemblyName}.{featuresRoot}.{featureFolder}.{viewIdentifier}{modelSuffix}, {viewAssemblyName}";
+
                 var viewModelWithFeatureConvention = Type.GetType(featureFullName);
-              
-                return viewModelWithFeatureConvention;
+                var viewModelInterfaceWithFeatureConvention = (viewModelWithFeatureConvention?.GetInterfaces())?.LastOrDefault(x => x != typeof(INotifyPropertyChanged));
+                return viewModelInterfaceWithFeatureConvention??viewModelWithFeatureConvention;
             });
 
             return Container.Resolve<MainWindowView>();
@@ -69,22 +72,24 @@ namespace Library
             base.ConfigureContainerBuilder(builder);
 
             //builder.RegisterType<CardReader>().SingleInstance();
-            builder.RegisterType<CardReaderWindowView>().SingleInstance();
-            builder.RegisterType<Scanner>().SingleInstance();
-            builder.RegisterType<Printer>().SingleInstance();
+       
+            builder.RegisterType<Scanner>().SingleInstance().As<IScanner>();
+            builder.RegisterType<Printer>().SingleInstance().As<IPrinter>();
+
             builder.RegisterType<MainMenuController>().SingleInstance();
 
             // View Models
-            builder.RegisterType<MainWindowViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
-            builder.RegisterType<CardReaderWindowViewModel>().SingleInstance();
+            builder.RegisterType<MainWindowViewModel>().SingleInstance().As<IDisplay>().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderViewModel>().SingleInstance().As<ICardReader>();
+            builder.RegisterType<BorrowingViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
             builder.RegisterType<BorrowingViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
             builder.RegisterType<ScanBookViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
 
-            builder.RegisterType<SwipeCardView>().Named("SwipeCard", typeof(SwipeCardView));
-
+            //builder.RegisterType<SwipeCardView>().Named("SwipeCard", typeof(SwipeCardView));
             builder.RegisterType<MainWindowView>().SingleInstance();
             builder.RegisterType<BorrowingView>().SingleInstance();
             builder.RegisterType<SwipeCardView>().SingleInstance();
+            builder.RegisterType<CardReaderView>().SingleInstance();
 
             builder.RegisterType<ContentRegionModule>();
 

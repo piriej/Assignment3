@@ -49,7 +49,12 @@
                 <Setter Property="VerticalAlignment" Value="Top"/>
                 <Setter Property="Width" Value="450"/>
             </Style>
-            
+
+            <Style x:Key="Error-TextBlock" TargetType="TextBlock" >
+                <Setter Property="Foreground" Value="#FFF70606"/>
+                <Setter Property="Width" Value="274"/>
+            </Style>
+
             <applicationInfratructure:RegionNames
             xmlns:infrastructure="clr-namespace:Library"
             x:Key="RegionNames" />
@@ -57,6 +62,7 @@
             <applicationInfratructure:ViewNames
             xmlns:infrastructure="clr-namespace:Library"
             x:Key="ViewNames" />
+
         </ResourceDictionary>
     </Application.Resources>
 

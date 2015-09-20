@@ -1,0 +1,42 @@
+﻿<Window x:Class="Library.Features.CardReader.CardReaderView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:viewModels="clr-namespace:Library.ApplicationInfratructure"
+        mc:Ignorable="d"
+        Title="CardReader" Height="300" Width="300" Left="50" Top="50"
+       >
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseWindowCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <!--Closing="Window_Closing"-->
+    <Grid>
+        <Label x:Name="TitleLabel" Content="CardReader" Margin="56,10,0,0" Style="{StaticResource Title-Label}"/>
+        <Label x:Name="FieldLabel" Content="Enter Borrower Id : " Margin="62,63,0,0"/>
+        <TextBox x:Name="cardDataBox" Margin="71,108,0,0" IsEnabled="{Binding Enabled}" Text="{Binding CardData, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <!-- Placeholder for the TextBox itself -->
+                        <AdornedElementPlaceholder x:Name="textBox"/>
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+        </TextBox>
+        <Button x:Name="swipeButton" Content="Swipe Card" Style="{StaticResource Standard-Button}" Margin="71,198,0,0" VerticalAlignment="Top" Width="145"  IsEnabled="{Binding Enabled}"  Command="{Binding ScanCommand}" CommandParameter="{x:Static viewModels:ViewNames.ScanBookControl}"/>
+     
+    </Grid>
+</Window>
