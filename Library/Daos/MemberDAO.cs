@@ -9,7 +9,7 @@ namespace Library.Daos
 {
     public class MemberDAO : IMemberDAO
     {
-        public List<IMember> MemberList { get; }
+        public List<IMember> MemberList { get; } = new List<IMember>();
 
         public IMember AddMember(string firstName, string lastName, string contactPhone, string emailAddress)
         {
