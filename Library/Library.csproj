@@ -135,6 +135,9 @@
     <Compile Include="ApplicationInfratructure\ValidatedBindableBase.cs" />
     <Compile Include="ContentRegionModule.cs" />
     <Compile Include="ApplicationInfratructure\AutoMapperConfig.cs" />
+    <Compile Include="Daos\MemberDAO.cs" />
+    <Compile Include="Entities\Member.cs" />
+    <Compile Include="Features\Borrowing\BorrowController.cs" />
     <Compile Include="Features\CardReader\CardReaderModel.cs" />
     <Compile Include="Features\CardReader\CardReaderViewModel.cs" />
     <Compile Include="ApplicationInfratructure\RegionNames.cs" />
@@ -211,7 +214,6 @@
     <Compile Include="Controls\Borrow\BorrowControl.xaml.cs">
       <DependentUpon>BorrowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Borrow\BorrowController.cs" />
     <Compile Include="Controls\Borrow\ABorrowControl.cs" />
     <Compile Include="Controls\Borrow\ConfirmLoanControl.xaml.cs">
       <DependentUpon>ConfirmLoanControl.xaml</DependentUpon>
@@ -307,8 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BorrowFeature\" />
-    <Folder Include="Daos\" />
-    <Folder Include="Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

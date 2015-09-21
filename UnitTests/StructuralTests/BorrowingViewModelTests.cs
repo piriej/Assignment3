@@ -16,10 +16,11 @@ namespace UnitTests
             IRegionManager regionManager
             , string uri
             , ICardReader cardReader
-            , ICardReaderListener2 cardReaderListener)
+            , ICardReaderListener cardReaderListener
+            , ICardReaderListener2 cardReaderListener2)
         {
             // Arrange
-            var viewModel = new BorrowingViewModel(regionManager, cardReader, cardReaderListener);
+            var viewModel = new BorrowingViewModel(regionManager, cardReader, cardReaderListener2, cardReaderListener);
 
             regionManager.When(x => x.RequestNavigate(Arg.Any<string>(), Arg.Any<string>()))
                 .Do(x => Console.WriteLine(@"RequestNavigate Called"));

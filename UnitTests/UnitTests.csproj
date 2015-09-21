@@ -104,6 +104,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOTests\MemberDAOTests.cs" />
     <Compile Include="StructuralTests\AutoNSubstituteDataAttribute.cs" />
     <Compile Include="StructuralTests\AutoNSubstitutePropertyDataAttribute.cs" />
     <Compile Include="StructuralTests\BorrowingViewModelTests.cs" />
