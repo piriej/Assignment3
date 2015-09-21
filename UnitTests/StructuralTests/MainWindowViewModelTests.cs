@@ -1,9 +1,5 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Library.Features.MainWindow;
-using Library.Hardware;
-using NSubstitute;
-using Ploeh.AutoFixture.Xunit;
 using Xunit.Extensions;
 
 namespace UnitTests.StructuralTests

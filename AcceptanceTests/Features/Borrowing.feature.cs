@@ -86,7 +86,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.When("The borrowers card scans as \'0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 9
- testRunner.Then("The system displays the borrowers details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("The system displays the borrowers details as Id of \'1\', Name \'fName1 lName1\', Con" +
+                    "tact: \'0001\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

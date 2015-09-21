@@ -4,9 +4,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:prism="http://prismlibrary.com/"
-    xmlns:applicationInfratructure="clr-namespace:Library.ApplicationInfratructure"
     prism:ViewModelLocator.AutoWireViewModel="True"
-             mc:Ignorable="d" 
+    xmlns:applicationInfratructure="clr-namespace:Library.ApplicationInfratructure"
+    mc:Ignorable="d" 
     d:DesignHeight="700" d:DesignWidth="470">
     <Grid>
         <Label x:Name="Label" Content="Main Menu"  Margin="142,31,0,0" Style="{StaticResource Title-Label}"/>

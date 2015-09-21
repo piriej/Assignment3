@@ -6,4 +6,4 @@
 Scenario: A users details are presented when a library card is swiped.
 	Given The loan self service station prompts the user to scan their card
 	When The borrowers card scans as '0001'
-	Then The system displays the borrowers details 
+	Then The system displays the borrowers details as Id of '1', Name 'fName1 lName1', Contact: '0001' 

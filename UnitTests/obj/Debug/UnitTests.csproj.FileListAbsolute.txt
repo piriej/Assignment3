@@ -49,3 +49,11 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAsser
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.Core.pdb
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\FluentAssertions.Core.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\DataAnnotationsExtensions.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\MediatR.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\ShortBus.Autofac.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\MediatR.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\AutoMapper.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\AutoMapper.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\ShortBus.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\ShortBus.Markers.dll

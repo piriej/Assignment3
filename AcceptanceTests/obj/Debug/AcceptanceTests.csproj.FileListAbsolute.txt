@@ -40,3 +40,9 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\ko\Sy
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\DataAnnotationsExtensions.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\MediatR.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\ShortBus.Autofac.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\MediatR.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AutoMapper.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AutoMapper.xml
