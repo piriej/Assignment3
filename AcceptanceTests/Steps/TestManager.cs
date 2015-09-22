@@ -26,6 +26,7 @@ namespace AcceptanceTests
         public void TearDown()
         {
             var process = _objectContainer.Resolve<Process>();
+ 
             process?.CloseMainWindow();
             process?.Close();
         }

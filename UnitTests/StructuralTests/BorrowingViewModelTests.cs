@@ -15,12 +15,10 @@ namespace UnitTests
         public void BorrowingViewModel_BorrowCommand_RequestsNavigationForTheContentRegionToAURI(
             IRegionManager regionManager
             , string uri
-            , ICardReader cardReader
-            , ICardReaderListener cardReaderListener
-            , ICardReaderListener2 cardReaderListener2)
+            , ICardReader cardReader)
         {
             // Arrange
-            var viewModel = new BorrowingViewModel(regionManager, cardReader, cardReaderListener2, cardReaderListener);
+            var viewModel = new BorrowingViewModel(regionManager, cardReader);
 
             regionManager.When(x => x.RequestNavigate(Arg.Any<string>(), Arg.Any<string>()))
                 .Do(x => Console.WriteLine(@"RequestNavigate Called"));

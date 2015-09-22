@@ -25,7 +25,7 @@ namespace Library.Daos
 
         public List<IMember> FindMembersByLastName(string lastName)
         {
-            return MemberList.Where(members => members.LastName.Equals(lastName)).ToList();
+            return MemberList.Where(members => members.LastName == lastName).ToList();
         }
 
         public List<IMember> FindMembersByEmailAddress(string emailAddress)

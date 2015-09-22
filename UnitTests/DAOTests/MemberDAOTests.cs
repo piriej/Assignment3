@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Library.Daos;
-using Library.Interfaces.Daos;
+using Library.Entities;
 using Library.Interfaces.Entities;
-using NSubstitute.Core;
 using Xunit.Extensions;
 
 namespace UnitTests.DAOTests
@@ -37,7 +33,8 @@ namespace UnitTests.DAOTests
             EquivelentMembers(Dao.MemberList, member).Should().BeTrue();
         }
 
-        public void FindMembersByLastName_WithAMatchingRecord_FindsTheMember(List<IMember> members)
+        [Theory, AutoNSubstituteData]
+        public void FindMembersByLastName_WithAMatchingRecord_FindsTheMember(List<Member> members)
         {
             // Arrange
             string aLastName = null;
@@ -46,42 +43,127 @@ namespace UnitTests.DAOTests
                 Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
                 aLastName = member.LastName;
             }
-       
+
             //Act
             var foundMembers = Dao.FindMembersByLastName(aLastName);
-            
+
             // Assert
             foundMembers.Count.Should().Be(1);
             EquivelentMembers(foundMembers, members.LastOrDefault()).Should().BeTrue();
         }
 
-        public void FindMembersByLastName_WithMultipleMatchingRecords_FindsTheMembers(List<IMember> members)
+        [Theory, AutoNSubstituteData]
+        public void FindMembersByLastName_WithMultipleMatchingRecords_FindsTheMembers(List<Member> members)
         {
             // Arrange
-            string aLastName = null;
+            IMember lastMember = null;
+
+            // Create repeated members;
+            var repeatedMembers = Enumerable.Repeat(members, 2).SelectMany(t => t).ToList();
+            foreach (var member in repeatedMembers)
+            {
+                Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
+                lastMember = member;
+            }
+
+            //Act
+            var foundMembers = Dao.FindMembersByLastName(lastMember.LastName);
+
+            // Assert
+            foundMembers.Count.Should().Be(2);
+            EquivelentMembers(foundMembers, lastMember).Should().BeTrue();
+        }
+
+        [Theory, AutoNSubstituteData]
+        public void FindMembersByEmailAddress_WithAMatchingRecord_FindsTheMember(List<Member> members)
+        {
+            // Arrange
+            string emailAddress = null;
             foreach (var member in members)
             {
                 Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
-                Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
-                aLastName = member.LastName;
+                emailAddress = member.EmailAddress;
             }
-       
+
             //Act
-            var foundMembers = Dao.FindMembersByLastName(aLastName);
-            
+            var foundMembers = Dao.FindMembersByEmailAddress(emailAddress);
+
+            // Assert
+            foundMembers.Count.Should().Be(1);
+            EquivelentMembers(foundMembers, members.LastOrDefault()).Should().BeTrue();
+        }
+
+        [Theory, AutoNSubstituteData]
+        public void FindMembersByNames_WithMultipleMatchingRecords_FindsTheMembers(List<Member> members)
+        {
+            IMember lastMember = null;
+
+            // Arrange
+            var repeatedMembers = Enumerable.Repeat(members, 2).SelectMany(t => t).ToList();
+
+            foreach (var member in repeatedMembers)
+            {
+                Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
+                lastMember = member;
+            }
+
+            //Act
+            var foundMembers = Dao.FindMembersByNames(lastMember.FirstName, lastMember.LastName);
+
             // Assert
             foundMembers.Count.Should().Be(2);
-            EquivelentMembers(foundMembers, members.FirstOrDefault()).Should().BeTrue();
+            EquivelentMembers(foundMembers, lastMember).Should().BeTrue();
+        }
+
+        [Theory, AutoNSubstituteData]
+        public void FindMembersByNames_WithAMatchingRecord_FindsTheMember(List<Member> members)
+        {
+            // Arrange
+            string aLastName = null;
+            string aFirstName = null;
+            foreach (var member in members)
+            {
+                Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
+                aLastName = member.LastName;
+                aFirstName = member.FirstName;
+            }
+
+            //Act
+            var foundMembers = Dao.FindMembersByNames(aFirstName, aLastName);
+
+            // Assert
+            foundMembers.Count.Should().Be(1);
             EquivelentMembers(foundMembers, members.LastOrDefault()).Should().BeTrue();
+        }
+
+        [Theory, AutoNSubstituteData]
+        public void FindMembersByEmailAddress_WithMultipleMatchingRecords_FindsTheMembers(List<Member> members)
+        {
+            // Arrange
+            var repeatedMembers = Enumerable.Repeat(members, 2).SelectMany(t => t).ToList();
+            IMember lastMember = null;
+
+            foreach (var member in repeatedMembers)
+            {
+                Dao.AddMember(member.FirstName, member.LastName, member.ContactPhone, member.EmailAddress);
+                lastMember = member;
+            }
+
+            //Act
+            var foundMembers = Dao.FindMembersByEmailAddress(lastMember.EmailAddress);
+
+            // Assert
+            foundMembers.Count.Should().Be(2);
+            EquivelentMembers(foundMembers, lastMember).Should().BeTrue();
         }
 
         bool EquivelentMembers(List<IMember> memberList, IMember member)
         {
-           return memberList.Any(m =>
-                m.FirstName.Equals(member.FirstName) &&
-                m.LastName.Equals(member.LastName) &&
-                m.ContactPhone.Equals(member.ContactPhone) &&
-                m.EmailAddress.Equals(member.EmailAddress));
+            return memberList.Any(m =>
+                 m.FirstName.Equals(member.FirstName) &&
+                 m.LastName.Equals(member.LastName) &&
+                 m.ContactPhone.Equals(member.ContactPhone) &&
+                 m.EmailAddress.Equals(member.EmailAddress));
         }
     }
 }

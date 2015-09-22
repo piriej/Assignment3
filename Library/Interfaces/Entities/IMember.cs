@@ -8,6 +8,7 @@ namespace Library.Interfaces.Entities
 {
     public interface IMember
     {
+        
         bool HasOverDueLoans
         {
             get;

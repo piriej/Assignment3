@@ -16,8 +16,8 @@ namespace Library.Features.Borrowing
 
         readonly IRegionManager _regionManager;
         ICardReader CardReader { get; set; }
-      //  ICardReaderListener2 CardReaderListener2 { get; set; }
-        ICardReaderListener CardReaderListener { get; set; }
+      //  ICardReaderEvents CardReaderEvents { get; set; }
+        //ICardReaderListener CardReaderListener { get; set; }
 
         #endregion
 
@@ -36,13 +36,13 @@ namespace Library.Features.Borrowing
 
         public BorrowingViewModel(
             IRegionManager regionManager
-            , ICardReader cardReader
-            , ICardReaderListener2 cardReaderListener2
-            , ICardReaderListener cardReaderListener)
+            , ICardReader cardReader)
+            //, ICardReaderEvents CardReaderEvents
+            //, ICardReaderListener cardReaderListener)
         {
             CardReader = cardReader;
-           // CardReaderListener2 = cardReaderListener2;
-            CardReaderListener = cardReaderListener;
+           // CardReaderEvents = CardReaderEvents;
+            //CardReaderListener = cardReaderListener;
             _regionManager = regionManager;
             this.BorrowCommand = new DelegateCommand<string>(Borrow).ObservesCanExecute((p) => Borrowing);
         }
@@ -64,7 +64,7 @@ namespace Library.Features.Borrowing
 
 
             // Wait for the hardware to swipe the card, subscribe to the event.
-           // CardReaderListener2.NotifyCardSwiped += OnCardSwipe;
+           // CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
         }
 
         //public void OnCardSwipe(object source, CardReaderModel cardReaderModel)
