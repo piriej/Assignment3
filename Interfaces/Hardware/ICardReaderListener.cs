@@ -12,7 +12,7 @@ namespace Library.Interfaces.Hardware
         void cardSwiped(int cardData);
     }
 
-    public interface ICardReaderListener2
+    public interface ICardReaderEvents
     {
         event EventHandler<CardReaderModel> NotifyCardSwiped;
     }

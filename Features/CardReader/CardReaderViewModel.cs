@@ -7,7 +7,7 @@ using Prism.Regions;
 
 namespace Library.Features.CardReader
 {
-    public class CardReaderViewModel : ValidatedBindableBase, ICardReaderListener2,  ICardReader
+    public class CardReaderViewModel : ValidatedBindableBase, ICardReaderEvents,  ICardReader
     {
         #region Injected Properties
 

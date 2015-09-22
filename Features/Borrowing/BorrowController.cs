@@ -7,14 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Controls;
+using Library.Daos;
 using Library.Features.CardReader;
 using ICardReader = Library.Interfaces.Hardware.ICardReader;
 
 namespace Library.Controllers.Borrow
 {
-    class BorrowController : IBorrowListener, ICardReaderListener, IScannerListener
+    class BorrowController : IBorrowListener, /*ICardReaderEvents,*/ IScannerListener
     {
-        public ICardReaderListener2 CardReaderListener2 { get; set; }
+        public ICardReaderEvents CardReaderEvents { get; set; }
         readonly IDisplay _display;
         UserControl _previousDisplay;
         readonly ABorrowControl _ui;
@@ -24,9 +25,12 @@ namespace Library.Controllers.Borrow
         IScannerListener _previousScannerListener;
         IPrinter _printer;
 
-        IBookDAO _bookDAO;
-        ILoanDAO _loanDAO;
-        IMemberDAO _memberDAO;
+        IBookDAO BookDao { get; set; }
+        ILoanDAO LoanDao { get; set; }
+        public IMemberDAO MemberDao { get; set; }
+        //IBookDAO BookDAO;
+        //ILoanDAO LoanDAO;
+        //IMemberDAO MemberDAO;
 
         IMember _borrower;
         int scanCount = 0;
@@ -37,9 +41,9 @@ namespace Library.Controllers.Borrow
 
 
         public BorrowController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
-                                    IBookDAO bookDAO, ILoanDAO loanDAO, IMemberDAO memberDAO, ICardReaderListener2 cardReaderListener2)
+                                    ICardReaderEvents cardReaderEvents)
         {
-            CardReaderListener2 = cardReaderListener2;
+            CardReaderEvents = cardReaderEvents;
             _display = display;
             _reader = reader;
             _scanner = scanner;
@@ -48,6 +52,7 @@ namespace Library.Controllers.Borrow
             _ui = new BorrowControl(this);
 
             _state = EBorrowState.CREATED;
+            CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
         }
 
 
@@ -57,7 +62,7 @@ namespace Library.Controllers.Borrow
             _previousDisplay = _display.Display;
             Console.WriteLine("BorrowController Initialising, previous display = " + _previousDisplay);
             _display.Display = _ui;
-            CardReaderListener2.NotifyCardSwiped += OnCardSwipe;
+       
         }
 
 
@@ -75,9 +80,9 @@ namespace Library.Controllers.Borrow
         }
 
         // Keeping this function so I don't change too much, should all be in oncardswipe.
-        public void cardSwiped(int memberID) 
+        public void cardSwiped(int memberID)
         {
-            throw new ApplicationException("Not implemented yet");
+            var borrower = MemberDao.GetMemberByID(memberID);
         }
 
         public void bookScanned(int barcode)

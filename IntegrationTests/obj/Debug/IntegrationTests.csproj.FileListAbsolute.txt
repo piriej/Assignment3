@@ -1,0 +1,5 @@
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\IntegrationTests\bin\Debug\IntegrationTests.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\IntegrationTests\bin\Debug\IntegrationTests.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\IntegrationTests\obj\Debug\IntegrationTests.csprojResolveAssemblyReference.cache
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\IntegrationTests\obj\Debug\IntegrationTests.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\IntegrationTests\obj\Debug\IntegrationTests.pdb
