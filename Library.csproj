@@ -55,6 +55,14 @@
       <HintPath>..\packages\CommonServiceLocator.AutofacAdapter.Unofficial.3.5.0.0\lib\Net40\CommonServiceLocator.AutofacAdapter.Unofficial.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DataAnnotationsExtensions, Version=1.1.0.0, Culture=neutral, PublicKeyToken=358a5681c50fd84c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MediatR, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.2.0.2\lib\net45\MediatR.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -75,8 +83,25 @@
       <HintPath>..\packages\Prism.Wpf.6.0.1\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ShortBus, Version=3.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShortBus.3.0.46-beta\lib\ShortBus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ShortBus.Autofac, Version=3.0.48.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShortBus.Autofac.3.0.48-beta\lib\ShortBus.Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ShortBus.Markers, Version=3.0.43.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShortBus.Markers.3.0.43-beta\lib\ShortBus.Markers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.3.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -107,20 +132,30 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ApplicationInfratructure\ValidatedBindableBase.cs" />
     <Compile Include="ContentRegionModule.cs" />
-    <Compile Include="ViewModels\CardReaderWindowViewModel.cs" />
-    <Compile Include="ViewModels\RegionNames.cs" />
-    <Compile Include="ViewModels\ScanBookViewModel.cs" />
-    <Compile Include="ViewModels\SwipeCardViewModel.cs" />
-    <Compile Include="ViewModels\ViewNames.cs" />
-    <Compile Include="Views\CardReaderWindow.xaml.cs">
-      <DependentUpon>CardReaderWindow.xaml</DependentUpon>
+    <Compile Include="ApplicationInfratructure\AutoMapperConfig.cs" />
+    <Compile Include="Daos\MemberDAO.cs" />
+    <Compile Include="Entities\Member.cs" />
+    <Compile Include="Features\Borrowing\BorrowController.cs" />
+    <Compile Include="Features\CardReader\CardReaderModel.cs" />
+    <Compile Include="Features\CardReader\CardReaderViewModel.cs" />
+    <Compile Include="ApplicationInfratructure\RegionNames.cs" />
+    <Compile Include="ApplicationInfratructure\CheckedMediator.cs" />
+    <Compile Include="Features\CardReader\ICardReader.cs" />
+    <Compile Include="Features\CardReader\ICardReaderModel.cs" />
+    <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
+    <Compile Include="Features\StringToIntValidationRule.cs" />
+    <Compile Include="Features\SwipeCard\SwipeCardViewModel.cs" />
+    <Compile Include="ApplicationInfratructure\ViewNames.cs" />
+    <Compile Include="Features\CardReader\CardReaderView.xaml.cs">
+      <DependentUpon>CardReaderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ScanBookControl.xaml.cs">
-      <DependentUpon>ScanBookControl.xaml</DependentUpon>
+    <Compile Include="Features\ScanBook\ScanBookView.xaml.cs">
+      <DependentUpon>ScanBookView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SwipeCard.xaml.cs">
-      <DependentUpon>SwipeCard.xaml</DependentUpon>
+    <Compile Include="Features\SwipeCard\SwipeCardView.xaml.cs">
+      <DependentUpon>SwipeCardView.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\Borrow\BorrowControl.xaml">
       <SubType>Designer</SubType>
@@ -158,15 +193,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Borrowing.xaml">
+    <Page Include="Features\Borrowing\BorrowingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CardReaderWindow.xaml">
+    <Page Include="Features\CardReader\CardReaderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Features\MainWindow\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -174,12 +209,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\BorrowingViewModel.cs" />
+    <Compile Include="Features\Borrowing\BorrowingViewModel.cs" />
     <Compile Include="ContainerBootstrapper.cs" />
     <Compile Include="Controls\Borrow\BorrowControl.xaml.cs">
       <DependentUpon>BorrowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\Borrow\BorrowController.cs" />
     <Compile Include="Controls\Borrow\ABorrowControl.cs" />
     <Compile Include="Controls\Borrow\ConfirmLoanControl.xaml.cs">
       <DependentUpon>ConfirmLoanControl.xaml</DependentUpon>
@@ -228,19 +262,19 @@
     <Compile Include="Interfaces\Hardware\IPrinter.cs" />
     <Compile Include="Interfaces\Hardware\IScanner.cs" />
     <Compile Include="Interfaces\Hardware\IScannerListener.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="Views\Borrowing.xaml.cs">
-      <DependentUpon>Borrowing.xaml</DependentUpon>
+    <Compile Include="Features\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="Features\Borrowing\BorrowingView.xaml.cs">
+      <DependentUpon>BorrowingView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Features\MainWindow\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\ScanBookControl.xaml">
+    <Page Include="Features\ScanBook\ScanBookView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SwipeCard.xaml">
+    <Page Include="Features\SwipeCard\SwipeCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -275,8 +309,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BorrowFeature\" />
-    <Folder Include="Daos\" />
-    <Folder Include="Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

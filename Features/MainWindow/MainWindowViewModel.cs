@@ -6,10 +6,19 @@ using Library.Interfaces.Hardware;
 using Prism.Commands;
 using Prism.Mvvm;
 
-namespace Library.ViewModels
+namespace Library.Features.MainWindow
 {
     public class MainWindowViewModel : BindableBase, IDisplay
     {
+        #region Injected Properties
+
+        public ICardReader CardReader { get; set; }
+        public IScanner Scanner { get; set; }
+        public IPrinter Printer { get; set; }
+
+        #endregion
+
+
         public MainWindowViewModel()
         {
             CloseWindowCommand = new DelegateCommand(CloseWindow);

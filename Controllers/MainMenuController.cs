@@ -8,6 +8,7 @@ namespace Library.Controllers
 {
     public class MainMenuController : IMainMenuListener
     {
+        public ICardReaderListener2 CardReaderListener2 { get; set; }
         readonly IDisplay _display;
         readonly ICardReader _reader;
         readonly IScanner _scanner;
@@ -19,8 +20,9 @@ namespace Library.Controllers
                 
 
         public MainMenuController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
-                                    IBookDAO bookDao, ILoanDAO loanDao, IMemberDAO memberDao)
+                                    IBookDAO bookDao, ILoanDAO loanDao, IMemberDAO memberDao, ICardReaderListener2 cardReaderListener2)
         {
+            CardReaderListener2 = cardReaderListener2;
             _display = display;
             _reader = reader;
             _scanner = scanner;
@@ -40,7 +42,7 @@ namespace Library.Controllers
         public void borrowBook()
         {
             BorrowController borrowController = new BorrowController(_display, _reader, _scanner, _printer,
-                                                                     _bookDao, _loanDao, _memberDao);
+                                                                     _bookDao, _loanDao, _memberDao, CardReaderListener2);
             borrowController.initialise();
         }
     }
