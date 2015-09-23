@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 using Library.ApplicationInfratructure;
+using Library.Controllers.Borrow;
 using Library.Features.CardReader;
+using Library.Interfaces.Controllers.Borrow;
 using Library.Interfaces.Hardware;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -10,15 +12,19 @@ using ICardReader = Library.Features.CardReader.ICardReader;
 
 namespace Library.Features.Borrowing
 {
-    public class BorrowingViewModel : BindableBase
+    public interface IBorrowingViewModel
+    {
+    }
+
+    public class BorrowingViewModel : BindableBase, IBorrowingViewModel
+//, IBorrowEvents
     {
         #region Injected Properties
 
         readonly IRegionManager _regionManager;
         ICardReader CardReader { get; set; }
-      //  ICardReaderEvents CardReaderEvents { get; set; }
-        //ICardReaderListener CardReaderListener { get; set; }
-
+        //public event EventHandler<EBorrowState> setEnabled;
+        public IBorrowController Controller { get; set; }
         #endregion
 
         #region Bound Properties
@@ -36,13 +42,11 @@ namespace Library.Features.Borrowing
 
         public BorrowingViewModel(
             IRegionManager regionManager
-            , ICardReader cardReader)
-            //, ICardReaderEvents CardReaderEvents
-            //, ICardReaderListener cardReaderListener)
+            , ICardReader cardReader
+            , IBorrowController  controller)
         {
             CardReader = cardReader;
-           // CardReaderEvents = CardReaderEvents;
-            //CardReaderListener = cardReaderListener;
+            Controller = controller;
             _regionManager = regionManager;
             this.BorrowCommand = new DelegateCommand<string>(Borrow).ObservesCanExecute((p) => Borrowing);
         }
@@ -62,7 +66,7 @@ namespace Library.Features.Borrowing
             // Navigate to the "Waiting" view.
             _regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
 
-
+            Controller.ListenToCardReader();
             // Wait for the hardware to swipe the card, subscribe to the event.
            // CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
         }
@@ -73,6 +77,7 @@ namespace Library.Features.Borrowing
         //    _regionManager.RequestNavigate(RegionNames.ContentRegion, ViewNames.SwipeControl);
         //}
         #endregion
+
     }
 }
 

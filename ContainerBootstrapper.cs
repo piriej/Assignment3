@@ -5,8 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using Autofac;
+using AutoMapper;
 using Library.ApplicationInfratructure;
 using Library.Controllers;
+using Library.Controllers.Borrow;
 using Library.Daos;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
@@ -80,37 +82,38 @@ namespace Library
             base.ConfigureContainerBuilder(builder);
 
             //builder.RegisterType<CardReader>().SingleInstance();
-       
+            // IBorrowEvents is not registered when constructing CardReaderViewModel, IBorrowEvents is implemented by BorrowControler
+
             builder.RegisterType<Scanner>().SingleInstance().As<IScanner>();
             builder.RegisterType<Printer>().SingleInstance().As<IPrinter>();
 
             builder.RegisterType<MainMenuController>().SingleInstance();
+            builder.RegisterType<MainWindowController>().As<IMainWindowController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<BorrowController>()
+                .AsImplementedInterfaces()
+                .SingleInstance()
+                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
+                .OnActivated(x => x.Context.Resolve<CardReaderViewModel>().ListenToBorrower(x.Instance));
 
             // View Models
             builder.RegisterType<MainWindowViewModel>().SingleInstance().As<IDisplay>().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
-            builder.RegisterType<CardReaderViewModel>().SingleInstance()
-                .As<ICardReader>()
-                .As<ICardReaderEvents>();
-                //.As<ICardReaderEvents>();
-                //.As<ICardReaderListener>();
-            builder.RegisterType<BorrowingViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
-            builder.RegisterType<BorrowingViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
-            builder.RegisterType<ScanBookViewModel>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();
+            builder.RegisterType<BorrowingViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
+            builder.RegisterType<ScanBookViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
             //builder.RegisterType<BookDAO>().As<IBookDAO>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             //builder.RegisterType<LoanDAO>().As<ILoanDAO>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<MemberDAO>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
-            //IBookDAO bookDAO, ILoanDAO loanDAO, IMemberDAO memberDAO,
-
-
-            //builder.RegisterType<SwipeCardView>().Named("SwipeCard", typeof(SwipeCardView));
             builder.RegisterType<MainWindowView>().SingleInstance();
             builder.RegisterType<BorrowingView>().SingleInstance();
             builder.RegisterType<SwipeCardView>().SingleInstance();
             builder.RegisterType<CardReaderView>().SingleInstance();
 
             builder.RegisterType<ContentRegionModule>();
+
+            //builder.RegisterType<Borro>();
+
 
 
             // Mediator Module here...
@@ -143,7 +146,6 @@ namespace Library
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
             builder.RegisterType<Mediator>().As<IMediator>();
-
         }
 
     }
