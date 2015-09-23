@@ -7,15 +7,32 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Controls;
-using Library.Daos;
+using Library.Features.Borrowing;
 using Library.Features.CardReader;
 using ICardReader = Library.Interfaces.Hardware.ICardReader;
 
 namespace Library.Controllers.Borrow
 {
-    class BorrowController : IBorrowListener, /*ICardReaderEvents,*/ IScannerListener
+    public interface IBorrowController
     {
-        public ICardReaderEvents CardReaderEvents { get; set; }
+        IMemberDAO MemberDao { get; set; }
+        void ListenToCardReader();
+    }
+
+    public static class EborrowStateExtension
+    {
+        public static EBorrowState Evaluate(this EBorrowState state, bool overdue, bool atLoanLimit, bool hasFines, bool overFineLimit)
+        {
+            if (overdue || atLoanLimit || hasFines || overFineLimit)
+                return EBorrowState.BORROWING_RESTRICTED;
+            else
+                return EBorrowState.SCANNING_BOOKS;
+            //    public enum EBorrowState { CREATED, INITIALIZED, SCANNING_BOOKS, CONFIRMING_LOANS, COMPLETED, BORROWING_RESTRICTED, CANCELLED }
+        }
+    }
+
+    public class BorrowController : IBorrowListener, /*ICardReaderEvents,*/ IScannerListener, IBorrowController, IBorrowEvents
+    {
         readonly IDisplay _display;
         UserControl _previousDisplay;
         readonly ABorrowControl _ui;
@@ -25,35 +42,46 @@ namespace Library.Controllers.Borrow
         IScannerListener _previousScannerListener;
         IPrinter _printer;
 
-        IBookDAO BookDao { get; set; }
-        ILoanDAO LoanDao { get; set; }
-        public IMemberDAO MemberDao { get; set; }
-        //IBookDAO BookDAO;
-        //ILoanDAO LoanDAO;
-        //IMemberDAO MemberDAO;
-
         IMember _borrower;
         int scanCount = 0;
-        EBorrowState _state;
+        EBorrowState _state; // EBorrowState.CREATED; - default state
 
         List<IBook> _bookList;
         List<ILoan> _loanList;
 
+        // Managed Members......
+        IBookDAO BookDao { get; set; }
+        ILoanDAO LoanDao { get; set; }
+        public IMemberDAO MemberDao { get; set; }
+        //public ICardReader CardReader { get; set; }
+        public ICardReaderEvents CardReaderEvents { get; set; }
+        public IBorrowingViewModel ViewModel { get; set; }
 
-        public BorrowController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
-                                    ICardReaderEvents cardReaderEvents)
+        public event EventHandler<EBorrowState> setEnabled;
+        //public event EventHandler<EBorrowState> NotifyBorrowState;
+
+        // TODO fix resolution to remove this constructor.
+        public BorrowController(IMemberDAO memberDao/*, ICardReaderEvents cardReaderEvents*/) //: this(null, reader,null,null,cardReaderEvents)
         {
-            CardReaderEvents = cardReaderEvents;
-            _display = display;
-            _reader = reader;
-            _scanner = scanner;
-            _printer = printer;
+           // _state = EBorrowState.CREATED; - default state
+        
 
-            _ui = new BorrowControl(this);
-
-            _state = EBorrowState.CREATED;
-            CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
         }
+
+        //public BorrowController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
+        //                            ICardReaderEvents cardReaderEvents)
+        //{
+        //    CardReaderEvents = cardReaderEvents;
+        //    _display = display;
+        //    _reader = reader;
+        //    _scanner = scanner;
+        //    _printer = printer;
+
+        //    _ui = new BorrowControl(this);
+
+        //    _state = EBorrowState.CREATED;
+        //    CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
+        //}
 
 
         public void initialise()
@@ -62,9 +90,13 @@ namespace Library.Controllers.Borrow
             _previousDisplay = _display.Display;
             Console.WriteLine("BorrowController Initialising, previous display = " + _previousDisplay);
             _display.Display = _ui;
-       
+
         }
 
+        public void ListenToCardReader()
+        {
+            CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
+        }
 
         public void cancelled()
         {
@@ -83,7 +115,23 @@ namespace Library.Controllers.Borrow
         public void cardSwiped(int memberID)
         {
             var borrower = MemberDao.GetMemberByID(memberID);
+            if (borrower == null)
+            {
+                // Notify the user that couldn't be found.
+                return;
+            }
+
+            var overdue = borrower.HasOverDueLoans;
+            var atLoanLimit = borrower.HasReachedLoanLimit;
+            var hasFines = borrower.HasFinesPayable;
+            var overFineLimit = borrower.HasReachedFineLimit;
+
+            setState(_state.Evaluate(overdue, atLoanLimit, hasFines, overFineLimit));
+
+         
+
         }
+
 
         public void bookScanned(int barcode)
         {
@@ -108,7 +156,8 @@ namespace Library.Controllers.Borrow
 
         private void setState(EBorrowState state)
         {
-            throw new ApplicationException("Not implemented yet");
+            _state = state;
+            setEnabled?.Invoke(this, _state);
         }
 
 
@@ -131,5 +180,7 @@ namespace Library.Controllers.Borrow
             }
             return bld.ToString();
         }
+
+  
     }
 }

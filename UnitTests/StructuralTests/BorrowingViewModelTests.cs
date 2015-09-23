@@ -1,11 +1,11 @@
 ﻿using System;
 using Library.ApplicationInfratructure;
+using Library.Controllers.Borrow;
 using Library.Features.Borrowing;
-using Library.Interfaces.Hardware;
+using Library.Features.CardReader;
 using NSubstitute;
 using Prism.Regions;
 using Xunit.Extensions;
-using ICardReader = Library.Features.CardReader.ICardReader;
 
 namespace UnitTests
 {
@@ -15,10 +15,11 @@ namespace UnitTests
         public void BorrowingViewModel_BorrowCommand_RequestsNavigationForTheContentRegionToAURI(
             IRegionManager regionManager
             , string uri
-            , ICardReader cardReader)
+            , ICardReader cardReader
+            , IBorrowController borrowController)
         {
             // Arrange
-            var viewModel = new BorrowingViewModel(regionManager, cardReader);
+            var viewModel = new BorrowingViewModel(regionManager, cardReader, borrowController);
 
             regionManager.When(x => x.RequestNavigate(Arg.Any<string>(), Arg.Any<string>()))
                 .Do(x => Console.WriteLine(@"RequestNavigate Called"));

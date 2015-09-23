@@ -15,7 +15,7 @@ namespace Library.Features.MainWindow
         //ILoanDAO _loanDAO;
         //IMemberDAO _memberDAO;
 
-        public MainWindowView(CardReaderView reader, Scanner scanner, Printer printer)
+        public MainWindowView(MainWindowController controller,  CardReaderView reader, Scanner scanner, Printer printer)
         {
             InitializeComponent();
 

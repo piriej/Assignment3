@@ -41,11 +41,12 @@ namespace Library.Controllers
 
         public void borrowBook()
         {
+            //TODO: Fix borrow controller
             //BorrowController borrowController = new BorrowController(_display, _reader, _scanner, _printer,
             //                                                         _bookDao, _loanDao, _memberDao, CardReaderEvents);  
 
-            BorrowController borrowController = new BorrowController(_display, _reader, _scanner, _printer, CardReaderEvents);
-            borrowController.initialise();
+            //BorrowController borrowController = new BorrowController();
+            //borrowController.initialise();
         }
     }
 }

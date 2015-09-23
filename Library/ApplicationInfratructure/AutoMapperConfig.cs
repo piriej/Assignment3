@@ -8,6 +8,8 @@ namespace Library.ApplicationInfratructure
         public static void RegisterMaps()
         {
             Mapper.CreateMap<CardReaderViewModel, CardReaderModel>();
+
+            Mapper.AssertConfigurationIsValid();    
         }
     }
 }

@@ -138,12 +138,15 @@
     <Compile Include="Daos\MemberDAO.cs" />
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Features\Borrowing\BorrowController.cs" />
+    <Compile Include="Features\CardReader\CardReaderController.cs" />
     <Compile Include="Features\CardReader\CardReaderModel.cs" />
     <Compile Include="Features\CardReader\CardReaderViewModel.cs" />
     <Compile Include="ApplicationInfratructure\RegionNames.cs" />
     <Compile Include="ApplicationInfratructure\CheckedMediator.cs" />
     <Compile Include="Features\CardReader\ICardReader.cs" />
     <Compile Include="Features\CardReader\ICardReaderModel.cs" />
+    <Compile Include="Features\MainWindow\MainWindowController.cs" />
+    <Compile Include="Features\ScanBook\ScanBookController.cs" />
     <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
     <Compile Include="Features\StringToIntValidationRule.cs" />
     <Compile Include="Features\SwipeCard\SwipeCardViewModel.cs" />
