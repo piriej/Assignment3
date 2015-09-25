@@ -8,7 +8,11 @@ using Prism.Mvvm;
 
 namespace Library.Features.MainWindow
 {
-    public class MainWindowViewModel : BindableBase, IDisplay
+    public interface IMainWindowViewModel
+    {
+    }
+
+    public class MainWindowViewModel : BindableBase, IDisplay, IMainWindowViewModel
     {
         #region Injected Properties
 

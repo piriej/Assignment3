@@ -9,6 +9,8 @@ using System.Text;
 using System.Windows.Controls;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
+using Library.Features.MainWindow;
+using Library.Features.ScanBook;
 using ICardReader = Library.Interfaces.Hardware.ICardReader;
 
 namespace Library.Controllers.Borrow
@@ -31,8 +33,14 @@ namespace Library.Controllers.Borrow
         }
     }
 
+    //public class PageNavigator
+    //{
+    //    public UserControl
+    //}
+
     public class BorrowController : IBorrowListener, /*ICardReaderEvents,*/ IScannerListener, IBorrowController, IBorrowEvents
     {
+        private readonly IMainWindowController _mainWindowController;
         readonly IDisplay _display;
         UserControl _previousDisplay;
         readonly ABorrowControl _ui;
@@ -49,10 +57,15 @@ namespace Library.Controllers.Borrow
         List<IBook> _bookList;
         List<ILoan> _loanList;
 
-        // Managed Members......
+        #region Injected properties
         IBookDAO BookDao { get; set; }
         ILoanDAO LoanDao { get; set; }
         public IMemberDAO MemberDao { get; set; }
+        public IMainWindowController MainWindowController { get; set; }
+        //protected Func<UserControl, > NavigateTo { get; private set; }
+        #endregion
+
+
         //public ICardReader CardReader { get; set; }
         public ICardReaderEvents CardReaderEvents { get; set; }
         public IBorrowingViewModel ViewModel { get; set; }
@@ -61,10 +74,11 @@ namespace Library.Controllers.Borrow
         //public event EventHandler<EBorrowState> NotifyBorrowState;
 
         // TODO fix resolution to remove this constructor.
-        public BorrowController(IMemberDAO memberDao/*, ICardReaderEvents cardReaderEvents*/) //: this(null, reader,null,null,cardReaderEvents)
+        public BorrowController( IMemberDAO memberDao,  IMainWindowController mainWindowController/*, ICardReaderEvents cardReaderEvents*/) //: this(null, reader,null,null,cardReaderEvents)
         {
-           // _state = EBorrowState.CREATED; - default state
-        
+            MainWindowController = mainWindowController;
+            // _state = EBorrowState.CREATED; - default state
+
 
         }
 
@@ -114,6 +128,7 @@ namespace Library.Controllers.Borrow
         // Keeping this function so I don't change too much, should all be in oncardswipe.
         public void cardSwiped(int memberID)
         {
+            MainWindowController.NavigateTo<ScanBookView>();
             var borrower = MemberDao.GetMemberByID(memberID);
             if (borrower == null)
             {
@@ -128,7 +143,9 @@ namespace Library.Controllers.Borrow
 
             setState(_state.Evaluate(overdue, atLoanLimit, hasFines, overFineLimit));
 
-         
+            
+            MainWindowController.NavigateTo<ScanBookView>();
+            //DisplayMemberDetails(borrower.ID, borrower.FirstName + " " + borrower.LastName, borrower.ContactPhone);
 
         }
 

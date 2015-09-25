@@ -10,7 +10,8 @@ namespace Library.Features.MainWindow
     public partial class MainWindowView : Window, IDisplay
     {
         UserControl _currentControl;
-
+        
+        
         //IBookDAO _bookDAO;
         //ILoanDAO _loanDAO;
         //IMemberDAO _memberDAO;
@@ -18,7 +19,7 @@ namespace Library.Features.MainWindow
         public MainWindowView(MainWindowController controller,  CardReaderView reader, Scanner scanner, Printer printer)
         {
             InitializeComponent();
-
+            
             //reader.Show();
             //scanner.Show();
             //printer.Show();

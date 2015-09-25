@@ -87,7 +87,7 @@ namespace Library.Features.CardReader
 
             Enabled = false;
 
-            _regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
+            //_regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
         }
 
         public event EventHandler<CardReaderModel> NotifyCardSwiped;

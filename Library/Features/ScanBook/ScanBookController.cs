@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IntegrationTests
+namespace Library.Features.ScanBook
 {
-    //[Fact]
-    public class Class1
+    class ScanBookController
     {
     }
 }

@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Prism.Mvvm;
-using ShortBus;
+//using ShortBus;
 
 namespace Library.Features.CardReader
 {
@@ -15,16 +15,16 @@ namespace Library.Features.CardReader
         readonly Dictionary<string, ICollection<string>>
             _validationErrors = new Dictionary<string, ICollection<string>>();
 
-        protected ValidatedBindableBase(IMediator mediator)
-        {
-            Mediator = mediator;
-        }
+        //protected ValidatedBindableBase(IMediator mediator)
+        //{
+        //    Mediator = mediator;
+        //}
 
         protected ValidatedBindableBase()
         {
         }
 
-        protected ShortBus.IMediator Mediator { get; set; }
+        //protected ShortBus.IMediator Mediator { get; set; }
 
         protected void ValidateModelProperty(object value, string propertyName)
         {

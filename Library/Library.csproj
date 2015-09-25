@@ -138,6 +138,7 @@
     <Compile Include="Daos\MemberDAO.cs" />
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Features\Borrowing\BorrowController.cs" />
+    <Compile Include="Features\Borrowing\IBorrowingViewModel.cs" />
     <Compile Include="Features\CardReader\CardReaderController.cs" />
     <Compile Include="Features\CardReader\CardReaderModel.cs" />
     <Compile Include="Features\CardReader\CardReaderViewModel.cs" />

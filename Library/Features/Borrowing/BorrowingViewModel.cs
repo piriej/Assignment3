@@ -2,9 +2,6 @@
 using System.Windows.Input;
 using Library.ApplicationInfratructure;
 using Library.Controllers.Borrow;
-using Library.Features.CardReader;
-using Library.Interfaces.Controllers.Borrow;
-using Library.Interfaces.Hardware;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -12,12 +9,7 @@ using ICardReader = Library.Features.CardReader.ICardReader;
 
 namespace Library.Features.Borrowing
 {
-    public interface IBorrowingViewModel
-    {
-    }
-
     public class BorrowingViewModel : BindableBase, IBorrowingViewModel
-//, IBorrowEvents
     {
         #region Injected Properties
 
