@@ -1,47 +1,41 @@
 ﻿using System;
 using AutoMapper;
-using Library.ApplicationInfratructure;
 using Library.Interfaces.Controllers.Borrow;
 using Library.Interfaces.Hardware;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Regions;
 
 namespace Library.Features.CardReader
 {
-    public class CardReaderViewModel : ValidatedBindableBase, ICardReaderEvents,  ICardReader
+    public class CardReaderViewModel : ValidatedBindableBase,  ICardReader2, ICardReaderViewModel
     {
 
         #region Injected Properties
 
-        readonly IRegionManager _regionManager;
+        public IRegionManager RegionManager { get; set; } 
         public IBorrowEvents BorrowEvents { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        public ICardReaderController Controller { get; set; }
 
         #endregion
 
         #region constructors
 
-        public CardReaderViewModel(IRegionManager regionManager/*, IBorrowEvents borrowEvents*/)
+        public CardReaderViewModel(IEventAggregator eventAggregator, ICardReaderController cardReaderController)
         {
             // Subscribe to setEnabled event from the borrower. 
             // In the event that the Borrowers current state is initialised, Enables this control, otherwise disables it.
-            //BorrowEvents = borrowEvents;
-          
+            eventAggregator.GetEvent<Messages.BorrowingStateEvent>().Subscribe(borrowModel => Enabled = borrowModel.BorrowingState == EBorrowState.INITIALIZED, ThreadOption.UIThread);
 
-            _regionManager = regionManager;
-            CardSwipedCmd = new DelegateCommand<string>(CardSwiped)
-                .ObservesCanExecute(p => Enabled);
+            // Listen to Swipe button press 
+            CardSwipedCmd = new DelegateCommand<string>(cardReaderController.CardSwiped).ObservesCanExecute(p => Enabled);
 
+            // Listen to window close event.
             CloseWindowCommand = new DelegateCommand(CloseWindow, () => false);
         }
 
         #endregion
-
-        public void ListenToBorrower(IBorrowEvents borrowEvents)
-        {
-            BorrowEvents = borrowEvents;
-            BorrowEvents.setEnabled += (obj, currentState) => Enabled = currentState == EBorrowState.INITIALIZED;
-        }
-
 
         #region View Model Properties
 
@@ -77,18 +71,7 @@ namespace Library.Features.CardReader
         }
 
         public System.Windows.Input.ICommand CardSwipedCmd { get; set; }
-        void CardSwiped(string uri)
-        {
-            // Get a model.
-            Console.WriteLine(this.BorrowerId);
-            var model = Mapper.Map<CardReaderModel>(this);
-
-            OnNotifyCardSwiped(model);
-
-            Enabled = false;
-
-            //_regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
-        }
+     
 
         public event EventHandler<CardReaderModel> NotifyCardSwiped;
 

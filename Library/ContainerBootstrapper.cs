@@ -9,9 +9,11 @@ using Autofac;
 using Autofac.Core;
 using log4net;
 using Library.ApplicationInfratructure;
+using Library.ApplicationInfratructure.Modules;
 using Library.Controllers;
 using Library.Controllers.Borrow;
 using Library.Daos;
+using Library.Entities;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
 using Library.Features.MainWindow;
@@ -19,7 +21,9 @@ using Library.Features.ScanBook;
 using Library.Features.SwipeCard;
 using Library.Hardware;
 using Library.Interfaces.Hardware;
+using Ploeh.AutoFixture;
 using Prism.Autofac;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Mvvm;
 using Module = Autofac.Module;
@@ -103,12 +107,12 @@ namespace Library
 
             builder.RegisterType<MainMenuController>().SingleInstance();
             builder.RegisterType<MainWindowController>().As<IMainWindowController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderController>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<BorrowController>()
                 .AsImplementedInterfaces()
                 .SingleInstance()
-                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
-                .OnActivated(x => x.Context.Resolve<CardReaderViewModel>().ListenToBorrower(x.Instance));
-
+                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+                //.OnActivated(x => x.Context.Resolve<ICardReader2>().SubscribeToBorrower(x.Context.Resolve<IEventAggregator>()));
 
             builder.RegisterType<MainWindowViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();
@@ -122,7 +126,16 @@ namespace Library
             builder.RegisterType<SwipeCardView>().SingleInstance();
             builder.RegisterType<CardReaderView>().SingleInstance();
 
-            builder.RegisterType<ContentRegionModule>();
+            //Entities
+            //builder.RegisterType<Book>().AsImplementedInterfaces();
+            //builder.RegisterType<Loan>().AsImplementedInterfaces();
+            //builder.RegisterType<Member>().AsImplementedInterfaces();
+
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
+
+            builder.RegisterType<ContentRegionModule>();  // Note this is WPF module.
+
+            builder.RegisterModule(new MockDataProviderModule());
 
             return builder;
         }
@@ -135,6 +148,7 @@ namespace Library
           IComponentRegistry componentRegistry,
           IComponentRegistration registration)
         {
+            base.AttachToComponentRegistration(componentRegistry, registration);
             registration.Preparing += (sender, args) =>
               log.Debug($@"Resolving concrete type {args.Component.Activator.LimitType}");
         }

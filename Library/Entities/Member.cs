@@ -30,20 +30,19 @@ namespace Library.Entities
         public string LastName { get; set; }
         public string ContactPhone { get; set; }
         public string EmailAddress { get; set; }
-        int Id { get; set; }
         
         //        Constructor : Member
         //Parameters: 
         //firstName:string, lastName:string, contactPhone :string, emailAddress:string, id:int
         //throws IllegalArgumentException if: 
         //any of firstName, lastName, contactPhone
-        public Member(string firstName, string lastName, string contactPhone, string emailAddress, int id)
+        public Member(int id, string firstName, string lastName, string contactPhone, string emailAddress)
         {
             FirstName = firstName;
             LastName = lastName;
             ContactPhone = contactPhone;
             EmailAddress = emailAddress;
-            Id = id;
+            ID = id;
         }
 
         public void AddFine(float fine)

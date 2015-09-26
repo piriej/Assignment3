@@ -9,11 +9,22 @@ namespace Library.Daos
 {
     public class MemberDAO : IMemberDAO
     {
-        public List<IMember> MemberList { get; } = new List<IMember>();
+        public MemberDAO()
+        {
+            MemberList = new List<IMember>();
+        }
+
+        public MemberDAO(List<IMember> mockData )
+        {
+            MemberList = mockData;
+        }
+
+        public List<IMember> MemberList { get; } 
 
         public IMember AddMember(string firstName, string lastName, string contactPhone, string emailAddress)
         {
-            var member = new Member(firstName, lastName, contactPhone, emailAddress, MemberList.Count);
+            var member = new Member(MemberList.Count, firstName, lastName, contactPhone, emailAddress);
+
             MemberList.Add(member);
             return member;
         }

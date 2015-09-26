@@ -2,6 +2,7 @@
 using Library.ApplicationInfratructure;
 using Library.Features.CardReader;
 using NSubstitute;
+using Prism.Events;
 using Prism.Regions;
 using Xunit.Extensions;
 
@@ -15,12 +16,12 @@ namespace UnitTests.StructuralTests
         }
 
         [Theory, AutoNSubstituteData]
-        public void CardSwiped_WithAnEventListener_TriggersTheEvent(IRegionManager regionManager, string borrowerId, string uri)
+        public void CardSwiped_WithAnEventListener_TriggersTheEvent(IEventAggregator eventAggregator, ICardReaderController cardReaderController ,string borrowerId, string uri)
         {
             var swiped = false;
 
             // Arrange.
-            var viewModel = new CardReaderViewModel(regionManager) {BorrowerId = borrowerId};
+            var viewModel = new CardReaderViewModel(eventAggregator, cardReaderController) {BorrowerId = borrowerId};
             viewModel.NotifyCardSwiped += (src,reader) => swiped = true;
 
             // Act
@@ -31,10 +32,10 @@ namespace UnitTests.StructuralTests
         }
 
         [Theory, AutoNSubstituteData]
-        public void CardSwiped_GivenAUri_NavigatesToTheUri(IRegionManager regionManager, string borrowerId, string uri)
+        public void CardSwiped_GivenAUri_NavigatesToTheUri(IEventAggregator eventAggregator, ICardReaderController cardReaderController ,IRegionManager regionManager, string borrowerId, string uri)
         {
             // Arrange.
-            var viewModel = new CardReaderViewModel(regionManager) { BorrowerId = borrowerId };
+            var viewModel = new CardReaderViewModel(eventAggregator, cardReaderController) { BorrowerId = borrowerId, RegionManager = regionManager};
             regionManager.When(rm => rm.RequestNavigate(Arg.Any<string>(), Arg.Any<string>()));
 
             // Act
@@ -45,12 +46,12 @@ namespace UnitTests.StructuralTests
         }
 
         [Theory, AutoNSubstituteData]
-        public void CardSwiped_WithAnEventListener_ReturnsTheBorrowerIdInTheModel(IRegionManager regionManager, string borrowerId, string uri)
+        public void CardSwiped_WithAnEventListener_ReturnsTheBorrowerIdInTheModel(IEventAggregator eventAggregator, ICardReaderController cardReaderController, IRegionManager regionManager, string borrowerId, string uri)
         {
             var sut = "";
 
             // Arrange.
-            var viewModel = new CardReaderViewModel(regionManager) { BorrowerId = borrowerId };
+            var viewModel = new CardReaderViewModel(eventAggregator, cardReaderController) { BorrowerId = borrowerId, RegionManager = regionManager};
             viewModel.NotifyCardSwiped += (src, reader) => sut = reader.BorrowerId;
 
             // Act

@@ -15,7 +15,7 @@ namespace UnitTests
         public void BorrowingViewModel_BorrowCommand_RequestsNavigationForTheContentRegionToAURI(
             IRegionManager regionManager
             , string uri
-            , ICardReader cardReader
+            , ICardReader2 cardReader
             , IBorrowController borrowController)
         {
             // Arrange

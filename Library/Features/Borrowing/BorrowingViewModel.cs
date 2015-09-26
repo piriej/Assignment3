@@ -2,10 +2,13 @@
 using System.Windows.Input;
 using Library.ApplicationInfratructure;
 using Library.Controllers.Borrow;
+using Library.Features.CardReader;
+using Library.Features.MainWindow;
+using Library.Interfaces.Controllers.Borrow;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
-using ICardReader = Library.Features.CardReader.ICardReader;
+using Prism.Events;
 
 namespace Library.Features.Borrowing
 {
@@ -14,61 +17,41 @@ namespace Library.Features.Borrowing
         #region Injected Properties
 
         readonly IRegionManager _regionManager;
-        ICardReader CardReader { get; set; }
+        ICardReader2 CardReader { get; set; }
         //public event EventHandler<EBorrowState> setEnabled;
         public IBorrowController Controller { get; set; }
+
+        public  IEventAggregator EventAggregator{ get; set; }
         #endregion
 
         #region Bound Properties
 
-        bool _borrowing = false;
-        public bool Borrowing
+        bool _active = true;
+        public bool Active
         {
-            get { return _borrowing; }
-            set { SetProperty(ref this._borrowing, value); }
+            get { return _active; }
+            set { SetProperty(ref this._active, value); }
         }
 
+        #endregion
+
+        #region Commands
+        public ICommand BorrowCommand { get; set; }
         #endregion
 
         #region Constructors
 
         public BorrowingViewModel(
             IRegionManager regionManager
-            , ICardReader cardReader
+            , ICardReader2 cardReader
             , IBorrowController  controller)
         {
             CardReader = cardReader;
             Controller = controller;
             _regionManager = regionManager;
-            var x = this.GetHashCode();
-            this.BorrowCommand = new DelegateCommand<string>(Borrow).ObservesCanExecute((p) => Borrowing);
+            this.BorrowCommand = new DelegateCommand(controller.WaitForCardSwipe).ObservesCanExecute(p => Active);
         }
 
-        #endregion
-
-        #region Commands
-
-        public ICommand BorrowCommand { get; set; }
-
-        public void Borrow(string uri)
-        {
-            // Enable the card reader, and disable the borrowing button.
-            CardReader.Enabled = true;
-            Borrowing = false;
-
-            // Navigate to the "Waiting" view.
-            _regionManager.RequestNavigate(RegionNames.ContentRegion, uri);
-
-            Controller.ListenToCardReader();
-            // Wait for the hardware to swipe the card, subscribe to the event.
-           // CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
-        }
-
-        //public void OnCardSwipe(object source, CardReaderModel cardReaderModel)
-        //{
-        //    CardReaderListener.cardSwiped();
-        //    _regionManager.RequestNavigate(RegionNames.ContentRegion, ViewNames.SwipeControl);
-        //}
         #endregion
 
     }

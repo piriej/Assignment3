@@ -1,3 +1,4 @@
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\obj\Debug\AcceptanceTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AcceptanceTests.dll.config
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AcceptanceTests.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AcceptanceTests.pdb
@@ -6,10 +7,12 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Fluen
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Library.exe
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\TechTalk.SpecFlow.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\xunit.assert.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\xunit.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.Wpf.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.Autofac.Wpf.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\log4net.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Autofac.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\DataAnnotationsExtensions.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AutoMapper.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Microsoft.Practices.ServiceLocation.dll
@@ -22,10 +25,11 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Fluen
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\xunit.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\xunit.assert.pdb
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\xunit.assert.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.Wpf.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.Autofac.Wpf.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\log4net.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Autofac.xml
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Prism.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\AutoMapper.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\Microsoft.Practices.ServiceLocation.xml
@@ -39,8 +43,5 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\ko\Sy
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\obj\Debug\AcceptanceTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\obj\Debug\AcceptanceTests.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\obj\Debug\AcceptanceTests.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\log4net.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\AcceptanceTests\bin\Debug\log4net.xml

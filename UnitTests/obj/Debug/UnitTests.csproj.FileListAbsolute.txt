@@ -1,3 +1,4 @@
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.runner.utility.desktop.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.abstractions.dll
@@ -21,6 +22,7 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\System.Wind
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.extensions.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\Prism.Autofac.Wpf.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\log4net.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\Autofac.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\DataAnnotationsExtensions.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\AutoMapper.dll
@@ -40,6 +42,7 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\Prism.Wpf.x
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\xunit.extensions.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\Prism.Autofac.Wpf.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\log4net.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\Autofac.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\AutoMapper.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\de\System.Windows.Interactivity.resources.dll
@@ -52,8 +55,5 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\ko\System.W
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\log4net.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\log4net.xml

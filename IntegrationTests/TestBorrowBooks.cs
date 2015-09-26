@@ -34,13 +34,13 @@ namespace IntegrationTests
             cardReaderViewModel.Enabled.Should().BeFalse();
 
             //TODO: Event on the card reader checks the status.
-            var x = borrowingViewModel.Borrowing;
+            var x = borrowingViewModel.Active;
 
             // By default we should not be borrowing.
-            borrowingViewModel.Borrowing.Should().BeFalse();
+            borrowingViewModel.Active.Should().BeFalse();
 
             // A user requests to borrow.
-            borrowingViewModel.Borrowing = true;
+            borrowingViewModel.Active = true;
     
             // Then the Card reader is enabled.
             cardReaderViewModel.Enabled.Should().BeTrue();

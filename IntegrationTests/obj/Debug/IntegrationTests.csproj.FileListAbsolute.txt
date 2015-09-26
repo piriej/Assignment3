@@ -1,3 +1,4 @@
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\obj\Debug\IntegrationTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\xunit.runner.visualstudio.testadapter.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\xunit.runner.utility.desktop.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\xunit.abstractions.dll
@@ -6,7 +7,10 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Inte
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\IntegrationTests.pdb
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Autofac.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\AutofacContrib.NSubstitute.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.Core.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Library.exe
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\log4net.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.Desktop.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
@@ -29,6 +33,11 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Auto
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Library.pdb
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Autofac.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\AutofacContrib.NSubstitute.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.Core.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.Core.xml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\log4net.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
@@ -55,14 +64,5 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\ko\S
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\ru\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\obj\Debug\IntegrationTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\obj\Debug\IntegrationTests.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\obj\Debug\IntegrationTests.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\log4net.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\log4net.xml
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.Core.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.xml
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.Core.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\IntegrationTests\bin\Debug\FluentAssertions.Core.xml
