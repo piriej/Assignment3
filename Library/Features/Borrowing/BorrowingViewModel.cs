@@ -21,7 +21,7 @@ namespace Library.Features.Borrowing
 
         #region Bound Properties
 
-        bool _borrowing = true;
+        bool _borrowing = false;
         public bool Borrowing
         {
             get { return _borrowing; }
@@ -40,6 +40,7 @@ namespace Library.Features.Borrowing
             CardReader = cardReader;
             Controller = controller;
             _regionManager = regionManager;
+            var x = this.GetHashCode();
             this.BorrowCommand = new DelegateCommand<string>(Borrow).ObservesCanExecute((p) => Borrowing);
         }
 
@@ -49,7 +50,7 @@ namespace Library.Features.Borrowing
 
         public ICommand BorrowCommand { get; set; }
 
-        void Borrow(string uri)
+        public void Borrow(string uri)
         {
             // Enable the card reader, and disable the borrowing button.
             CardReader.Enabled = true;

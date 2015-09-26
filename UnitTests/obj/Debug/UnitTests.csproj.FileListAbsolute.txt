@@ -55,3 +55,5 @@ C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\zh-Hant\Sys
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.dll
 C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\obj\Debug\UnitTests.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\log4net.dll
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\UnitTests\bin\Debug\log4net.xml
