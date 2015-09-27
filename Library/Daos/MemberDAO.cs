@@ -32,7 +32,7 @@ namespace Library.Daos
 
         public IMember AddMember(string firstName, string lastName, string contactPhone, string emailAddress)
         {
-            var member = new Member(MemberList.Count, firstName, lastName, contactPhone, emailAddress);
+            var member = new Member( firstName, lastName, contactPhone, emailAddress, MemberList.Count);
 
             MemberList.Add(member);
             return member;
