@@ -1,5 +1,7 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using AutoMapper;
 using Library.Features.Borrowing;
+using Library.Interfaces.Controllers.Borrow;
 using Prism.Events;
 
 namespace Library.Features.ScanBook
@@ -21,8 +23,11 @@ namespace Library.Features.ScanBook
             //ViewModel.BorrowerId = borrowingModel.ID;
 
             // Map the model onto the viewmodel.
-            Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);
-
+            if (borrowingModel.BorrowingState == EBorrowState.SCANNING_BOOKS)
+            {
+                //borrowingModel.Loans.FirstOrDefault().
+                Mapper.Map(borrowingModel, (ScanBookViewModel)ViewModel);
+            }
         }
     }
 }

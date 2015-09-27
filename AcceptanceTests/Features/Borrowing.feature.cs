@@ -92,6 +92,39 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
+        [Xunit.FactAttribute()]
+        [Xunit.TraitAttribute("FeatureTitle", "Borrowing a book from the library")]
+        [Xunit.TraitAttribute("Description", "Display existing loan details when a library card is swiped.")]
+        public virtual void DisplayExistingLoanDetailsWhenALibraryCardIsSwiped_()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Display existing loan details when a library card is swiped.", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 13
+ testRunner.Given("The loan self service station prompts the user to scan their card", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+ testRunner.When("The borrowers card scans as \'0002\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Row"});
+            table1.AddRow(new string[] {
+                        "Loan ID:            \t2"});
+            table1.AddRow(new string[] {
+                        "Author:             \tauthor1"});
+            table1.AddRow(new string[] {
+                        "Title:              \ttitle2"});
+            table1.AddRow(new string[] {
+                        "Borrower:           \tfName2 lName2"});
+            table1.AddRow(new string[] {
+                        "Borrow Date:        \t27/09/2015"});
+            table1.AddRow(new string[] {
+                        "Due Date:           \t11/10/2015"});
+#line 15
+ testRunner.Then("The system displays the borrowers existing loan details as:", ((string)(null)), table1, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "1.9.0.77")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable

@@ -147,6 +147,8 @@
     <Compile Include="ApplicationInfratructure\ValidatedBindableBase.cs" />
     <Compile Include="ContentRegionModule.cs" />
     <Compile Include="ApplicationInfratructure\AutoMapperConfig.cs" />
+    <Compile Include="Daos\LoanDAO.cs" />
+    <Compile Include="Daos\LoanHelper.cs" />
     <Compile Include="Daos\MemberDAO.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Loan.cs" />
@@ -167,6 +169,7 @@
     <Compile Include="Features\CardReader\ICardReaderViewModel.cs" />
     <Compile Include="Features\MainWindow\MainWindowController.cs" />
     <Compile Include="Features\ScanBook\IScanBookController.cs" />
+    <Compile Include="Features\ScanBook\IScanBookViewModel.cs" />
     <Compile Include="Features\ScanBook\ScanBookController.cs" />
     <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
     <Compile Include="Features\StringToIntValidationRule.cs" />

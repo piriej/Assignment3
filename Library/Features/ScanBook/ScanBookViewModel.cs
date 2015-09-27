@@ -2,13 +2,6 @@
 
 namespace Library.Features.ScanBook
 {
-    public interface IScanBookViewModel
-    {
-        int BorrowerId { get; set; }
-        string Name { get; set; }
-        string Contact { get; set; }
-    }
-
     public class ScanBookViewModel : BindableBase, IScanBookViewModel
     {
         public IScanBookController Controller { get; set; }
@@ -16,6 +9,12 @@ namespace Library.Features.ScanBook
         public ScanBookViewModel(IScanBookController controller)
         {
             Controller = controller;
+        }
+
+        private string _existingLoan;
+        public string ExistingLoan {
+            get { return _existingLoan; }
+            set { SetProperty(ref _existingLoan, value); }
         }
 
         private int _borrowerId;

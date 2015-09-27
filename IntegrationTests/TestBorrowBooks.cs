@@ -4,7 +4,6 @@ using Autofac;
 using Autofac.Core;
 using log4net;
 using Library;
-using Library.Features.Borrowing;
 using Library.Features.CardReader;
 using Ploeh.AutoFixture.Kernel;
 using Xunit.Extensions;
@@ -12,7 +11,6 @@ using FluentAssertions;
 using Library.ApplicationInfratructure;
 using Library.Controllers.Borrow;
 using Library.Features.ScanBook;
-using NSubstitute;
 
 namespace IntegrationTests
 {
@@ -76,6 +74,25 @@ namespace IntegrationTests
             scanBookViewModel.BorrowerId.Should().Be(1);
             scanBookViewModel.Name.Should().Be("fName1 lName1");
             scanBookViewModel.Contact.Should().Be("0001");
+        }
+
+
+        [Theory, ContainerData]
+        public void SwipeCard_WithValidBorrowerId_ReturnsLoadInformation(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
+        {
+            AutoMapperConfig.RegisterMaps();
+
+            // The borrow controller has been clicked.
+            borrowController.WaitForCardSwipe();
+
+            // The card is swiped with a known user.
+            cardReaderViewModel.BorrowerId = "0001";
+
+            // When the card is swiped.
+            cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
+
+            //TODO whats it bound to
+            scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
         }
     }
 

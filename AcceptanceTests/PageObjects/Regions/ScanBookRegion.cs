@@ -6,9 +6,10 @@ namespace AcceptanceTests.PageObjects
 {
     public class ScanBookRegion : ContentRegionBaseObject
     {
-        private const string BorrowerIdLabelName = "BorrowerIdLabel";
-        private const string ContactLabelName = "ContactLabel";
-        private const string NameLabelName = "NameLabel";
+        const string BorrowerIdLabelName = "BorrowerIdLabel";
+        const string ContactLabelName = "ContactLabel";
+        const string NameLabelName = "NameLabel";
+        const string ExistingLoanBox = "existingLoanBox";
 
         public ScanBookRegion() : base(ViewNames.ScanBookControl)
         {
@@ -18,6 +19,8 @@ namespace AcceptanceTests.PageObjects
         public object BorrowerId => this.GetLabelText(BorrowerIdLabelName);
         public object BorrowerName => this.GetLabelText(NameLabelName);
         public object ContactNumber => this.GetLabelText(ContactLabelName);
+        public object ExistingLoans => this.GetLabelText(ExistingLoanBox);
+
 
     }
 }
