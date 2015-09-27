@@ -19,7 +19,7 @@ namespace UnitTests
             , IBorrowController borrowController)
         {
             // Arrange
-            var viewModel = new BorrowingViewModel(regionManager, cardReader, borrowController);
+            var viewModel = new BorrowingViewModel(borrowController);
 
             regionManager.When(x => x.RequestNavigate(Arg.Any<string>(), Arg.Any<string>()))
                 .Do(x => Console.WriteLine(@"RequestNavigate Called"));

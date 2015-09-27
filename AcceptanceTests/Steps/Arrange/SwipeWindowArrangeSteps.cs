@@ -32,7 +32,7 @@ namespace AcceptanceTests.Steps.Arrange
             var cardReaderPageObject = mainWindowPageObject.ContentRegion<BorrowingRegion>().ClickBorrowButton();
 
             // Check that the main window prompts the user to swipe their card.
-            mainWindowPageObject.ContentRegionIs<SwipeCardRegion>().Should().BeTrue();
+            //mainWindowPageObject.ContentRegionIs<SwipeCardRegion>().Should().BeTrue();
 
             // Ensure the user is prompted to swipe their card.
             cardReaderPageObject.IsCardDataBoxEnabled().Should().BeTrue("The user has not been prompted for the scanner, the field is disabled");

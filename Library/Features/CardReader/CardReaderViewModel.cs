@@ -1,7 +1,5 @@
 ﻿using System;
-using AutoMapper;
 using Library.Interfaces.Controllers.Borrow;
-using Library.Interfaces.Hardware;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
@@ -14,9 +12,9 @@ namespace Library.Features.CardReader
         #region Injected Properties
 
         public IRegionManager RegionManager { get; set; } 
-        public IBorrowEvents BorrowEvents { get; set; }
+        //public IBorrowEvents BorrowEvents { get; set; }
         public IEventAggregator EventAggregator { get; set; }
-        public ICardReaderController Controller { get; set; }
+        ICardReaderController Controller { get; set; }
 
         #endregion
 
@@ -24,9 +22,12 @@ namespace Library.Features.CardReader
 
         public CardReaderViewModel(IEventAggregator eventAggregator, ICardReaderController cardReaderController)
         {
+            Controller = cardReaderController;
+            EventAggregator = eventAggregator;
+
             // Subscribe to setEnabled event from the borrower. 
             // In the event that the Borrowers current state is initialised, Enables this control, otherwise disables it.
-            eventAggregator.GetEvent<Messages.BorrowingStateEvent>().Subscribe(borrowModel => Enabled = borrowModel.BorrowingState == EBorrowState.INITIALIZED, ThreadOption.UIThread);
+            eventAggregator.GetEvent<Messages.BorrowingStateEvent>().Subscribe(borrowModel => Enabled = borrowModel.BorrowingState == EBorrowState.INITIALIZED);
 
             // Listen to Swipe button press 
             CardSwipedCmd = new DelegateCommand<string>(cardReaderController.CardSwiped).ObservesCanExecute(p => Enabled);

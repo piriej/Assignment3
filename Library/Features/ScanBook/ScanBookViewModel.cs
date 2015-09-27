@@ -4,9 +4,11 @@ namespace Library.Features.ScanBook
 {
     class ScanBookViewModel : BindableBase
     {
+        public IScanBookController controller;
+
         public ScanBookViewModel()
         {
-            
+            var tmp = controller.GetHashCode();
         }
 
         private int _borrowerId;

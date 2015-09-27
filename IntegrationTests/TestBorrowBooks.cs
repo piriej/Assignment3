@@ -2,19 +2,17 @@
 using System.Linq;
 using Autofac;
 using Autofac.Core;
-using AutofacContrib.NSubstitute;
 using log4net;
 using Library;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
-using NSubstitute;
-using Ploeh.AutoFixture;
 using Ploeh.AutoFixture.Kernel;
-using Ploeh.AutoFixture.Xunit;
 using Xunit.Extensions;
-using Ploeh.AutoFixture.AutoNSubstitute;
 using FluentAssertions;
 using Library.ApplicationInfratructure;
+using Library.Controllers.Borrow;
+using Library.Features.ScanBook;
+using NSubstitute;
 
 namespace IntegrationTests
 {
@@ -27,79 +25,62 @@ namespace IntegrationTests
         }
 
 
+        //[Theory, ContainerData]
+        //public void ReadCard_WhenRequested_ActivatesCardReader(BorrowingViewModel borrowingViewModel, CardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
+        //{
+        //    //Card reader should initially be disabled.
+        //    cardReaderViewModel.Enabled.Should().BeFalse();
+
+        //    // By default we Should have an active borrow button.
+        //    borrowingViewModel.Active.Should().BeTrue();
+
+        //    // A user requests to borrow.
+        //    borrowingViewModel.Active = true;
+        //    borrowingViewModel.BorrowCommand.Execute(null);
+
+        //    // Then the Card reader is enabled.
+        //    cardReaderViewModel.Enabled.Should().BeTrue();
+        //}
+
         [Theory, ContainerData]
-        public void DummyTest(BorrowingViewModel borrowingViewModel, CardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
+        public void ReadCard_WhenRequested_ActivatesCardReader(IBorrowingViewModel borrowingViewModel, ICardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
         {
             //Card reader should initially be disabled.
             cardReaderViewModel.Enabled.Should().BeFalse();
 
-            //TODO: Event on the card reader checks the status.
-            var x = borrowingViewModel.Active;
-
-            // By default we should not be borrowing.
-            borrowingViewModel.Active.Should().BeFalse();
+            // By default we Should have an active borrow button.
+            borrowingViewModel.Active.Should().BeTrue();
 
             // A user requests to borrow.
-            borrowingViewModel.Active = true;
-    
+            borrowingViewModel.Active = false;
+            //borrowingViewModel.BorrowCommand.Execute(null);
+
             // Then the Card reader is enabled.
             cardReaderViewModel.Enabled.Should().BeTrue();
         }
-    }
 
-
-    public class ContainerDataAttribute : AutoDataAttribute
-    {
-        public ContainerDataAttribute()
-            : base(new Fixture().Customize(
-                new ContainerCustomization(
-                   new AutoSubstitute(builder => builder.Configure()).Container)))
+        [Theory, ContainerData]
+        public void SwipeCard_WithValidBorrowerId_ReturnsBorrowerDetails(IBorrowController borrowController, IScanBookController scanBookController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController)
         {
+            AutoMapperConfig.RegisterMaps();
+
+            // The borrow controller has been clicked.
+            borrowController.WaitForCardSwipe();
+
+            // The card is swiped with a known user.
+            cardReaderViewModel.BorrowerId = "0001";
+
+            // When the card is swiped.
+            cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
+
 
         }
-
     }
+
+    // Test borrowing restricted
+
+
 }
-
-public class ChildContainerSpecimenBuilder : ISpecimenBuilder
-{
-    readonly IContainer _container;
-    public ChildContainerSpecimenBuilder(IContainer container)
-    {
-
-        _container = container;
-    }
-    public object Create(object request, ISpecimenContext context)
-    {
-        var type = request as Type;
-        if (type == null || type != typeof(IContainer))
-        {
-            return new NoSpecimen();
-        }
-        return _container; //chhild container?;
-    }
-}
-
-
-
-public class ContainerCustomization : ICustomization
-{
-    readonly IContainer _container;
-
-    public ContainerCustomization(IContainer container)
-    {
-        this._container = container;
-    }
-    public void Customize(IFixture fixture)
-    {
-        log4net.Config.XmlConfigurator.Configure();
-        ILog log = LogManager.GetLogger(typeof(ContainerCustomization));
-
-        //fixture.ResidueCollectors.Add(new ChildContainerSpecimenBuilder(this._container));
-        fixture.ResidueCollectors.Add(new ContainerSpecimenBuilder(this._container));
-    }
-}
-
 
 public class ContainerSpecimenBuilder : ISpecimenBuilder
 {
@@ -136,11 +117,12 @@ public class ContainerSpecimenBuilder : ISpecimenBuilder
         }
         catch (Exception ex)
         {
-            log.Warn("No Resolution error: " + ex.Message);
-            log.Debug(@"Container Specimen Builder creating substitute for: " + request.GetType());
+            log.Warn("No Resolution error: "  +request.GetType() + " -->" + ex.Message );
+
             return new NoSpecimen();
-            var substitute = Substitute.For(new[] { type }, new object[] { });
-            return substitute;
+            //log.Debug(@"Container Specimen Builder creating substitute for: " + request.GetType());
+            //var substitute = Substitute.For(new[] { type }, new object[] { });
+            //return substitute;
         }
 
 

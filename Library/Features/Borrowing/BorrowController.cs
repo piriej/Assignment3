@@ -103,7 +103,7 @@ namespace Library.Controllers.Borrow
                     MainController.NavigateTo<ScanBookView>();
                     break;
                 case EBorrowState.BORROWING_RESTRICTED:
-                    //TODO: Where to then?
+                    //TODO: Where to then? - BorrowingRestrictredview
                     break;
             }
 

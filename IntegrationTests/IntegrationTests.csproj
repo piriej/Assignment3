@@ -121,6 +121,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildContainerSpecimenBuilder.cs" />
+    <Compile Include="ContainerCustomization.cs" />
+    <Compile Include="ContainerDataAttribute.cs" />
     <Compile Include="ContainerFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBorrowBooks.cs" />

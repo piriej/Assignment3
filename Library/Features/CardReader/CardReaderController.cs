@@ -8,6 +8,7 @@ namespace Library.Features.CardReader
         public ICardReaderViewModel ViewModel { get; set; }
         public IEventAggregator EventAggregator { get; set; }
 
+
         public void CardSwiped(string borowerId)
         {
             // Get a model.

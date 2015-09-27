@@ -7,7 +7,7 @@ namespace AcceptanceTests.Help
 {
     static class AutomationElementHelpers
     {
-        const int ImplicitWait = 2;
+        const int ImplicitWait = 3;
         const int ImplicitWaitInterval = 1000;
 
         static AutomationElement FindBy(AutomationElement root, int wait, PropertyCondition condition)

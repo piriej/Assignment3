@@ -30,7 +30,7 @@ namespace Library.Features.Borrowing
         public bool Active
         {
             get { return _active; }
-            set { SetProperty(ref this._active, value); }
+            set { SetProperty(ref this._active, value);     }
         }
 
         #endregion
@@ -42,13 +42,13 @@ namespace Library.Features.Borrowing
         #region Constructors
 
         public BorrowingViewModel(
-            IRegionManager regionManager
-            , ICardReader2 cardReader
-            , IBorrowController  controller)
+            //IRegionManager regionManager
+            //, ICardReader2 cardReader
+             IBorrowController  controller)
         {
-            CardReader = cardReader;
+            //CardReader = cardReader;
             Controller = controller;
-            _regionManager = regionManager;
+            //_regionManager = regionManager;
             this.BorrowCommand = new DelegateCommand(controller.WaitForCardSwipe).ObservesCanExecute(p => Active);
         }
 

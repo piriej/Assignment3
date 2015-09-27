@@ -1,10 +1,9 @@
 ﻿using Library.Features.Borrowing;
-using Library.Messages.Payload;
 using Prism.Events;
 
 namespace Library.Features.ScanBook
 {
-    class ScanBookController
+    public class ScanBookController : IScanBookController
     {
         public IEventAggregator EventAggregator { get; set; }
 

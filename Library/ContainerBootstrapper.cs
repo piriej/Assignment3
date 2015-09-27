@@ -107,7 +107,8 @@ namespace Library
 
             builder.RegisterType<MainMenuController>().SingleInstance();
             builder.RegisterType<MainWindowController>().As<IMainWindowController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
-            builder.RegisterType<CardReaderController>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<ScanBookController>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderController>().As<ICardReaderController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<BorrowController>()
                 .AsImplementedInterfaces()
                 .SingleInstance()
@@ -115,7 +116,7 @@ namespace Library
                 //.OnActivated(x => x.Context.Resolve<ICardReader2>().SubscribeToBorrower(x.Context.Resolve<IEventAggregator>()));
 
             builder.RegisterType<MainWindowViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
-            builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();
+            builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); // Fix autowired props string. 
             builder.RegisterType<BorrowingViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<ScanBookViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 

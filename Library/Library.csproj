@@ -160,12 +160,12 @@
     <Compile Include="Features\CardReader\CardReaderModel.cs" />
     <Compile Include="Features\CardReader\CardReaderViewModel.cs" />
     <Compile Include="ApplicationInfratructure\RegionNames.cs" />
-    <Compile Include="ApplicationInfratructure\CheckedMediator.cs" />
     <Compile Include="Features\CardReader\ICardReader.cs" />
     <Compile Include="Features\CardReader\ICardReaderController.cs" />
     <Compile Include="Features\CardReader\ICardReaderModel.cs" />
     <Compile Include="Features\CardReader\ICardReaderViewModel.cs" />
     <Compile Include="Features\MainWindow\MainWindowController.cs" />
+    <Compile Include="Features\ScanBook\IScanBookController.cs" />
     <Compile Include="Features\ScanBook\ScanBookController.cs" />
     <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
     <Compile Include="Features\StringToIntValidationRule.cs" />
