@@ -31,6 +31,29 @@ namespace AcceptanceTests.PageObjects
             textBoxPattern?.SetValue(text);
         }
 
+        protected string GetLabelText(string elementName)
+        {
+            var automationElement = Page.FindById(elementName);
+            if (automationElement == null)
+                throw new ElementNotAvailableException("Cannot find element " + elementName);
+
+            object patternObj;
+            if (automationElement.TryGetCurrentPattern(ValuePattern.Pattern, out patternObj))
+            {
+                var valuePattern = (ValuePattern)patternObj;
+                return valuePattern.Current.Value;
+            }
+            else if (automationElement.TryGetCurrentPattern(TextPattern.Pattern, out patternObj))
+            {
+                var textPattern = (TextPattern)patternObj;
+                return textPattern.DocumentRange.GetText(-1).TrimEnd('\r'); 
+            }
+            else
+            {
+                return automationElement.Current.Name;
+            }
+        }
+
         protected void ClickElement(string elementName)
         {
             var automationElement = Page.FindById(elementName);

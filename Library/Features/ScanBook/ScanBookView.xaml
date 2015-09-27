@@ -12,11 +12,11 @@
         <GroupBox x:Name="groupBox" Header="Borrower Details" Margin="10,30,0,0">
             <Grid HorizontalAlignment="Left" Height="260" Margin="0,5,0,0" VerticalAlignment="Top" Width="435">
                 <Label x:Name="label1" Content="Id:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                <Label x:Name="idLabel" Content="{Binding BorrowerId}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,0,0,0" Foreground="#FF120DE2" FontSize="13.333" />
+                <Label x:Name="BorrowerIdLabel" Content="{Binding BorrowerId}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,0,0,0" Foreground="#FF120DE2" FontSize="13.333" Height="26" Width="25" />
                 <Label x:Name="label3" Content="Name:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="60,0,0,0"/>
-                <Label x:Name="nameLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="100,0,0,0" Foreground="#FF1914ED" FontSize="13.333"/>
+                <Label x:Name="NameLabel" Content="{Binding Name}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,190,0" Foreground="#FF1914ED" FontSize="13.333" Height="26" Width="121"/>
                 <Label x:Name="label5" Content="Contact:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,0,0,0"/>
-                <Label x:Name="contactLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="300,0,0,0" FontSize="13.333" Foreground="#FF0D21F6" />
+                <Label x:Name="ContactLabel" Content="{Binding Contact}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="328,0,0,0" FontSize="13.333" Foreground="#FF0D21F6" Height="26" Width="97" />
                 <GroupBox x:Name="groupBox1" Header="Borrowing Restrictions" HorizontalAlignment="Left" Height="97" Margin="0,31,0,0" VerticalAlignment="Top" Width="435">
                     <Grid Margin="0,0,0.4,-4.6">
                         <Label x:Name="overDueLoanLabel" Content="" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C"/>

@@ -78,10 +78,12 @@
     <Compile Include="PageObjects\Infrastructure\ContentRegionBaseObject.cs" />
     <Compile Include="PageObjects\Pages\MainWindowPageObject.cs" />
     <Compile Include="PageObjects\Infrastructure\PageObjectBase.cs" />
+    <Compile Include="PageObjects\Regions\ScanBookRegion.cs" />
     <Compile Include="PageObjects\Regions\SwipeCardRegion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\Act\CardReaderActSteps.cs" />
     <Compile Include="Steps\Arrange\SwipeWindowArrangeSteps.cs" />
+    <Compile Include="Steps\Assert\BorrowingAssertions.cs" />
     <Compile Include="Steps\TestManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +107,7 @@
       <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Steps\Assert\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

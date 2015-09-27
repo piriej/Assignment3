@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Windows;
+using Library.Features.Borrowing;
 using Library.Interfaces.Controllers.Borrow;
+using Library.Messages;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Regions;
@@ -68,7 +71,8 @@ namespace Library.Features.CardReader
         public System.Windows.Input.ICommand CloseWindowCommand { get; set; }
         void CloseWindow()
         {
-            Console.WriteLine(@"detected Window closing");
+            Application.Current.Shutdown();
+            EventAggregator.GetEvent<CloseApplicationEvent>().Publish(new ClosingModel());
         }
 
         public System.Windows.Input.ICommand CardSwipedCmd { get; set; }

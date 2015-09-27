@@ -3,9 +3,9 @@ using Library.ApplicationInfratructure;
 
 namespace AcceptanceTests.PageObjects.Pages
 {
-    public class PageObject : PageObjectBase
+    public class MainWindowPageObject : PageObjectBase
     {
-        public PageObject() : base(ViewNames.MainWindowView, new BorrowingRegion())
+        public MainWindowPageObject() : base(ViewNames.MainWindowView, new BorrowingRegion())
         {
         }
     }

@@ -42,13 +42,9 @@ namespace Library.Features.Borrowing
         #region Constructors
 
         public BorrowingViewModel(
-            //IRegionManager regionManager
-            //, ICardReader2 cardReader
              IBorrowController  controller)
         {
-            //CardReader = cardReader;
             Controller = controller;
-            //_regionManager = regionManager;
             this.BorrowCommand = new DelegateCommand(controller.WaitForCardSwipe).ObservesCanExecute(p => Active);
         }
 

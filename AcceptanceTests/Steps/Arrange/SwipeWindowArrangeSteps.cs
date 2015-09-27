@@ -20,7 +20,7 @@ namespace AcceptanceTests.Steps.Arrange
         public void GivenTheLoanSelfServiceStationPromptsTheUserToScanTheirCard()
         {
             // Get the page object for the current page.
-            var mainWindowPageObject = new PageObjects.Pages.PageObject();
+            var mainWindowPageObject = new PageObjects.Pages.MainWindowPageObject();
 
             // Ensure the borrow region is visible.
             mainWindowPageObject.ContentRegionIs<BorrowingRegion>().Should().BeTrue();
@@ -36,6 +36,7 @@ namespace AcceptanceTests.Steps.Arrange
 
             // Ensure the user is prompted to swipe their card.
             cardReaderPageObject.IsCardDataBoxEnabled().Should().BeTrue("The user has not been prompted for the scanner, the field is disabled");
+
 
             // Store these objects in the container for later reference.
             objectContainer.RegisterInstanceAs(cardReaderPageObject);

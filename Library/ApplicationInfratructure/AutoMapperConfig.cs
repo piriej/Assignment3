@@ -2,6 +2,7 @@
 using Library.Entities;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
+using Library.Features.ScanBook;
 
 namespace Library.ApplicationInfratructure
 {
@@ -11,8 +12,11 @@ namespace Library.ApplicationInfratructure
         {
             Mapper.CreateMap<CardReaderViewModel, CardReaderModel>();
             Mapper.CreateMap<Member, BorrowingModel>();
-
-            Mapper.AssertConfigurationIsValid();    
+            Mapper.CreateMap<BorrowingModel, ScanBookViewModel>()
+                .ForMember(dest => dest.BorrowerId, opt => opt.MapFrom(src => src.ID))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
+                .ForMember(dest => dest.Contact, opt => opt.MapFrom(src => src.ContactPhone));
+            //Mapper.AssertConfigurationIsValid();    
         }
     }
 }

@@ -153,6 +153,7 @@
     <Compile Include="Entities\Member.cs" />
     <Compile Include="Features\Borrowing\BorrowController.cs" />
     <Compile Include="Features\Borrowing\BorrowingModel.cs" />
+    <Compile Include="Features\Borrowing\ClosingModel.cs" />
     <Compile Include="Features\Borrowing\EborrowStateManager.cs" />
     <Compile Include="Features\Borrowing\IBorrowController.cs" />
     <Compile Include="Features\Borrowing\IBorrowingViewModel.cs" />
@@ -334,9 +335,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="BorrowFeature\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

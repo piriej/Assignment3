@@ -1,4 +1,6 @@
-﻿using AcceptanceTests.PageObjects.Pages;
+﻿using AcceptanceTests.PageObjects;
+using AcceptanceTests.PageObjects.Pages;
+using BoDi;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 
@@ -7,10 +9,14 @@ namespace AcceptanceTests.Steps.Act
     [Binding]
     public class CardReaderActSteps
     {
-        readonly CardReaderPageObject _cardReaderPageObject;
+        private readonly IObjectContainer _objectContainer;
+        MainWindowPageObject _mainWindowPageObject;
+        CardReaderPageObject _cardReaderPageObject;
 
-        public CardReaderActSteps(CardReaderPageObject cardReaderPageObject)
+        public CardReaderActSteps(IObjectContainer objectContainer, CardReaderPageObject cardReaderPageObject, MainWindowPageObject mainWindowPageObject)
         {
+            _objectContainer = objectContainer;
+            _mainWindowPageObject = mainWindowPageObject;
             _cardReaderPageObject = cardReaderPageObject;
         }
 
@@ -23,10 +29,16 @@ namespace AcceptanceTests.Steps.Act
             // Enter the scanned value into the box.
             _cardReaderPageObject.SetTextOnCardDataBox(scannedCard);
 
+            // Click the swipe button.
             _cardReaderPageObject.ClickSwipeCard();
+
+            // The main window should now have the scan book view.
+            _mainWindowPageObject.ContentRegionIs<ScanBookRegion>().Should().BeTrue();
+
+            var scanBookRegion = _mainWindowPageObject.ContentRegion<ScanBookRegion>();
+
+            // Save the current scan book region in the di container.
+            _objectContainer.RegisterInstanceAs(scanBookRegion);
         }
-
-
-
     }
 }

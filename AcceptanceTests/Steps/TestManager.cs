@@ -1,13 +1,24 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Windows.Automation;
+using AcceptanceTests.Help;
 using BoDi;
+using Library.ApplicationInfratructure;
 using TechTalk.SpecFlow;
-using Xunit;
+
 
 namespace AcceptanceTests
 {
+   
+
     [Binding]
     public class TestManager
     {
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool DestroyWindow(IntPtr hwnd);
+
         readonly IObjectContainer _objectContainer;
 
         public TestManager(IObjectContainer objectContainer)
@@ -26,7 +37,10 @@ namespace AcceptanceTests
         public void TearDown()
         {
             var process = _objectContainer.Resolve<Process>();
- 
+
+            var element = AutomationElement.RootElement.FindByName(ViewNames.MainWindowView);
+            element.SetFocus();
+
             process?.CloseMainWindow();
             process?.Close();
         }

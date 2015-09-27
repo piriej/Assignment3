@@ -60,7 +60,7 @@ namespace IntegrationTests
         }
 
         [Theory, ContainerData]
-        public void SwipeCard_WithValidBorrowerId_ReturnsBorrowerDetails(IBorrowController borrowController, IScanBookController scanBookController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController)
+        public void SwipeCard_WithValidBorrowerId_ReturnsBorrowerDetails(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController)
         {
             AutoMapperConfig.RegisterMaps();
 
@@ -72,6 +72,7 @@ namespace IntegrationTests
 
             // When the card is swiped.
             cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
+
 
 
         }
