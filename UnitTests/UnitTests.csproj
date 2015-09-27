@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\BorrowControllerTests.cs" />
+    <Compile Include="DAOTests\LoanDaoTests.cs" />
     <Compile Include="DAOTests\MemberDAOTests.cs" />
     <Compile Include="StructuralTests\AutoNSubstituteDataAttribute.cs" />
     <Compile Include="StructuralTests\AutoNSubstitutePropertyDataAttribute.cs" />

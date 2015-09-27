@@ -9,6 +9,15 @@ namespace Library.Daos
 {
     public class MemberDAO : IMemberDAO
     {
+        IMemberHelper _memberHelper;
+
+        public MemberDAO(IMemberHelper memberHelper) :this()
+        {
+            if (memberHelper == null)
+                throw new ArgumentException("Helper can\'t be null.");
+
+            _memberHelper = memberHelper;
+        }
         public MemberDAO()
         {
             MemberList = new List<IMember>();
