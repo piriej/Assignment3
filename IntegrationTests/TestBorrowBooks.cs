@@ -42,25 +42,25 @@ namespace IntegrationTests
         //    cardReaderViewModel.Enabled.Should().BeTrue();
         //}
 
+        //[Theory, ContainerData]
+        //public void ReadCard_WhenRequested_ActivatesCardReader(IBorrowingViewModel borrowingViewModel, ICardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
+        //{
+        //    //Card reader should initially be disabled.
+        //    cardReaderViewModel.Enabled.Should().BeFalse();
+
+        //    // By default we Should have an active borrow button.
+        //    borrowingViewModel.Active.Should().BeTrue();
+
+        //    // A user requests to borrow.
+        //    borrowingViewModel.Active = false;
+        //    //borrowingViewModel.BorrowCommand.Execute(null);
+
+        //    // Then the Card reader is enabled.
+        //    cardReaderViewModel.Enabled.Should().BeTrue();
+        //}
+
         [Theory, ContainerData]
-        public void ReadCard_WhenRequested_ActivatesCardReader(IBorrowingViewModel borrowingViewModel, ICardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
-        {
-            //Card reader should initially be disabled.
-            cardReaderViewModel.Enabled.Should().BeFalse();
-
-            // By default we Should have an active borrow button.
-            borrowingViewModel.Active.Should().BeTrue();
-
-            // A user requests to borrow.
-            borrowingViewModel.Active = false;
-            //borrowingViewModel.BorrowCommand.Execute(null);
-
-            // Then the Card reader is enabled.
-            cardReaderViewModel.Enabled.Should().BeTrue();
-        }
-
-        [Theory, ContainerData]
-        public void SwipeCard_WithValidBorrowerId_ReturnsBorrowerDetails(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController)
+        public void SwipeCard_WithValidBorrowerId_SetsBorrowerDetailsForBookScanner(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
         {
             AutoMapperConfig.RegisterMaps();
 
@@ -73,8 +73,9 @@ namespace IntegrationTests
             // When the card is swiped.
             cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
 
-
-
+            scanBookViewModel.BorrowerId.Should().Be(1);
+            scanBookViewModel.Name.Should().Be("fName1 lName1");
+            scanBookViewModel.Contact.Should().Be("0001");
         }
     }
 
