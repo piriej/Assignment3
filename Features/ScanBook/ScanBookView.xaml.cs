@@ -11,5 +11,6 @@ namespace Library.Features.ScanBook
         {
             InitializeComponent();
         }
+
     }
 }

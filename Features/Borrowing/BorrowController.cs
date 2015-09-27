@@ -7,32 +7,21 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Controls;
+using AutoMapper;
+using Library.Entities;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
-using ICardReader = Library.Interfaces.Hardware.ICardReader;
+using Library.Features.MainWindow;
+using Library.Features.ScanBook;
+using Library.Messages.Payload;
+using Prism.Events;
 
 namespace Library.Controllers.Borrow
 {
-    public interface IBorrowController
-    {
-        IMemberDAO MemberDao { get; set; }
-        void ListenToCardReader();
-    }
-
-    public static class EborrowStateExtension
-    {
-        public static EBorrowState Evaluate(this EBorrowState state, bool overdue, bool atLoanLimit, bool hasFines, bool overFineLimit)
-        {
-            if (overdue || atLoanLimit || hasFines || overFineLimit)
-                return EBorrowState.BORROWING_RESTRICTED;
-            else
-                return EBorrowState.SCANNING_BOOKS;
-            //    public enum EBorrowState { CREATED, INITIALIZED, SCANNING_BOOKS, CONFIRMING_LOANS, COMPLETED, BORROWING_RESTRICTED, CANCELLED }
-        }
-    }
-
     public class BorrowController : IBorrowListener, /*ICardReaderEvents,*/ IScannerListener, IBorrowController, IBorrowEvents
     {
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IMainWindowController _mainWindowController;
         readonly IDisplay _display;
         UserControl _previousDisplay;
         readonly ABorrowControl _ui;
@@ -49,89 +38,76 @@ namespace Library.Controllers.Borrow
         List<IBook> _bookList;
         List<ILoan> _loanList;
 
-        // Managed Members......
+        #region Injected properties
         IBookDAO BookDao { get; set; }
         ILoanDAO LoanDao { get; set; }
         public IMemberDAO MemberDao { get; set; }
-        //public ICardReader CardReader { get; set; }
+        public IMainWindowController MainController { get; set; }
+        public IEventAggregator EventAggregator { get; set; }
+        #endregion
+
+
         public ICardReaderEvents CardReaderEvents { get; set; }
         public IBorrowingViewModel ViewModel { get; set; }
 
         public event EventHandler<EBorrowState> setEnabled;
-        //public event EventHandler<EBorrowState> NotifyBorrowState;
 
-        // TODO fix resolution to remove this constructor.
-        public BorrowController(IMemberDAO memberDao/*, ICardReaderEvents cardReaderEvents*/) //: this(null, reader,null,null,cardReaderEvents)
-        {
-           // _state = EBorrowState.CREATED; - default state
-        
-
-        }
-
-        //public BorrowController(IDisplay display, ICardReader reader, IScanner scanner, IPrinter printer,
-        //                            ICardReaderEvents cardReaderEvents)
-        //{
-        //    CardReaderEvents = cardReaderEvents;
-        //    _display = display;
-        //    _reader = reader;
-        //    _scanner = scanner;
-        //    _printer = printer;
-
-        //    _ui = new BorrowControl(this);
-
-        //    _state = EBorrowState.CREATED;
-        //    CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
-        //}
-
-
-        public void initialise()
-        {
-            Console.WriteLine("BorrowController Initialising");
-            _previousDisplay = _display.Display;
-            Console.WriteLine("BorrowController Initialising, previous display = " + _previousDisplay);
-            _display.Display = _ui;
-
-        }
-
-        public void ListenToCardReader()
-        {
-            CardReaderEvents.NotifyCardSwiped += OnCardSwipe;
-        }
 
         public void cancelled()
         {
             close();
         }
 
-        // Keeping this function so I don't change too much.
-        public void OnCardSwipe(object sender, CardReaderModel cardReaderModel)
+        public void WaitForCardSwipe()
         {
-            int memberId;
-            bool parsed = Int32.TryParse(cardReaderModel.BorrowerId, out memberId);
-            cardSwiped(memberId);
+            // Move from CREATED to INITIALISED State, and create a message payload.
+            var nextState = EborrowStateManager.CurrentState.ChangeState();
+
+            // Create a new borrowing model
+            var borrowingModel = new BorrowingModel();
+
+            // Raise the change of state event to let listeners know that the borrow button
+            // has been pressed.
+            EventAggregator.GetEvent<Messages.BorrowingStateEvent>().Publish(borrowingModel);
+
+            // Listen for the card reader swipe event.
+            EventAggregator.GetEvent<Messages.CardReaderSwipedEvent>().Subscribe(CardSwiped);
+
+            // Disable the button whilst waiting.
+            ViewModel.Active = false;
         }
 
-        // Keeping this function so I don't change too much, should all be in oncardswipe.
-        public void cardSwiped(int memberID)
+        public void CardSwiped(ICardReaderModel cardReaderModel)
         {
-            var borrower = MemberDao.GetMemberByID(memberID);
-            if (borrower == null)
+            var borrowerId = int.Parse(cardReaderModel.BorrowerId);
+
+            // Prepare a message payload containing the users member.
+            var member = MemberDao.GetMemberByID(borrowerId);
+            //var payload = new BorrowingStatusPayload { Member = MemberDao.GetMemberByID(borrowerId) };
+
+            if (member == null)
             {
-                // Notify the user that couldn't be found.
+                //TODO: Notify the user that couldn't be found.??
                 return;
             }
 
-            var overdue = borrower.HasOverDueLoans;
-            var atLoanLimit = borrower.HasReachedLoanLimit;
-            var hasFines = borrower.HasFinesPayable;
-            var overFineLimit = borrower.HasReachedFineLimit;
+            // Map the member to a borrowing model.
+            var model = Mapper.Map<BorrowingModel>(member);
 
-            setState(_state.Evaluate(overdue, atLoanLimit, hasFines, overFineLimit));
-
-         
+            // Decide the next state based on the members borrowing status, deliver the payload and navigate as appropriate.
+            var nextState = EborrowStateManager.CurrentState.ChangeState(member);
+            switch (nextState)
+            {
+                case EBorrowState.SCANNING_BOOKS:
+                    EventAggregator.GetEvent<Messages.BorrowingStateEvent>().Publish(model);
+                    MainController.NavigateTo<ScanBookView>();
+                    break;
+                case EBorrowState.BORROWING_RESTRICTED:
+                    //TODO: Where to then? - BorrowingRestrictredview
+                    break;
+            }
 
         }
-
 
         public void bookScanned(int barcode)
         {
@@ -181,6 +157,6 @@ namespace Library.Controllers.Borrow
             return bld.ToString();
         }
 
-  
+
     }
 }

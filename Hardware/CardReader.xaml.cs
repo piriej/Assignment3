@@ -8,7 +8,7 @@ namespace Library.Hardware
     /// <summary>
     /// Interaction logic for CardReader.xaml
     /// </summary>
-    public partial class CardReader : Window, ICardReader
+    public partial class CardReader : Window/*, ICardReader*/
     {
 
 

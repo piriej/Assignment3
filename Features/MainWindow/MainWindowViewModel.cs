@@ -4,12 +4,19 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Library.Interfaces.Hardware;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 
 namespace Library.Features.MainWindow
 {
-    public class MainWindowViewModel : BindableBase, IDisplay
+    public interface IMainWindowViewModel
     {
+    }
+
+    public class MainWindowViewModel : BindableBase, IDisplay, IMainWindowViewModel
+    {
+        IEventAggregator _eventAggregator;
+
         #region Injected Properties
 
         public ICardReader CardReader { get; set; }
@@ -19,8 +26,10 @@ namespace Library.Features.MainWindow
         #endregion
 
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<Messages.CloseApplicationEvent>().Subscribe( x => CloseWindow());
             CloseWindowCommand = new DelegateCommand(CloseWindow);
         }
 

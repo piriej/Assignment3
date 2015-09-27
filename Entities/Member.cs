@@ -1,74 +1,142 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Library.Interfaces.Entities;
 
 namespace Library.Entities
 {
     public class Member : IMember
     {
+        private const int LoanLimit = 5;
+        private const double FineLimit = 10D;
 
-        // hasOverDueLoans: boolean
-        // returns true if: 
-        // any existing loan is overdue
-        // returns false otherwise
-        public bool HasOverDueLoans { get; }
+        private readonly List<ILoan> _loans;
 
-        
-        // hasReachedLoanLimit: boolean 
-        // returns true if: 
-        // number of existing loans equal LOAN_LIMIT 
-        // returns false otherwise 
-        public bool HasReachedLoanLimit { get; }
+        private readonly int _id;
+        private readonly string _firstName;
+        private readonly string _lastName;
+        private readonly string _contactPhone;
+        private readonly string _emailAddress;
+
+        private MemberState _state;
+
+        public bool HasOverDueLoans => Loans.Any(loan => loan.IsOverDue);
+
+        public bool HasReachedLoanLimit => _loans.Count >= LoanLimit;
+
+        public bool HasFinesPayable => FineAmount > 0D;
+
+        public bool HasReachedFineLimit => FineAmount >= FineLimit;
+
+        public float FineAmount { get; private set; }
+
+        public List<ILoan> Loans => new List<ILoan>(_loans);
+
+        public string FirstName => _firstName;
+
+        public string LastName => _lastName;
+
+        public string ContactPhone => _contactPhone;
+
+        public string EmailAddress => _emailAddress;
+
+        public int ID => _id;
+
+        public MemberState State => _state;
+
+        private bool BorrowingAllowed => !(HasReachedLoanLimit || HasReachedFineLimit || HasOverDueLoans);
 
 
-        public bool HasFinesPayable { get; }
-        public bool HasReachedFineLimit { get; }
-        public float FineAmount { get; }
-        public int ID { get; }
-        public MemberState State { get; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string ContactPhone { get; set; }
-        public string EmailAddress { get; set; }
-        int Id { get; set; }
-        
-        //        Constructor : Member
-        //Parameters: 
-        //firstName:string, lastName:string, contactPhone :string, emailAddress:string, id:int
-        //throws IllegalArgumentException if: 
-        //any of firstName, lastName, contactPhone
-        public Member(string firstName, string lastName, string contactPhone, string emailAddress, int id)
+        public Member(string firstName, string lastName, string contactPhone, string email, int memberId)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            ContactPhone = contactPhone;
-            EmailAddress = emailAddress;
-            Id = id;
+            if (!(string.IsNullOrEmpty(firstName)
+                  || !string.IsNullOrEmpty(lastName)
+                  || string.IsNullOrEmpty(contactPhone)
+                  || string.IsNullOrEmpty(email))
+                || memberId < 0)
+                throw new ArgumentException("Error in parameter list.");
+
+            _firstName = firstName;
+            _lastName = lastName;
+            _contactPhone = contactPhone;
+            _emailAddress = email;
+            _id = memberId;
+
+            _state = MemberState.BORROWING_ALLOWED;
+
+            _loans = new List<ILoan>();
+
+            FineAmount = 0f;
         }
 
         public void AddFine(float fine)
         {
-            throw new NotImplementedException();
+            if (fine < 0D)
+                throw new ArgumentException("Error: fine can't be negative.");
+
+            FineAmount += fine;
+
+            CheckState();
+        }
+
+        private void CheckState()
+        {
+            _state = BorrowingAllowed ? MemberState.BORROWING_ALLOWED : MemberState.BORROWING_DISALLOWED;
         }
 
         public void PayFine(float payment)
         {
-            throw new NotImplementedException();
+            if (payment > FineAmount || payment < 0D)
+                throw new ArgumentException("Error: Payment must be positive and cannot exceed the fine amount.");
+
+            FineAmount -= payment;
+
+            CheckState();
         }
 
         public void AddLoan(ILoan loan)
         {
-            throw new NotImplementedException();
+            if (!BorrowingAllowed)
+                throw new ApplicationException($"Borrowing not allowed invalid state: {_state}");
+
+            if (loan == null)
+                throw new ArgumentException("Error: Loan is null.");
+
+            _loans.Add(loan);
+
+            CheckState();
         }
 
-        public List<ILoan> Loans { get; }
         public void RemoveLoan(ILoan loan)
         {
-            throw new NotImplementedException();
+            if (loan == null)
+                throw new ArgumentException("Error: loan is null.");
+
+            if (!_loans.Contains(loan))
+                throw new ArgumentException("Error: Loan doesn't exist.");
+
+            _loans.Remove(loan);
+
+            CheckState();
+        }
+
+        public override string ToString()
+        {
+            var propertyList = new Dictionary<string, string>
+            {
+                {"Id", _id.ToString()},
+                {"Name", _firstName + " " + _lastName},
+                {"Contact Phone", _contactPhone},
+                {"Email Address", _emailAddress},
+                {"Outstanding Charges", $"{FineAmount:$0.00}"}
+            };
+
+            var result = string.Join(Environment.NewLine, propertyList.Select(row => $"{row.Key,-20}:\t{row.Value,5}"));
+            return result;
         }
 
         /*
-        
+
 Entities 
 
 Member – implements IMember
@@ -84,7 +152,7 @@ returns false otherwise
 
 hasReachedFineLimit: boolean 
 returns true if:
- 	the fines owing by the Member is equals or is greater than FINE_MAX 
+the fines owing by the Member is equals or is greater than FINE_MAX 
 returns false otherwise 
 
 getFineAmount: float 
@@ -138,6 +206,6 @@ getID: int
 returns the unique id of the member 
 
 
-    */
+*/
     }
 }

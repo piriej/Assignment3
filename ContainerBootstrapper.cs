@@ -1,31 +1,32 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Globalization;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Forms.VisualStyles;
 using Autofac;
-using AutoMapper;
+using Autofac.Core;
+using log4net;
 using Library.ApplicationInfratructure;
+using Library.ApplicationInfratructure.Modules;
 using Library.Controllers;
 using Library.Controllers.Borrow;
 using Library.Daos;
+using Library.Entities;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
 using Library.Features.MainWindow;
 using Library.Features.ScanBook;
 using Library.Features.SwipeCard;
 using Library.Hardware;
-using Library.Interfaces.Daos;
 using Library.Interfaces.Hardware;
-using MediatR;
+using Ploeh.AutoFixture;
 using Prism.Autofac;
+using Prism.Events;
 using Prism.Modularity;
 using Prism.Mvvm;
-using ShortBus;
-using ICardReader = Library.Features.CardReader.ICardReader;
-using IMediator = ShortBus.IMediator;
-using Mediator = ShortBus.Mediator;
+using Module = Autofac.Module;
 
 namespace Library
 {
@@ -39,9 +40,13 @@ namespace Library
             Type contentRegionModule = typeof(ContentRegionModule);
             ModuleCatalog.AddModule(new ModuleInfo(contentRegionModule.Name, contentRegionModule.AssemblyQualifiedName));
         }
-
+        private static readonly ILog log = LogManager.GetLogger(typeof(ContainerBootstrapper));
+     
         protected override DependencyObject CreateShell()
         {
+
+            log4net.Config.XmlConfigurator.Configure();
+
             AutoMapperConfig.RegisterMaps();
 
             ViewModelLocationProvider.SetDefaultViewModelFactory((t) => Container.Resolve(t));
@@ -55,14 +60,14 @@ namespace Library
                 // Convention: The name of the view is the same as the name of the namespace
                 var assemblyName = viewType.GetTypeInfo().Assembly.GetName().Name;
                 var featuresRoot = "Features";
-                var featureFolder = viewType.Name.Replace("View","");
+                var featureFolder = viewType.Name.Replace("View", "");
                 var viewIdentifier = viewType.Name;
                 var modelSuffix = "Model";
                 var featureFullName = $"{assemblyName}.{featuresRoot}.{featureFolder}.{viewIdentifier}{modelSuffix}, {viewAssemblyName}";
 
                 var viewModelWithFeatureConvention = Type.GetType(featureFullName);
                 var viewModelInterfaceWithFeatureConvention = (viewModelWithFeatureConvention?.GetInterfaces())?.LastOrDefault(x => x != typeof(INotifyPropertyChanged));
-                return viewModelInterfaceWithFeatureConvention??viewModelWithFeatureConvention;
+                return viewModelInterfaceWithFeatureConvention ?? viewModelWithFeatureConvention;
             });
 
             return Container.Resolve<MainWindowView>();
@@ -80,29 +85,41 @@ namespace Library
         protected override void ConfigureContainerBuilder(ContainerBuilder builder)
         {
             base.ConfigureContainerBuilder(builder);
+            builder.Configure();
+        }
 
-            //builder.RegisterType<CardReader>().SingleInstance();
-            // IBorrowEvents is not registered when constructing CardReaderViewModel, IBorrowEvents is implemented by BorrowControler
+    }
+
+    public static class IOConfig
+    {
+        public static void initLog4()
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(IOConfig));
+        public static ContainerBuilder Configure(this ContainerBuilder builder)
+        {
+            builder.RegisterModule<LogRequestsModule>();
 
             builder.RegisterType<Scanner>().SingleInstance().As<IScanner>();
             builder.RegisterType<Printer>().SingleInstance().As<IPrinter>();
 
             builder.RegisterType<MainMenuController>().SingleInstance();
             builder.RegisterType<MainWindowController>().As<IMainWindowController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<ScanBookController>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderController>().As<ICardReaderController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<BorrowController>()
                 .AsImplementedInterfaces()
                 .SingleInstance()
-                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies)
-                .OnActivated(x => x.Context.Resolve<CardReaderViewModel>().ListenToBorrower(x.Instance));
+                .PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+                //.OnActivated(x => x.Context.Resolve<ICardReader2>().SubscribeToBorrower(x.Context.Resolve<IEventAggregator>()));
 
-            // View Models
-            builder.RegisterType<MainWindowViewModel>().SingleInstance().As<IDisplay>().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
-            builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();
-            builder.RegisterType<BorrowingViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); 
-            builder.RegisterType<ScanBookViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<MainWindowViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); // Fix autowired props string. 
+            builder.RegisterType<BorrowingViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<ScanBookViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
-            //builder.RegisterType<BookDAO>().As<IBookDAO>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
-            //builder.RegisterType<LoanDAO>().As<ILoanDAO>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<MemberDAO>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
             builder.RegisterType<MainWindowView>().SingleInstance();
@@ -110,44 +127,32 @@ namespace Library
             builder.RegisterType<SwipeCardView>().SingleInstance();
             builder.RegisterType<CardReaderView>().SingleInstance();
 
-            builder.RegisterType<ContentRegionModule>();
+            //Entities
+            //builder.RegisterType<Book>().AsImplementedInterfaces();
+            //builder.RegisterType<Loan>().AsImplementedInterfaces();
+            //builder.RegisterType<Member>().AsImplementedInterfaces();
 
-            //builder.RegisterType<Borro>();
+            builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 
+            builder.RegisterType<ContentRegionModule>();  // Note this is WPF module.
 
+            builder.RegisterModule(new MockDataProviderModule());
 
-            // Mediator Module here...
-            var assembly = typeof(ScanBookViewModel).Assembly;
-
-            builder.RegisterAssemblyTypes(assembly)
-                .AsClosedTypesOf(typeof(IRequestHandler<,>))
-                .AsImplementedInterfaces();
-
-            builder.RegisterAssemblyTypes(assembly)
-                .AsClosedTypesOf(typeof(IAsyncRequestHandler<,>))
-                .AsImplementedInterfaces();
-
-            builder.RegisterAssemblyTypes(assembly)
-                .AsClosedTypesOf(typeof(IQueryHandler<,>))
-                .AsImplementedInterfaces();
-
-            builder.RegisterType<Mediator>().AsImplementedInterfaces().InstancePerLifetimeScope();
-            //builder.RegisterType<CheckedMediator>().AsImplementedInterfaces().InstancePerLifetimeScope();
-
-            // to allow ShortBus to resolve lifetime-scoped dependencies properly, 
-            // we really can't use the default approach of setting the static (global) dependency resolver, 
-            // since that resolves instances from the root scope passed into it, rather than 
-            // the current lifetime scope at the time of resolution.  
-            // Resolving from the root scope can cause resource leaks, or in the case of components with a 
-            // specific scope affinity (AutofacWebRequest, for example) it would fail outright, 
-            // since that scope doesn't exist at the root level.
-
-            builder.RegisterType<ShortBus.Autofac.AutofacDependencyResolver>()
-                .AsImplementedInterfaces()
-                .InstancePerLifetimeScope();
-            builder.RegisterType<Mediator>().As<IMediator>();
+            return builder;
         }
+    }
 
+    public class LogRequestsModule : Module
+    {
+        private static readonly ILog log = LogManager.GetLogger(typeof(LogRequestsModule));
+        protected override void AttachToComponentRegistration(
+          IComponentRegistry componentRegistry,
+          IComponentRegistration registration)
+        {
+            base.AttachToComponentRegistration(componentRegistry, registration);
+            registration.Preparing += (sender, args) =>
+              log.Debug($@"Resolving concrete type {args.Component.Activator.LimitType}");
+        }
     }
 }
 

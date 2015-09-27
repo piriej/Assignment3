@@ -10,11 +10,11 @@
         mc:Ignorable="d"
         Title="CardReader" Height="300" Width="300" Left="50" Top="50"
        >
-    <!--<i:Interaction.Triggers>
+    <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding CloseWindowCommand}" />
         </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+    </i:Interaction.Triggers>
     <!--Closing="Window_Closing"-->
     <Grid>
         <Label x:Name="TitleLabel" Content="CardReader" Margin="56,10,0,0" Style="{StaticResource Title-Label}"/>

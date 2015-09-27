@@ -9,11 +9,31 @@ namespace Library.Daos
 {
     public class MemberDAO : IMemberDAO
     {
-        public List<IMember> MemberList { get; } = new List<IMember>();
+        IMemberHelper _memberHelper;
+
+        public MemberDAO(IMemberHelper memberHelper) :this()
+        {
+            if (memberHelper == null)
+                throw new ArgumentException("Helper can\'t be null.");
+
+            _memberHelper = memberHelper;
+        }
+        public MemberDAO()
+        {
+            MemberList = new List<IMember>();
+        }
+
+        public MemberDAO(List<IMember> mockData )
+        {
+            MemberList = mockData;
+        }
+
+        public List<IMember> MemberList { get; } 
 
         public IMember AddMember(string firstName, string lastName, string contactPhone, string emailAddress)
         {
-            var member = new Member(firstName, lastName, contactPhone, emailAddress, MemberList.Count);
+            var member = new Member( firstName, lastName, contactPhone, emailAddress, MemberList.Count);
+
             MemberList.Add(member);
             return member;
         }
