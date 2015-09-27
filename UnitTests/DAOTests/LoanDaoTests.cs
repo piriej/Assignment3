@@ -59,11 +59,11 @@ namespace UnitTests.DAOTests
 
             // Act
             var loan = _loanDao.Invoking(x => x.CreateLoan(borrower, book, DateTime.Today, DateTime.Today.AddDays(-1)))
-                 .ShouldThrow<ArgumentException>();
+                .ShouldThrow<ArgumentException>();
         }
 
 
-        List<ILoan> AddLoans(IList<IMember> borrowers, IList<IBook> books)
+        private List<ILoan> AddLoans(IList<IMember> borrowers, IList<IBook> books)
         {
             var loanList = new List<ILoan>();
             for (var count = 0; count < borrowers.Count; count++)
@@ -119,7 +119,8 @@ namespace UnitTests.DAOTests
 
 
         [Theory, AutoNSubstituteData]
-        public void GetLoanByBook_WithBookNotOnLoan_ReturnsNull(IList<IMember> borrowers, IList<IBook> books, IBook bookNotOnLoan)
+        public void GetLoanByBook_WithBookNotOnLoan_ReturnsNull(IList<IMember> borrowers, IList<IBook> books,
+            IBook bookNotOnLoan)
         {
             // Arrange.
             AddLoans(borrowers, books);
@@ -133,7 +134,8 @@ namespace UnitTests.DAOTests
 
 
         [Theory, AutoNSubstituteData]
-        public void FindLoansByBorrower_WithBorrowerHavingLoans_ReturnsTheLoans(IList<IMember> borrowers, IList<IBook> books)
+        public void FindLoansByBorrower_WithBorrowerHavingLoans_ReturnsTheLoans(IList<IMember> borrowers,
+            IList<IBook> books)
         {
 
             // Arrange.
@@ -157,7 +159,8 @@ namespace UnitTests.DAOTests
         }
 
         [Theory, AutoNSubstituteData]
-        public void FindLoansByBorrower_WithBookNotOnLoan_ReturnsNull(IList<IMember> borrowers, IList<IBook> books, IBook bookNotOnLoan)
+        public void FindLoansByBorrower_WithBookNotOnLoan_ReturnsNull(IList<IMember> borrowers, IList<IBook> books,
+            IBook bookNotOnLoan)
         {
             // Arrange.
             AddLoans(borrowers, books);
@@ -187,6 +190,68 @@ namespace UnitTests.DAOTests
             loansFound.FirstOrDefault().Should().Be(loansList[1]);
         }
 
-    }
 
+
+        [Theory, AutoNSubstituteData]
+        public void FindLoansByBookTitle_WithBookNotOnLoan_ReturnsEmptyList(IList<IMember> borrowers, IList<IBook> books)
+        {
+            // Arrange.
+            var title = "Testing causes pumpkins to go splat.";
+
+            AddLoans(borrowers, books);
+
+            // Act.
+            var loansFound = _loanDao.FindLoansByBookTitle(title);
+
+            // Assert.
+            loansFound.Should().BeEmpty();
+        }
+
+
+        [Theory, AutoNSubstituteData]
+        public void FindOverDueLoans_WithBooksOverdue_ReturnsOverdueBooks(IList<IMember> borrowers, IList<IBook> books)
+        {
+            // Arrange 
+            var loansList = AddLoans(borrowers, books);
+            loansList[1].CheckOverDue(DateTime.Today.AddDays(10));
+            loansList[2].CheckOverDue(DateTime.Today.AddDays(10));
+
+            // Act
+            var loansFound = _loanDao.FindOverDueLoans();
+
+            loansFound.Should().HaveCount(2);
+            loansFound[0].Should().Be(loansList[1]);
+            loansFound[1].Should().Be(loansList[2]);
+        }
+
+        [Theory, AutoNSubstituteData]
+        public void UpdateOverDueStatus_WhenBooksAreOverdue_ChangesTheireStatuToOverdue(IList<IMember> borrowers, IList<IBook> books)
+        {
+            // Arrange 
+            var loansList = AddLoans(borrowers, books);
+
+            // Act
+            _loanDao.UpdateOverDueStatus(DateTime.Today.AddDays(10));
+
+            // Assert
+            // All loans are overdue.
+            loansList.All(loan => loan.IsOverDue).Should().BeTrue();
+
+
+        }
+
+        [Theory, AutoNSubstituteData]
+        public void UpdateOverDueStatus_WhenBooksAreNotOverdue_TheirStatusShouldNotBeOverdue(IList<IMember> borrowers, IList<IBook> books)
+        {
+            // Arrange 
+            var loansList = AddLoans(borrowers, books);
+
+            // Act
+            _loanDao.UpdateOverDueStatus(DateTime.Today.AddDays(-10));
+
+            // Assert
+            // No loans are overdue.
+            loansList.Any(loan => loan.IsOverDue).Should().BeFalse();
+        }
+    }
 }
