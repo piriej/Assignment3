@@ -1,0 +1,13 @@
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\bin\Debug\CardReader.exe.config
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\bin\Debug\CardReader.exe
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\bin\Debug\CardReader.pdb
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\MainWindow.g.cs
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\App.g.cs
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\CardReader_MarkupCompile.cache
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\CardReader_MarkupCompile.lref
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\MainWindow.baml
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\CardReader.g.resources
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\CardReader.Properties.Resources.resources
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\Library.CardReader.csproj.GenerateResource.Cache
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\CardReader.exe
+C:\projects\assignment3\ITC515_NewLibrary_CSharp\CardReader\obj\Debug\CardReader.pdb
