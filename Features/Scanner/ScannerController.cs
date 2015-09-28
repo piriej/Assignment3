@@ -20,8 +20,9 @@ namespace Library.Features.Scanner
             ViewModel.Enabled = true;
         }
 
-        public void Scanned(string barCode)
+        public void Scanned(string x)
         {
+            var barCode = ViewModel.BarCode;
             int barCodeInt;
             int.TryParse(barCode ,out barCodeInt);
             _scanBookModel.Barcode = barCodeInt;
