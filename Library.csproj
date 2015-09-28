@@ -358,6 +358,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="UATTestingDocumentaion\UAT Test Cases.docx" />
+    <None Include="UATTestingDocumentaion\UAT Test Script Normal Flow.docx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

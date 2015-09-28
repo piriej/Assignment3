@@ -1,14 +1,14 @@
-﻿
-FC:\projects\assignment3\RepoRestore\Assignment3\App.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Controls\Borrow\BorrowControl.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Controls\Borrow\ConfirmLoanControl.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Controls\Borrow\RestrictedControl.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Controls\Borrow\ScanBookControl.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Controls\Borrow\SwipeCardControl.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Controls\MainMenuControl.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Hardware\CardReader.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Hardware\Printer.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Features\Borrowing\BorrowingView.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Features\CardReader\CardReaderView.xaml;;
-FC:\projects\assignment3\RepoRestore\Assignment3\Features\MainWindow\MainWindowView.xaml;;
+﻿C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\GeneratedInternalTypeHelper.g.cs
+FC:\projects\assignment3\RepoRestore2\Assignment3\App.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Controls\Borrow\BorrowControl.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Controls\Borrow\ConfirmLoanControl.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Controls\Borrow\RestrictedControl.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Controls\Borrow\ScanBookControl.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Controls\Borrow\SwipeCardControl.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Controls\MainMenuControl.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Hardware\CardReader.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Hardware\Printer.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Features\Borrowing\BorrowingView.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Features\CardReader\CardReaderView.xaml;;
+FC:\projects\assignment3\RepoRestore2\Assignment3\Features\MainWindow\MainWindowView.xaml;;
 
