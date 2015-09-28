@@ -183,3 +183,7 @@ C:\projects\assignment3\RepoRestore\Assignment3\obj\Debug\Library.Properties.Res
 C:\projects\assignment3\RepoRestore\Assignment3\obj\Debug\Library.csproj.GenerateResource.Cache
 C:\projects\assignment3\RepoRestore\Assignment3\obj\Debug\Library.exe
 C:\projects\assignment3\RepoRestore\Assignment3\obj\Debug\Library.pdb
+C:\projects\assignment3\RepoRestore\Assignment3\bin\Debug\Autofac.Extras.Attributed.dll
+C:\projects\assignment3\RepoRestore\Assignment3\bin\Debug\Autofac.Integration.Mef.dll
+C:\projects\assignment3\RepoRestore\Assignment3\bin\Debug\Autofac.Extras.Attributed.xml
+C:\projects\assignment3\RepoRestore\Assignment3\bin\Debug\Autofac.Integration.Mef.xml

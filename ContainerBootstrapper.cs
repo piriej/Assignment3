@@ -20,6 +20,7 @@ using Library.Features.MainWindow;
 using Library.Features.ScanBook;
 using Library.Features.SwipeCard;
 using Library.Hardware;
+using Library.Interfaces.Daos;
 using Library.Interfaces.Hardware;
 using Ploeh.AutoFixture;
 using Prism.Autofac;
@@ -131,6 +132,26 @@ namespace Library
             //builder.RegisterType<Book>().AsImplementedInterfaces();
             //builder.RegisterType<Loan>().AsImplementedInterfaces();
             //builder.RegisterType<Member>().AsImplementedInterfaces();
+
+            builder.RegisterType<Book>().AsImplementedInterfaces();
+            builder.RegisterType<Member>().AsImplementedInterfaces();
+            builder.RegisterType<Loan>().AsImplementedInterfaces();
+            builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
+            builder.RegisterType<BookHelper>().AsImplementedInterfaces();
+            builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
+            builder.RegisterType<LoanDAO>().AsImplementedInterfaces();
+            builder.RegisterType<MemberDAO>().AsImplementedInterfaces();
+            builder.RegisterType<BookDAO>().AsImplementedInterfaces();
+
+            builder.Register(c => Faker.CompanyFaker.Name()).Named<string>("title");//.As<string>();
+            builder.Register(c => Faker.NameFaker.Name()).Named<string>("Name");//.As<string>();
+            builder.Register(c => Faker.NameFaker.FirstName()).Named<string>("FirstName");//.As<string>();
+            builder.Register(c => Faker.NameFaker.LastName()).Named<string>("LastName");//.As<string>();
+            builder.Register(c => Faker.NameFaker.Name()).As<string>();
+            builder.Register(c => Faker.NumberFaker.Number()).As<int>();
+            builder.Register(c => Faker.NumberFaker.Number().ToString()).Named<string>("Number");
+            builder.Register(c => Faker.InternetFaker.Email()).Named<string>("Email");
+            builder.Register(c => Faker.PhoneFaker.Phone()).Named<string>("Phone");
 
             builder.RegisterType<EventAggregator>().As<IEventAggregator>().SingleInstance();
 

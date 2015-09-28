@@ -71,3 +71,8 @@ C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\zh-Ha
 C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\obj\Debug\IntegrationTests.dll
 C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\obj\Debug\IntegrationTests.pdb
+C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\Faker.dll
+C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\Autofac.Extras.Attributed.dll
+C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\Autofac.Integration.Mef.dll
+C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\Autofac.Extras.Attributed.xml
+C:\projects\assignment3\RepoRestore\Assignment3\IntegrationTests\bin\Debug\Autofac.Integration.Mef.xml

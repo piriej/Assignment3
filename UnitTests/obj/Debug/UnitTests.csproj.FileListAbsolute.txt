@@ -60,3 +60,4 @@ C:\projects\assignment3\RepoRestore\Assignment3\UnitTests\bin\Debug\zh-Hans\Syst
 C:\projects\assignment3\RepoRestore\Assignment3\UnitTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore\Assignment3\UnitTests\obj\Debug\UnitTests.dll
 C:\projects\assignment3\RepoRestore\Assignment3\UnitTests\obj\Debug\UnitTests.pdb
+C:\projects\assignment3\RepoRestore\Assignment3\UnitTests\bin\Debug\Faker.dll

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac.Extras.Attributed;
 using Library.Interfaces.Entities;
 
 namespace Library.Entities
@@ -47,7 +48,7 @@ namespace Library.Entities
         private bool BorrowingAllowed => !(HasReachedLoanLimit || HasReachedFineLimit || HasOverDueLoans);
 
 
-        public Member(string firstName, string lastName, string contactPhone, string email, int memberId)
+        public Member([WithKey("FirstName")]string firstName, [WithKey("LastName")]string lastName, [WithKey("Phone")]string contactPhone, [WithKey("Email")]string email, int memberId)
         {
             if (!(string.IsNullOrEmpty(firstName)
                   || !string.IsNullOrEmpty(lastName)
