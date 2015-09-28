@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using Library.Interfaces.Daos;
 using Library.Interfaces.Entities;
 using Xunit.Extensions;
@@ -32,7 +33,7 @@ namespace IntegrationTests.LowLeveTests
             // Return the book
             loan.Complete();
 
-
+            loan.State.Should().Be(LoanState.COMPLETE);
 
             //public void SwipeCard_WithValidBorrowerId_ReturnsLoadInformation(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
             //{

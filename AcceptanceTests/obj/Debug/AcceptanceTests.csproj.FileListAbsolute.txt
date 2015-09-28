@@ -52,3 +52,4 @@ C:\projects\assignment3\RepoRestore\Assignment3\AcceptanceTests\bin\Debug\zh-Han
 C:\projects\assignment3\RepoRestore\Assignment3\AcceptanceTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore\Assignment3\AcceptanceTests\obj\Debug\AcceptanceTests.dll
 C:\projects\assignment3\RepoRestore\Assignment3\AcceptanceTests\obj\Debug\AcceptanceTests.pdb
+C:\projects\assignment3\RepoRestore\Assignment3\AcceptanceTests\bin\Debug\Faker.dll
