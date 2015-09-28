@@ -22,7 +22,9 @@ namespace Library.Features.Scanner
 
         public void Scanned(string barCode)
         {
-            _scanBookModel.Barcode = int.Parse(barCode);
+            int barCodeInt;
+            int.TryParse(barCode ,out barCodeInt);
+            _scanBookModel.Barcode = barCodeInt;
             EventAggregator.GetEvent<Messages.ScanningRecievedEvent>().Publish(_scanBookModel);
         }
     }
