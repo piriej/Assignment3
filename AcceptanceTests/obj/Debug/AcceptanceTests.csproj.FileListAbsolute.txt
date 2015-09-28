@@ -107,3 +107,7 @@ C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\ru\Sy
 C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\obj\Debug\AcceptanceTests.dll
+C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\projects\assignment3\RepoRestore2\Assignment3\AcceptanceTests\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml

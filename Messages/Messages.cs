@@ -9,5 +9,6 @@ namespace Library.Messages
         public class CardReaderSwipedEvent : PubSubEvent<CardReaderModel> { }
         public class BorrowingStateEvent : PubSubEvent<BorrowingModel> { }
         public class CloseApplicationEvent : PubSubEvent<ClosingModel>{ }
+        public class ScanningRecievedEvent : PubSubEvent<ScanBookModel> { }
         public class ScanningEvent : PubSubEvent<ScanBookModel> { }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Forms.VisualStyles;
 using Autofac;
 using Autofac.Core;
 using log4net;
@@ -13,16 +11,14 @@ using Library.ApplicationInfratructure.Modules;
 using Library.Controllers;
 using Library.Controllers.Borrow;
 using Library.Daos;
-using Library.Entities;
 using Library.Features.Borrowing;
 using Library.Features.CardReader;
 using Library.Features.MainWindow;
 using Library.Features.ScanBook;
+using Library.Features.Scanner;
 using Library.Features.SwipeCard;
 using Library.Hardware;
-using Library.Interfaces.Daos;
 using Library.Interfaces.Hardware;
-using Ploeh.AutoFixture;
 using Prism.Autofac;
 using Prism.Events;
 using Prism.Modularity;
@@ -108,6 +104,7 @@ namespace Library
 
             builder.RegisterType<MainMenuController>().SingleInstance();
             builder.RegisterType<MainWindowController>().As<IMainWindowController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<ScannerController>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<ScanBookController>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<CardReaderController>().As<ICardReaderController>().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<BorrowController>()
@@ -120,6 +117,7 @@ namespace Library
             builder.RegisterType<CardReaderViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies); // Fix autowired props string. 
             builder.RegisterType<BorrowingViewModel>().SingleInstance().AsImplementedInterfaces().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<ScanBookViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            builder.RegisterType<ScannerViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
             builder.RegisterType<MemberDAO>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
@@ -127,6 +125,7 @@ namespace Library
             builder.RegisterType<BorrowingView>().SingleInstance();
             builder.RegisterType<SwipeCardView>().SingleInstance();
             builder.RegisterType<CardReaderView>().SingleInstance();
+            builder.RegisterType<ScannerView>().SingleInstance();
 
             //Entities are in a module
             //builder.RegisterType<Book>().AsImplementedInterfaces();

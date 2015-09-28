@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\projects\assignment3\RepoRestore2\Assignment3\App.xaml
-14820901050
+151874331789
 
-83-1177544983
+89-217590281
 95-2078784053
-Controls\Borrow\BorrowControl.xaml;Controls\Borrow\ConfirmLoanControl.xaml;Controls\Borrow\RestrictedControl.xaml;Controls\Borrow\ScanBookControl.xaml;Controls\Borrow\SwipeCardControl.xaml;Controls\MainMenuControl.xaml;Hardware\CardReader.xaml;Hardware\Printer.xaml;Hardware\Scanner.xaml;Features\Borrowing\BorrowingView.xaml;Features\CardReader\CardReaderView.xaml;Features\MainWindow\MainWindowView.xaml;Features\ScanBook\ScanBookView.xaml;Features\SwipeCard\SwipeCardView.xaml;
+Controls\Borrow\BorrowControl.xaml;Controls\Borrow\ConfirmLoanControl.xaml;Controls\Borrow\RestrictedControl.xaml;Controls\Borrow\ScanBookControl.xaml;Controls\Borrow\SwipeCardControl.xaml;Controls\MainMenuControl.xaml;Features\Scanner\ScannerView.xaml;Hardware\CardReader.xaml;Hardware\Printer.xaml;Hardware\Scanner.xaml;Features\Borrowing\BorrowingView.xaml;Features\CardReader\CardReaderView.xaml;Features\MainWindow\MainWindowView.xaml;Features\ScanBook\ScanBookView.xaml;Features\SwipeCard\SwipeCardView.xaml;
 
 False
 

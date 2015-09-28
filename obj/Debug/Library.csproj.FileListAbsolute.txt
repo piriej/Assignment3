@@ -287,3 +287,5 @@ C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\Library.g.resources
 C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\Library.Properties.Resources.resources
 C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\Library.csproj.GenerateResource.Cache
 C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\Library.exe
+C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\Features\Scanner\ScannerView.baml
+C:\projects\assignment3\RepoRestore2\Assignment3\obj\Debug\Features\Scanner\ScannerView.g.cs

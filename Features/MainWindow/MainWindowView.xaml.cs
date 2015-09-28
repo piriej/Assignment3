@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Library.Features.CardReader;
+using Library.Features.Scanner;
 using Library.Hardware;
 using Library.Interfaces.Hardware;
 
@@ -16,7 +17,7 @@ namespace Library.Features.MainWindow
         //ILoanDAO _loanDAO;
         //IMemberDAO _memberDAO;
 
-        public MainWindowView(MainWindowController controller,  CardReaderView reader, Scanner scanner, Printer printer)
+        public MainWindowView(MainWindowController controller,  CardReaderView reader, ScannerView scanner, Printer printer)
         {
             InitializeComponent();
             

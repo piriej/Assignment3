@@ -196,6 +196,13 @@
     <Compile Include="Features\ScanBook\ScanBookController.cs" />
     <Compile Include="Features\ScanBook\ScanBookModel.cs" />
     <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
+    <Compile Include="Features\Scanner\IScannerController.cs" />
+    <Compile Include="Features\Scanner\IScannerViewModel.cs" />
+    <Compile Include="Features\Scanner\ScannerView.xaml.cs">
+      <DependentUpon>ScannerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Scanner\ScannerController.cs" />
+    <Compile Include="Features\Scanner\ScannerViewModel.cs" />
     <Compile Include="Features\StringToIntValidationRule.cs" />
     <Compile Include="Features\SwipeCard\SwipeCardController.cs" />
     <Compile Include="Features\SwipeCard\SwipeCardViewModel.cs" />
@@ -230,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MainMenuControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Features\Scanner\ScannerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

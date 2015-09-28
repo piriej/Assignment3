@@ -38,7 +38,8 @@ namespace Library.Features.ScanBook
             //borrowingModel.Loans.FirstOrDefault().
             Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);
 
-            EventAggregator.GetEvent<Messages.ScanningEvent>().Subscribe(Scanning);
+            EventAggregator.GetEvent<Messages.ScanningRecievedEvent>().Subscribe(Scanning);
+            EventAggregator.GetEvent<Messages.ScanningEvent>().Publish(new ScanBookModel());
         }
     }
 

@@ -123,3 +123,7 @@ C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\ru\System.W
 C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
 C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\obj\Debug\UnitTests.dll
+C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.dll
+C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.dll
+C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\Microsoft.Practices.Prism.Mvvm.xml
+C:\projects\assignment3\RepoRestore2\Assignment3\UnitTests\bin\Debug\Microsoft.Practices.Prism.SharedInterfaces.xml
