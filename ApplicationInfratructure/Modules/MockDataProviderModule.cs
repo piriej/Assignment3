@@ -20,6 +20,8 @@ namespace Library.ApplicationInfratructure.Modules
 
         public MockDataProviderModule()
         {
+            var _memberHelper = new MemberHelper();
+            var _memberDAO = new MemberDAO();
             _loanHelper = new LoanHelper();
             LoanDAO = new LoanDAO(_loanHelper);
 
@@ -45,7 +47,8 @@ namespace Library.ApplicationInfratructure.Modules
             builder.RegisterType<Member>().AsImplementedInterfaces();
 
             builder.RegisterInstance<LoanDAO>(LoanDAO).SingleInstance().AsImplementedInterfaces();
-            builder.RegisterType<MemberDAO>().UsingConstructor().SingleInstance().AsImplementedInterfaces();
+            //builder.RegisterType<MemberDAO>().UsingConstructor().UsingConstructor(typeof(ILoanHelper)).SingleInstance().AsImplementedInterfaces();
+            builder.Register<MemberDAO>().UsingConstructor().UsingConstructor(typeof(ILoanHelper)).SingleInstance().AsImplementedInterfaces();
             builder.RegisterType<BookDAO>().SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<LoanHelper>().AsImplementedInterfaces();

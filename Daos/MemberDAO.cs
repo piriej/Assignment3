@@ -11,16 +11,15 @@ namespace Library.Daos
     {
         IMemberHelper _memberHelper;
 
-        public MemberDAO(IMemberHelper memberHelper) :this()
+        public MemberDAO(IMemberHelper memberHelper) 
         {
             if (memberHelper == null)
                 throw new ArgumentException("Helper can\'t be null.");
 
             _memberHelper = memberHelper;
-        }
-        public MemberDAO()
-        {
+
             MemberList = new List<IMember>();
+
         }
 
         public MemberDAO(List<IMember> mockData )
