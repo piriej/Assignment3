@@ -1,7 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using AutoMapper;
+using Library.Daos;
 using Library.Features.Borrowing;
 using Library.Interfaces.Controllers.Borrow;
+using Library.Interfaces.Daos;
+using Library.Interfaces.Entities;
 using Prism.Events;
 
 namespace Library.Features.ScanBook
@@ -10,6 +14,10 @@ namespace Library.Features.ScanBook
     {
         public IEventAggregator EventAggregator { get; set; }
         public IScanBookViewModel ViewModel { get; set; }
+        public IBookDAO BookDao { get; set; }
+        public ILoanDAO LoanDao { get; set; }
+
+        private int _numScans = 0;
 
         public ScanBookController(IEventAggregator eventAggregator)
         {
@@ -25,9 +33,49 @@ namespace Library.Features.ScanBook
             // Map the model onto the viewmodel.
             if (borrowingModel.BorrowingState == EBorrowState.SCANNING_BOOKS)
             {
-                //borrowingModel.Loans.FirstOrDefault().
-                Mapper.Map(borrowingModel, (ScanBookViewModel)ViewModel);
+                // Clear messages.
+
+            //borrowingModel.Loans.FirstOrDefault().
+            Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);
+
+            EventAggregator.GetEvent<Messages.ScanningEvent>().Subscribe(Scanning);
+        }
+    }
+
+        public void Scanning(ScanBookModel scanBookModel)
+        {
+            ViewModel.ErrorMessage = "";
+
+            var bookById = BookDao.GetBookByID(scanBookModel.Barcode);
+
+            if (bookById == null)
+            {
+                ViewModel.ErrorMessage = $"Book {scanBookModel.Barcode} not found";
+                return;
+            }
+
+            if (bookById.State != BookState.AVAILABLE)
+                ViewModel.ErrorMessage = $"Book {bookById.ID} is not available: {bookById.State}";
+
+            else if (ViewModel.PendingLoans.Contains(bookById.ToString()))
+                ViewModel.ErrorMessage = $"Book {bookById.ID} already scanned ";
+
+            else
+            {
+                var loan = LoanDao.CreateLoan(scanBookModel.Borrower, bookById, DateTime.Today, DateTime.Today.AddDays(14));
+                var loansPending = LoanDao.LoanList.Where(x => x.Borrower== scanBookModel.Borrower && x.State == LoanState.PENDING).ToList();
+                _numScans++;
+
+                ViewModel.CurrentBook = loan.ToString();
+                ViewModel.PendingLoans = string.Join(Environment.NewLine + Environment.NewLine, loansPending);
+                
+                if (_numScans < 5)
+                    return;
+
+                EborrowStateManager.CurrentState.ChangeState(EBorrowState.CONFIRMING_LOANS);
             }
         }
     }
+
+   
 }

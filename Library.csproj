@@ -194,6 +194,7 @@
     <Compile Include="Features\ScanBook\IScanBookController.cs" />
     <Compile Include="Features\ScanBook\IScanBookViewModel.cs" />
     <Compile Include="Features\ScanBook\ScanBookController.cs" />
+    <Compile Include="Features\ScanBook\ScanBookModel.cs" />
     <Compile Include="Features\ScanBook\ScanBookViewModel.cs" />
     <Compile Include="Features\StringToIntValidationRule.cs" />
     <Compile Include="Features\SwipeCard\SwipeCardController.cs" />

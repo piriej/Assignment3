@@ -6,5 +6,8 @@ namespace Library.Features.ScanBook
         string Name { get; set; }
         string Contact { get; set; }
         string ExistingLoan { get; set; }
+        string ErrorMessage { get; set; }
+        string PendingLoans { get; set; }
+        string CurrentBook { get; set; }
     }
 }

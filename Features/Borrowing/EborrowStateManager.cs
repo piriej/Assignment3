@@ -34,5 +34,13 @@ namespace Library.Features.Borrowing
             return CurrentState;
         }
 
+        public static void ChangeState(this EBorrowState state, EBorrowState confirmingLoans)
+        {
+            if (CurrentState == EBorrowState.SCANNING_BOOKS)
+            {
+                CurrentState = EBorrowState.CONFIRMING_LOANS;
+            }
+           
+        }
     }
 }
