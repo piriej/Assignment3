@@ -128,20 +128,18 @@ namespace Library
             builder.RegisterType<SwipeCardView>().SingleInstance();
             builder.RegisterType<CardReaderView>().SingleInstance();
 
-            //Entities
+            //Entities are in a module
             //builder.RegisterType<Book>().AsImplementedInterfaces();
             //builder.RegisterType<Loan>().AsImplementedInterfaces();
             //builder.RegisterType<Member>().AsImplementedInterfaces();
 
-            builder.RegisterType<Book>().AsImplementedInterfaces();
-            builder.RegisterType<Member>().AsImplementedInterfaces();
-            builder.RegisterType<Loan>().AsImplementedInterfaces();
-            builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
-            builder.RegisterType<BookHelper>().AsImplementedInterfaces();
-            builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
-            builder.RegisterType<LoanDAO>().AsImplementedInterfaces();
-            builder.RegisterType<MemberDAO>().AsImplementedInterfaces();
-            builder.RegisterType<BookDAO>().AsImplementedInterfaces();
+            //builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
+            //builder.RegisterType<BookHelper>().AsImplementedInterfaces();
+            //builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
+
+            //builder.RegisterType<LoanDAO>().AsImplementedInterfaces();
+            //builder.RegisterType<MemberDAO>().AsImplementedInterfaces();
+            //builder.RegisterType<BookDAO>().AsImplementedInterfaces();
 
             builder.Register(c => Faker.CompanyFaker.Name()).Named<string>("title");//.As<string>();
             builder.Register(c => Faker.NameFaker.Name()).Named<string>("Name");//.As<string>();
