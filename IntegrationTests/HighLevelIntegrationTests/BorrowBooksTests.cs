@@ -91,7 +91,10 @@ namespace IntegrationTests
             // When the card is swiped.
             cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
 
-            //TODO whats it bound to
+            // Then the users details are displayed in the view.
+            scanBookViewModel.Name.Should().Be("fName1 lName1");
+
+            // And the current loan list should be displayed
             scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
         }
     }

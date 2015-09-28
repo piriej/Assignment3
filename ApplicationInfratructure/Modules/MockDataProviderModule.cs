@@ -9,7 +9,7 @@ namespace Library.ApplicationInfratructure.Modules
 {
     public class MockDataProviderModule : Module
     {
-        private LoanDAO LoanDAO { get; set; }
+        private LoanDAO _loanDAO;
         private List<IBook> _books;
         private List<IMember> _members;
         private List<ILoan> _loans; 
@@ -17,13 +17,17 @@ namespace Library.ApplicationInfratructure.Modules
         private TimeSpan _loanPeriod;
         private DateTime _dueDate;
         private LoanHelper _loanHelper;
+        private MemberHelper _memberHelper;
+        private MemberDAO _memberDAO;
+        private BookDAO _bookDao;
+            
 
         public MockDataProviderModule()
         {
-            var _memberHelper = new MemberHelper();
-            var _memberDAO = new MemberDAO();
+            _memberHelper = new MemberHelper();
+            _memberDAO = new MemberDAO(_memberHelper);
             _loanHelper = new LoanHelper();
-            LoanDAO = new LoanDAO(_loanHelper);
+            _loanDAO = new LoanDAO(_loanHelper);
 
             // Setup dates for test data
             _borrowDate = DateTime.Now;
@@ -46,9 +50,8 @@ namespace Library.ApplicationInfratructure.Modules
             builder.RegisterType<Loan>().AsImplementedInterfaces();
             builder.RegisterType<Member>().AsImplementedInterfaces();
 
-            builder.RegisterInstance<LoanDAO>(LoanDAO).SingleInstance().AsImplementedInterfaces();
-            //builder.RegisterType<MemberDAO>().UsingConstructor().UsingConstructor(typeof(ILoanHelper)).SingleInstance().AsImplementedInterfaces();
-            builder.Register<MemberDAO>().UsingConstructor().UsingConstructor(typeof(ILoanHelper)).SingleInstance().AsImplementedInterfaces();
+            builder.RegisterInstance(_loanDAO).SingleInstance().AsImplementedInterfaces();
+            builder.RegisterInstance(_memberDAO).SingleInstance().AsImplementedInterfaces();
             builder.RegisterType<BookDAO>().SingleInstance().AsImplementedInterfaces();
 
             builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
@@ -89,22 +92,37 @@ namespace Library.ApplicationInfratructure.Modules
                 new Member( "fName5", "lName5", "0005", "email5", 5),
                 new Member( "fName6", "lName6", "0006", "email6", 6)
             };
+            _memberDAO.AddMembers(_members);
         }
 
         private void SetUpLoanTestData()
         {
-            _loans = new List<ILoan>
+            var checkDate = _dueDate.AddDays(1);
+
+            for (var i = 0; i < 2; i++)
             {
-                new Loan( _books[1], _members[1], _borrowDate, _dueDate),
-                new Loan( _books[2] ,_members[1], _borrowDate, _dueDate)
-            };
+                var loan = _loanDAO.CreateLoan(_members[1], _books[i], _borrowDate, _dueDate);
+                _loanDAO.CommitLoan(loan);
+            }
+            _loanDAO.UpdateOverDueStatus(checkDate);
+            _loans = _loanDAO.LoanList;
+            //_loans = new List<ILoan>
+            //{
+            //    new Loan( _books[1], _members[1], _borrowDate, _dueDate),
+            //    new Loan( _books[2] ,_members[1], _borrowDate, _dueDate)
+            //};
+
+            ////_loans[0].Commit(0);
+            ////_loans[1].Commit(1);
+
+            //_loanDAO.AddLoan(_loans);
         }
 
         private void SetUpTestData()
         {
+            
 
-            var checkDate = _dueDate.Add(new TimeSpan(1, 0, 0, 0));
-            LoanDAO.UpdateOverDueStatus(checkDate);
+         
 
             //create a member with maxed out unpaid fines
             _members[2].AddFine(10.0f);
@@ -112,8 +130,8 @@ namespace Library.ApplicationInfratructure.Modules
             //create a member with maxed out loans
             for (int i = 2; i < 7; i++)
             {
-                var loan = LoanDAO.CreateLoan(_members[3], _books[i], _borrowDate, _dueDate);
-                LoanDAO.CommitLoan(loan);
+                var loan = _loanDAO.CreateLoan(_members[3], _books[i], _borrowDate, _dueDate);
+                _loanDAO.CommitLoan(loan);
             }
 
             //a member with a fine, but not over the limit
@@ -122,8 +140,8 @@ namespace Library.ApplicationInfratructure.Modules
             //a member with a couple of loans but not over the limit
             for (var i = 7; i < 9; i++)
             {
-                var loan = LoanDAO.CreateLoan(_members[5], _books[i], _borrowDate, _dueDate);
-                LoanDAO.CommitLoan(loan);
+                var loan = _loanDAO.CreateLoan(_members[5], _books[i], _borrowDate, _dueDate);
+                _loanDAO.CommitLoan(loan);
             }
         }
     }

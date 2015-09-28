@@ -4,6 +4,7 @@ using System.Linq;
 using Library.Entities;
 using Library.Interfaces.Daos;
 using Library.Interfaces.Entities;
+using Ploeh.AutoFixture;
 
 namespace Library.Daos
 {
@@ -55,6 +56,11 @@ namespace Library.Daos
         public List<IMember> FindMembersByNames(string firstName, string lastName)
         {
             return MemberList.Where(members => members.FirstName.Equals(firstName) && members.LastName.Equals(lastName)).ToList();
+        }
+
+        public void AddMembers(List<IMember> members )
+        {
+            MemberList.AddRange(members);
         }
     }
 }

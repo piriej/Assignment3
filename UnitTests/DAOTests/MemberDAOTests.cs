@@ -14,7 +14,8 @@ namespace UnitTests.DAOTests
 
         public MemberDAOTests()
         {
-            Dao = new MemberDAO();
+            var memberHelper = new MemberHelper();
+            Dao = new MemberDAO(memberHelper);
         }
 
         [Theory, AutoNSubstituteData]

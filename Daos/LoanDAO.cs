@@ -87,5 +87,9 @@ namespace Library.Daos
             _loans.ForEach(loan => loan.CheckOverDue(currentDate));
         }
 
+        public void AddLoan(List<ILoan> loans)
+        {
+            _loans.AddRange(loans);
+        }
     }
 }
