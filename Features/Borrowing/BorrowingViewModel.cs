@@ -34,7 +34,7 @@ namespace Library.Features.Borrowing
         }
 
         #endregion
-
+              
         #region Commands
         public ICommand BorrowCommand { get; set; }
         #endregion

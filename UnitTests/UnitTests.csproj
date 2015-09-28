@@ -71,16 +71,8 @@
       <HintPath>..\packages\Prism.Wpf.6.0.1\lib\net45\Prism.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ShortBus, Version=3.0.46.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ShortBus.3.0.46-beta\lib\ShortBus.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ShortBus.Autofac, Version=3.0.48.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ShortBus.Autofac.3.0.48-beta\lib\ShortBus.Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ShortBus.Markers, Version=3.0.43.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ShortBus.Markers.3.0.43-beta\lib\ShortBus.Markers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -119,13 +111,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Library\Library.csproj">
-      <Project>{057ae89a-e736-415b-b924-58c0e9471ae1}</Project>
-      <Name>Library</Name>
-    </ProjectReference>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <ProjectReference Include="..\Library.csproj">
+      <Project>{057AE89A-E736-415B-B924-58C0E9471AE1}</Project>
+      <Name>Library</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

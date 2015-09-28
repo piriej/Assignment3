@@ -41,21 +41,21 @@ namespace Library.ApplicationInfratructure.Modules
         {
             _books = new List<IBook>
             {
-                new Book(1, "author1", "title1", "callNo1"),
-                new Book(2, "author1", "title2", "callNo2"),
-                new Book(3, "author1", "title3", "callNo3"),
-                new Book(4, "author1", "title4", "callNo4"),
-                new Book(5, "author2", "title5", "callNo5"),
-                new Book(6, "author2", "title6", "callNo6"),
-                new Book(7, "author2", "title7", "callNo7"),
-                new Book(8, "author2", "title8", "callNo8"),
-                new Book(9, "author3", "title9", "callNo9"),
-                new Book(10, "author3", "title10", "callNo10"),
-                new Book(11, "author4", "title11", "callNo11"),
-                new Book(12, "author4", "title12", "callNo12"),
-                new Book(13, "author5", "title13", "callNo13"),
-                new Book(14, "author5", "title14", "callNo14"),
-                new Book(15, "author5", "title15", "callNo15")
+                new Book("author1", "title1", "callNo1"    , 1 ),
+                new Book("author1", "title2", "callNo2"    , 2 ),
+                new Book("author1", "title3", "callNo3"    , 3 ),
+                new Book("author1", "title4", "callNo4"    , 4 ),
+                new Book("author2", "title5", "callNo5"    , 5 ),
+                new Book("author2", "title6", "callNo6"    , 6 ),
+                new Book("author2", "title7", "callNo7"    , 7 ),
+                new Book("author2", "title8", "callNo8"    , 8 ),
+                new Book("author3", "title9", "callNo9"    , 9 ),
+                new Book( "author3", "title10", "callNo10" , 10),
+                new Book( "author4", "title11", "callNo11" , 11),
+                new Book( "author4", "title12", "callNo12" , 12),
+                new Book( "author5", "title13", "callNo13" , 13),
+                new Book( "author5", "title14", "callNo14" , 14),
+                new Book( "author5", "title15", "callNo15" , 15)
             };
         }
 

@@ -1,5 +1,0 @@
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\UnitTests\bin\Debug\UnitTests.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\UnitTests\bin\Debug\UnitTests.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\UnitTests\obj\Debug\UnitTests.csprojResolveAssemblyReference.cache
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\UnitTests\obj\Debug\UnitTests.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\UnitTests\obj\Debug\UnitTests.pdb

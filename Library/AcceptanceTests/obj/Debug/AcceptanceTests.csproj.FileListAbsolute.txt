@@ -1,5 +1,0 @@
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\AcceptanceTests\bin\Debug\AcceptanceTests.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\AcceptanceTests\bin\Debug\AcceptanceTests.pdb
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\AcceptanceTests\obj\Debug\AcceptanceTests.csprojResolveAssemblyReference.cache
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\AcceptanceTests\obj\Debug\AcceptanceTests.dll
-C:\projects\assignment3\ITC515_NewLibrary_CSharp\Library\AcceptanceTests\obj\Debug\AcceptanceTests.pdb
