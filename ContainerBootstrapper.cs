@@ -119,7 +119,7 @@ namespace Library
             builder.RegisterType<ScanBookViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
             builder.RegisterType<ScannerViewModel>().SingleInstance().AsImplementedInterfaces();//.PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
-            builder.RegisterType<MemberDAO>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
+            
 
             builder.RegisterType<MainWindowView>().SingleInstance();
             builder.RegisterType<BorrowingView>().SingleInstance();

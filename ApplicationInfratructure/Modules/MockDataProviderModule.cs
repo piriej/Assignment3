@@ -20,7 +20,8 @@ namespace Library.ApplicationInfratructure.Modules
         private MemberHelper _memberHelper;
         private MemberDAO _memberDAO;
         private BookDAO _bookDao;
-            
+        private BookHelper _bookHelper;
+
 
         public MockDataProviderModule()
         {
@@ -28,6 +29,8 @@ namespace Library.ApplicationInfratructure.Modules
             _memberDAO = new MemberDAO(_memberHelper);
             _loanHelper = new LoanHelper();
             _loanDAO = new LoanDAO(_loanHelper);
+            _bookHelper = new BookHelper();
+            _bookDao = new BookDAO(_bookHelper);
 
             // Setup dates for test data
             _borrowDate = DateTime.Now;
@@ -52,7 +55,8 @@ namespace Library.ApplicationInfratructure.Modules
 
             builder.RegisterInstance(_loanDAO).SingleInstance().AsImplementedInterfaces();
             builder.RegisterInstance(_memberDAO).SingleInstance().AsImplementedInterfaces();
-            builder.RegisterType<BookDAO>().SingleInstance().AsImplementedInterfaces();
+            builder.RegisterInstance(_bookDao).SingleInstance().AsImplementedInterfaces();
+            //builder.RegisterType<MemberDAO>().AsImplementedInterfaces().SingleInstance().PropertiesAutowired(PropertyWiringOptions.AllowCircularDependencies);
 
             builder.RegisterType<LoanHelper>().AsImplementedInterfaces();
             builder.RegisterType<BookHelper>().AsImplementedInterfaces();
@@ -79,6 +83,7 @@ namespace Library.ApplicationInfratructure.Modules
                 new Book( "author5", "title14", "callNo14" , 14),
                 new Book( "author5", "title15", "callNo15" , 15)
             };
+            _bookDao.AddBooks(_books);
         }
 
         private void SetupMemberTestData()

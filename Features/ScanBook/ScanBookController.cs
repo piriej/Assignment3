@@ -55,16 +55,18 @@ namespace Library.Features.ScanBook
                 return;
             }
 
+            var loansPending = LoanDao.LoanList.Where(x => x.Borrower == scanBookModel.Borrower && x.State == LoanState.PENDING).ToList();
+
             if (bookById.State != BookState.AVAILABLE)
                 ViewModel.ErrorMessage = $"Book {bookById.ID} is not available: {bookById.State}";
 
-            else if (ViewModel.PendingLoans.Contains(bookById.ToString()))
+            else if (loansPending.Any(x=>x.ID == bookById.ID))
                 ViewModel.ErrorMessage = $"Book {bookById.ID} already scanned ";
 
             else
             {
                 var loan = LoanDao.CreateLoan(scanBookModel.Borrower, bookById, DateTime.Today, DateTime.Today.AddDays(14));
-                var loansPending = LoanDao.LoanList.Where(x => x.Borrower== scanBookModel.Borrower && x.State == LoanState.PENDING).ToList();
+               
                 _numScans++;
 
                 ViewModel.CurrentBook = loan.ToString();

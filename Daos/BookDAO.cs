@@ -48,5 +48,10 @@ namespace Library.Daos
         {
             return _books.Where(book => book.Title == title && book.Author == author).ToList();
         }
+
+        public void AddBooks(List<IBook> books)
+        {
+            _books.AddRange(books);
+        }
     }
 }
