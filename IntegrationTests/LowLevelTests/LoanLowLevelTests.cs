@@ -21,46 +21,74 @@ namespace IntegrationTests.LowLeveTests
         DateTime _notYetDueDate = DateTime.Today.AddDays(-10);
 
         [Theory, ContainerData]
-        public void HappyCase_UserBorrowsAndReturnsBookBeforeDue(ILoanDAO loanDao, ILoanHelper loanHelper, IMember borrower, IBook book)
+        public void HappyCase_UserBorrowsAndReturnsBookBeforeDue(ILoanDAO loanDao,  IMember borrower, IBook book)
         {
             // Create and commit to the loan.
             var loan = loanDao.CreateLoan(borrower, book, _today, _dueDate);
+            loan.State.Should().Be(LoanState.PENDING);
+
+            // Commit the loan.
             loan.Commit(200);
+            loan.State.Should().Be(LoanState.CURRENT);
 
             // Check if the book is overdue.
             loan.CheckOverDue(_notYetDueDate);
+            loan.State.Should().Be(LoanState.CURRENT);
 
             // Return the book
             loan.Complete();
-
             loan.State.Should().Be(LoanState.COMPLETE);
+            loan.IsOverDue.Should().BeFalse();
 
-            //public void SwipeCard_WithValidBorrowerId_ReturnsLoadInformation(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
-            //{
-            //    AutoMapperConfig.RegisterMaps();
+        }
 
-            //    // The borrow controller has been clicked.
-            //    borrowController.WaitForCardSwipe();
+        [Theory, ContainerData]
+        public void OverDueCase_UserBorrowsAndReturnsBookAfterDue(ILoanDAO loanDao,  IMember borrower, IBook book)
+        {
+            // Create and commit to the loan.
+            var loan = loanDao.CreateLoan(borrower, book, _today, _dueDate);
+            loan.State.Should().Be(LoanState.PENDING);
 
-            //    // The card is swiped with a known user.
-            //    cardReaderViewModel.BorrowerId = "0001";
+            // Commit the loan.
+            loan.Commit(200);
+            loan.State.Should().Be(LoanState.CURRENT);
 
-            //    // When the card is swiped.
-            //    cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
+            // The book is now overdue.
+            loan.CheckOverDue(_overdueDate);
+            loan.State.Should().Be(LoanState.OVERDUE);
+            loan.IsOverDue.Should().BeTrue();
 
-            //    //TODO whats it bound to
-            //    scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
-            //}
+            // Return the book
+            loan.Complete();
+            loan.State.Should().Be(LoanState.COMPLETE);
+            loan.IsOverDue.Should().BeFalse();
+        }
+
+        [Theory, ContainerData]
+        public void EdgeCase_CantMoveFromPendingToComplete(ILoanDAO loanDao, IMember borrower, IBook book)
+        {
+            // Create and commit to the loan.
+            var loan = loanDao.CreateLoan(borrower, book, _today, _dueDate);
+            loan.State.Should().Be(LoanState.PENDING);
+
+            // Return the book should be prevented.
+            loan.Invoking(x => x.Complete())
+                .ShouldThrow<ApplicationException>();
+            loan.State.Should().Be(LoanState.PENDING);
+        }
+
+        [Theory, ContainerData]
+        public void EdgeCase_CantMoveFromPendingToOverdue(ILoanDAO loanDao, IMember borrower, IBook book)
+        {
+            // Create and commit to the loan.
+            var loan = loanDao.CreateLoan(borrower, book, _today, _dueDate);
+            loan.State.Should().Be(LoanState.PENDING);
+
+            // Return the book should be prevented.
+            loan.Invoking(x => x.CheckOverDue(_overdueDate))
+                .ShouldThrow<ApplicationException>();
+            loan.State.Should().Be(LoanState.PENDING);
         }
     }
 
-    //public class bookFactory
-    //{
-    //    public static BookFactory getInstance()
-    //    {
-    //        string author
-    //        var book = new Book();
-
-    //    }
-    //}
 }
