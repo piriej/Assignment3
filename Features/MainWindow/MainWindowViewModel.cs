@@ -20,7 +20,7 @@ namespace Library.Features.MainWindow
         #region Injected Properties
 
         public ICardReader CardReader { get; set; }
-        public IScanner Scanner { get; set; }
+        //public IScanner Scanner { get; set; }
         public IPrinter Printer { get; set; }
 
         #endregion

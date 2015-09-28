@@ -10,7 +10,7 @@ namespace Library.Features.Scanner
     /// </summary>
     public partial class ScannerView : Window //, IScanner
     {
-        public ScannerView()
+        public ScannerView(IScannerViewModel viewModel)
         {
             InitializeComponent();
             Show();

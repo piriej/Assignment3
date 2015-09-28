@@ -99,7 +99,7 @@ namespace Library
         {
             builder.RegisterModule<LogRequestsModule>();
 
-            builder.RegisterType<Scanner>().SingleInstance().As<IScanner>();
+            //builder.RegisterType<Scanner>().SingleInstance().As<IScanner>();
             builder.RegisterType<Printer>().SingleInstance().As<IPrinter>();
 
             builder.RegisterType<MainMenuController>().SingleInstance();

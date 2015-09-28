@@ -9,7 +9,7 @@
     <Grid Background="#FFE6E6E6">
         <Label x:Name="label" Content="Scanner" HorizontalAlignment="Left" Margin="42,10,0,0" VerticalAlignment="Top" FontSize="32"/>
         <Label x:Name="label1" Content="Enter Book Barcode : " HorizontalAlignment="Left" Margin="42,68,0,0" VerticalAlignment="Top" FontSize="18.667"/>
-        <TextBox x:Name="barcodeDataBox" Text="{Binding BarCode}"  HorizontalAlignment="Left" Height="32" Margin="81,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" FontSize="18.667" IsEnabled="False"/>
+        <TextBox x:Name="barcodeDataBox" Text="{Binding BarCode}"  HorizontalAlignment="Left" Height="32" Margin="81,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="145" FontSize="18.667" IsEnabled="{Binding Enabled}"/>
         <Button x:Name="scanButton" Content="Scan Book" HorizontalAlignment="Left" Margin="81,170,0,0" VerticalAlignment="Top" Width="145" FontSize="18.667"  Command="{Binding ScanCommand}" IsEnabled="{Binding Enabled}"/>
         <Label x:Name="errorMessageLabel" Content="" HorizontalAlignment="Left" Margin="10,230,0,0" VerticalAlignment="Top" Foreground="#FFF70606" Width="274"/>
 
