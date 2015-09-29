@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Library.Entities;
 using Library.Interfaces.Daos;
@@ -41,6 +42,8 @@ namespace Library.Daos
         {
             if (DateTime.Compare(borrowDate, dueDate) > 0)
                 throw new ArgumentException("Error borrowing date cannot be after dueDate.");
+
+            Debug.Assert(borrower != null); // Todo: XXX Borrower null?
 
             if (book == null || borrower == null)
                 throw new ArgumentException("Error null parameters found.");

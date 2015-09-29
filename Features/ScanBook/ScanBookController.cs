@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using AutoMapper;
 using Library.Daos;
@@ -16,8 +17,11 @@ namespace Library.Features.ScanBook
         public IScanBookViewModel ViewModel { get; set; }
         public IBookDAO BookDao { get; set; }
         public ILoanDAO LoanDao { get; set; }
+        public IMemberDAO MemberDao { get; set; }
+
 
         private int _numScans = 0;
+        private IMember _borrower;
 
         public ScanBookController(IEventAggregator eventAggregator)
         {
@@ -30,18 +34,23 @@ namespace Library.Features.ScanBook
             // Display user details
             //ViewModel.BorrowerId = borrowingModel.ID;
 
+            if (borrowingModel.BorrowingState != EBorrowState.SCANNING_BOOKS) return;
+
+            // Is this a valid user?
+            _borrower = MemberDao.GetMemberByID(borrowingModel.ID);
+            if (_borrower == null)
+                ViewModel.ErrorMessage = $"Member {borrowingModel.ID} is not known to the system.";
+
             // Map the model onto the viewmodel.
-            if (borrowingModel.BorrowingState == EBorrowState.SCANNING_BOOKS)
-            {
-                // Clear messages.
+         
+            // Clear messages.
 
             //borrowingModel.Loans.FirstOrDefault().
             Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);
-
+                
             EventAggregator.GetEvent<Messages.ScanningRecievedEvent>().Subscribe(Scanning);
             EventAggregator.GetEvent<Messages.ScanningEvent>().Publish(new ScanBookModel());
         }
-    }
 
         public void Scanning(ScanBookModel scanBookModel)
         {
@@ -55,7 +64,7 @@ namespace Library.Features.ScanBook
                 return;
             }
 
-            var loansPending = LoanDao.LoanList.Where(x => x.Borrower == scanBookModel.Borrower && x.State == LoanState.PENDING).ToList();
+            var loansPending = LoanDao.LoanList.Where(x => x.Borrower.ID == _borrower.ID && x.State == LoanState.PENDING).ToList();
 
             if (bookById.State != BookState.AVAILABLE)
                 ViewModel.ErrorMessage = $"Book {bookById.ID} is not available: {bookById.State}";
@@ -65,7 +74,8 @@ namespace Library.Features.ScanBook
 
             else
             {
-                var loan = LoanDao.CreateLoan(scanBookModel.Borrower, bookById, DateTime.Today, DateTime.Today.AddDays(14));
+               
+                var loan = LoanDao.CreateLoan(_borrower, bookById, DateTime.Today, DateTime.Today.AddDays(14));
                
                 _numScans++;
 
@@ -79,6 +89,4 @@ namespace Library.Features.ScanBook
             }
         }
     }
-
-   
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Library.Interfaces.Daos;
 using Library.Interfaces.Entities;
@@ -31,7 +32,7 @@ namespace Library.Daos
 
         public IBook GetBookByID(int id)
         {
-            return _books.Count > id ? _books[id] : null;
+            return _books.Count > id ? _books[id-1] : null;
         }
 
         public List<IBook> FindBooksByAuthor(string author)

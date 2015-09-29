@@ -10,6 +10,5 @@ namespace Library.Features.ScanBook
     public class ScanBookModel
     {
         public int Barcode { get; set; }
-        public IMember Borrower { get; set; }
     }
 }
