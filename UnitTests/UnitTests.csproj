@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerTests\BorrowControllerTests.cs" />
+    <Compile Include="ControllerTests\ScanBookControllerTests.cs" />
     <Compile Include="DAOTests\LoanDaoTests.cs" />
     <Compile Include="DAOTests\MemberDAOTests.cs" />
     <Compile Include="StructuralTests\AutoNSubstituteDataAttribute.cs" />

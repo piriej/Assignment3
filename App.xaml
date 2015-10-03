@@ -14,8 +14,6 @@
                 <Setter Property="Height" Value="33" />
             </Style>
             
-            
-
             <Style TargetType="Grid">
                 <Setter Property="Background" Value="#FFE6E6E6" />
             </Style>
@@ -35,7 +33,7 @@
                 <Setter Property="Width" Value="274"/>
             </Style>
             
-            <Style TargetType="TextBox">
+            <Style TargetType="TextBox" x:Key="Device-TextBox">
                 <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="VerticalAlignment" Value="Top"/>

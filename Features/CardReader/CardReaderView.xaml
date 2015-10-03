@@ -19,7 +19,7 @@
     <Grid>
         <Label x:Name="TitleLabel" Content="CardReader" Margin="56,10,0,0" Style="{StaticResource Title-Label}"/>
         <Label x:Name="FieldLabel" Content="Enter Borrower Id : " Margin="62,63,0,0"/>
-        <TextBox x:Name="cardDataBox" Margin="71,108,0,0" IsEnabled="{Binding Enabled}" Text="{Binding BorrowerId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}">
+        <TextBox x:Name="cardDataBox" Margin="71,108,0,0" IsEnabled="{Binding Enabled}" Text="{Binding BorrowerId, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource Device-TextBox}">
             <Validation.ErrorTemplate>
                 <ControlTemplate>
                     <StackPanel>
