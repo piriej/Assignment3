@@ -103,7 +103,7 @@ namespace Library.Entities
                 {"Title", Title}
             };
 
-            var result = string.Join(Environment.NewLine, propertyList.Select(row => $"{row.Key,-20}:\t{row.Value,5}"));
+            var result = string.Join(Environment.NewLine, propertyList.Select(row => $"{row.Key+":",-20}\t{row.Value,5}"));
 
             return result;
         }

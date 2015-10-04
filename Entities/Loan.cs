@@ -81,8 +81,9 @@ namespace Library.Entities
         {
             var propertyList = new Dictionary<string, string>
             {
-                {"Loan ID", Book.Author},
-                {"Author", Book.Title},
+                {"Loan ID", ID.ToString()},
+                {"Author", Book.Author},
+                {"Title", Book.Title},
                 {"Borrower", _borrower.FirstName + " " + _borrower.LastName},
                 {"Borrow Date", _borrowDate.ToShortDateString()},
                 {"Due Date", _dueDate.ToShortDateString()}

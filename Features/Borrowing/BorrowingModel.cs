@@ -4,7 +4,7 @@ using Library.Interfaces.Entities;
 
 namespace Library.Features.Borrowing
 {
-    public class BorrowingModel
+    public class BorrowingModel : IBorrowingModel
     {
         public bool HasOverDueLoans { get; set; }
         public bool HasReachedLoanLimit { get; set; }

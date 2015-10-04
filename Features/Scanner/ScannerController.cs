@@ -9,7 +9,7 @@ namespace Library.Features.Scanner
     public class ScannerController : IScannerController
     {
         private ScanBookModel _scanBookModel;
-        private BorrowingModel _borrower;
+        private IBorrowingModel _borrower;
         public IEventAggregator EventAggregator { get; set; }
         public IScannerViewModel ViewModel { get; set; }
 
@@ -19,7 +19,7 @@ namespace Library.Features.Scanner
             EventAggregator.GetEvent<Messages.BorrowingStateEvent>().Subscribe(DisableScanner);
         }
 
-        public void DisableScanner(BorrowingModel borrowingModel)
+        public void DisableScanner(IBorrowingModel borrowingModel)
         {
             _borrower = borrowingModel;
             ViewModel.Enabled = borrowingModel.BorrowingState == EBorrowState.SCANNING_BOOKS;

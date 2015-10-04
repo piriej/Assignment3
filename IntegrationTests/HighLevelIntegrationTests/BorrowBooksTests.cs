@@ -78,7 +78,7 @@ namespace IntegrationTests
 
 
         [Theory, ContainerData]
-        public void SwipeCard_WithValidBorrowerId_ReturnsLoadInformation(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
+        public void SwipeCard_WithValidBorrowerId_ReturnsLoanInformation(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
         {
             AutoMapperConfig.RegisterMaps();
 
@@ -96,6 +96,11 @@ namespace IntegrationTests
 
             // And the current loan list should be displayed
             scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
+         //   Id
+        	//callNo10
+         //    	author3
+         //     	title10
+            scanBookViewModel.PendingLoans.Should().NotBeNullOrEmpty();
         }
     }
 

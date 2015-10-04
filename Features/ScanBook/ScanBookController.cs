@@ -27,7 +27,7 @@ namespace Library.Features.ScanBook
             eventAggregator.GetEvent<Messages.BorrowingStateEvent>().Subscribe(ScanBook);
         }
 
-        public void ScanBook(BorrowingModel borrowingModel)
+        public void ScanBook(IBorrowingModel borrowingModel)
         {
             // Display user details
             //ViewModel.BorrowerId = borrowingModel.ID;
@@ -40,7 +40,7 @@ namespace Library.Features.ScanBook
                 ViewModel.ErrorMessage = $"Member {borrowingModel.ID} is not known to the system.";
 
             // Map the model onto the viewmodel.
-         
+            
             // Clear messages.
 
             //borrowingModel.Loans.FirstOrDefault().
@@ -77,9 +77,9 @@ namespace Library.Features.ScanBook
                
                 _numScans++;
 
-                ViewModel.CurrentBook = loan.ToString();
-                ViewModel.PendingLoans = string.Join(Environment.NewLine + Environment.NewLine, loansPending);
-                
+                ViewModel.CurrentBook = loan.Book.ToString();
+                ViewModel.PendingLoans = loan.ToString() + Environment.NewLine + string.Join(Environment.NewLine, loansPending);
+
                 if (_numScans < 5)
                     return;
 

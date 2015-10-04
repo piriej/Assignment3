@@ -181,6 +181,7 @@
     <Compile Include="Features\Borrowing\ClosingModel.cs" />
     <Compile Include="Features\Borrowing\EborrowStateManager.cs" />
     <Compile Include="Features\Borrowing\IBorrowController.cs" />
+    <Compile Include="Features\Borrowing\IBorrowingModel.cs" />
     <Compile Include="Features\Borrowing\IBorrowingViewModel.cs" />
     <Compile Include="Features\CardReader\CardReaderController.cs" />
     <Compile Include="Features\CardReader\CardReaderModel.cs" />
