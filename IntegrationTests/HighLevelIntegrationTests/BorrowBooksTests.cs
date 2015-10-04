@@ -96,11 +96,16 @@ namespace IntegrationTests
 
             // And the current loan list should be displayed
             scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
-         //   Id
-        	//callNo10
-         //    	author3
-         //     	title10
+            scanBookViewModel.ExistingLoan.Should().Contain("callNo10");
+            scanBookViewModel.ExistingLoan.Should().Contain("author3");
+            scanBookViewModel.ExistingLoan.Should().Contain("title10");
+
             scanBookViewModel.PendingLoans.Should().NotBeNullOrEmpty();
+            scanBookViewModel.PendingLoans.Should().Contain("author3");
+            scanBookViewModel.PendingLoans.Should().Contain("title10");
+            scanBookViewModel.PendingLoans.Should().Contain("fName1 lName1");
+            scanBookViewModel.PendingLoans.Should().Contain("4/10/2015");
+            scanBookViewModel.PendingLoans.Should().Contain("18/10/2015");
         }
     }
 
