@@ -11,5 +11,6 @@
     <Grid>
         <Label x:Name="Label" Content="Main Menu"  Margin="142,31,0,0" Style="{StaticResource Title-Label}"/>
         <Button x:Name="BorrowButton" Content="Borrow" Style="{StaticResource Standard-Button}" Margin="177,103,0,564" RenderTransformOrigin="0.52,0.564" Command="{Binding BorrowCommand}"/>
+        <Label x:Name="errorMessage" Content="{Binding ErrorMessage}" HorizontalAlignment="Left" Margin="10,665,0,0" VerticalAlignment="Top" Width="450" Foreground="#FFF60C0C"/>
     </Grid>
 </UserControl>

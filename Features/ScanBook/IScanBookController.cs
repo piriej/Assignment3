@@ -2,5 +2,6 @@
 {
     public interface IScanBookController
     {
+        void Complete();
     }
 }

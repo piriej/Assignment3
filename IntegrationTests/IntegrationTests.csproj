@@ -167,6 +167,7 @@
     <Compile Include="ContainerCustomization.cs" />
     <Compile Include="ContainerDataAttribute.cs" />
     <Compile Include="ContainerFixture.cs" />
+    <Compile Include="HighLevelIntegrationTests\ContainerSpecimenBuilder.cs" />
     <Compile Include="LowLevelTests\LoanLowLevelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HighLevelIntegrationTests\BorrowBooksTests.cs" />

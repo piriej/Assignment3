@@ -25,14 +25,13 @@ namespace Library.Features.ScanBook
         {
             EventAggregator = eventAggregator;
             eventAggregator.GetEvent<Messages.BorrowingStateEvent>().Subscribe(ScanBook);
+
         }
 
         public void ScanBook(IBorrowingModel borrowingModel)
         {
-            // Display user details
-            //ViewModel.BorrowerId = borrowingModel.ID;
-
-            if (borrowingModel.BorrowingState != EBorrowState.SCANNING_BOOKS) return;
+            // Respond only to scanning books message.
+            if (borrowingModel.BorrowingState == EBorrowState.INITIALIZED) return;
 
             // Is this a valid user?
             _borrower = MemberDao.GetMemberByID(borrowingModel.ID);
@@ -40,12 +39,14 @@ namespace Library.Features.ScanBook
                 ViewModel.ErrorMessage = $"Member {borrowingModel.ID} is not known to the system.";
 
             // Map the model onto the viewmodel.
-            
+
             // Clear messages.
 
-            //borrowingModel.Loans.FirstOrDefault().
+            // Display details
             Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);
-                
+
+            // DisplayOverDueMessage
+           
             EventAggregator.GetEvent<Messages.ScanningRecievedEvent>().Subscribe(Scanning);
             EventAggregator.GetEvent<Messages.ScanningEvent>().Publish(new ScanBookModel());
         }
@@ -85,6 +86,11 @@ namespace Library.Features.ScanBook
 
                 EborrowStateManager.CurrentState.ChangeState(EBorrowState.CONFIRMING_LOANS);
             }
+        }
+
+        public void Complete()
+        {
+            throw new NotImplementedException();
         }
     }
 }

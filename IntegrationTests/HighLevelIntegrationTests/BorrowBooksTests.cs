@@ -1,16 +1,15 @@
-﻿using System;
-using System.Linq;
-using Autofac;
-using Autofac.Core;
-using log4net;
-using Library;
+﻿using Library;
 using Library.Features.CardReader;
-using Ploeh.AutoFixture.Kernel;
 using Xunit.Extensions;
 using FluentAssertions;
 using Library.ApplicationInfratructure;
 using Library.Controllers.Borrow;
+using Library.Features.Borrowing;
 using Library.Features.ScanBook;
+using Library.Features.Scanner;
+using Library.Interfaces.Controllers.Borrow;
+
+// BBUC_Op2
 
 namespace IntegrationTests
 {
@@ -23,42 +22,11 @@ namespace IntegrationTests
         }
 
 
-        //[Theory, ContainerData]
-        //public void ReadCard_WhenRequested_ActivatesCardReader(BorrowingViewModel borrowingViewModel, CardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
-        //{
-        //    //Card reader should initially be disabled.
-        //    cardReaderViewModel.Enabled.Should().BeFalse();
-
-        //    // By default we Should have an active borrow button.
-        //    borrowingViewModel.Active.Should().BeTrue();
-
-        //    // A user requests to borrow.
-        //    borrowingViewModel.Active = true;
-        //    borrowingViewModel.BorrowCommand.Execute(null);
-
-        //    // Then the Card reader is enabled.
-        //    cardReaderViewModel.Enabled.Should().BeTrue();
-        //}
-
-        //[Theory, ContainerData]
-        //public void ReadCard_WhenRequested_ActivatesCardReader(IBorrowingViewModel borrowingViewModel, ICardReaderViewModel cardReaderViewModel/*,*/ /*IBorrowController borrowController MemberDAO mem/*,*/ /*tst tmp*/)
-        //{
-        //    //Card reader should initially be disabled.
-        //    cardReaderViewModel.Enabled.Should().BeFalse();
-
-        //    // By default we Should have an active borrow button.
-        //    borrowingViewModel.Active.Should().BeTrue();
-
-        //    // A user requests to borrow.
-        //    borrowingViewModel.Active = false;
-        //    //borrowingViewModel.BorrowCommand.Execute(null);
-
-        //    // Then the Card reader is enabled.
-        //    cardReaderViewModel.Enabled.Should().BeTrue();
-        //}
-
         [Theory, ContainerData]
-        public void SwipeCard_WithValidBorrowerId_SetsBorrowerDetailsForBookScanner(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
+        public void SwipeCard_WithValidBorrowerId_SetsBorrowerDetailsForBookScanner(
+            IScanBookController scanBookController, IBorrowController borrowController,
+            ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController,
+            IScanBookViewModel scanBookViewModel)
         {
             AutoMapperConfig.RegisterMaps();
 
@@ -78,7 +46,9 @@ namespace IntegrationTests
 
 
         [Theory, ContainerData]
-        public void SwipeCard_WithValidBorrowerId_ReturnsLoanInformation(IScanBookController scanBookController, IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel, ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
+        public void SwipeCard_WithValidBorrowerId_ReturnsLoanInformation(IScanBookController scanBookController,
+            IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel,
+            ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
         {
             AutoMapperConfig.RegisterMaps();
 
@@ -107,71 +77,97 @@ namespace IntegrationTests
             scanBookViewModel.PendingLoans.Should().Contain("4/10/2015");
             scanBookViewModel.PendingLoans.Should().Contain("18/10/2015");
         }
+
+
+        [Theory, ContainerData]
+        public void SwipeCard_WithValidBorrowerId_CardReaderIsDisabled(
+            IScanBookController scanBookController
+            , IBorrowController borrowController
+            , ICardReaderController cardReaderController
+            , ICardReaderViewModel cardReaderViewModel
+            , IScanBookViewModel scanBookViewModel)
+        {
+            PreConditions(borrowController, cardReaderViewModel);
+
+            // Arrange - unrestricted user.
+            const string borrowerId = "1";
+            cardReaderViewModel.BorrowerId = borrowerId;
+
+            // Act - Swipe the card.
+            cardReaderController.CardSwiped(borrowerId);
+
+            // Assert - ensure that the card reader is disabled.
+            cardReaderViewModel.Enabled.Should().BeFalse();
+        }
+
+        [Theory, ContainerData]
+        public void SwipeCard_WithValidBorrowerId_ScannerIsEnabled(
+         IScanBookController scanBookController
+         , IBorrowController borrowController
+         , ICardReaderController cardReaderController
+         , ICardReaderViewModel cardReaderViewModel
+         , IScanBookViewModel scanBookViewModel
+         , IScannerController scannerController
+         , IScannerViewModel scannerViewModel)
+        {
+            PreConditions(borrowController, cardReaderViewModel);
+
+            // Arrange - unrestricted user.
+            const string borrowerId = "1";
+            cardReaderViewModel.BorrowerId = borrowerId;
+
+            // Act - Swipe the card.
+            cardReaderController.CardSwiped(borrowerId);
+
+            // Assert - ensure that the card reader is disabled.
+            scannerViewModel.Enabled.Should().BeTrue();
+        }
+
+        [Theory, ContainerData]
+        public void SwipeCard_WithValidBorrowerId_ExistingLoansDisplayed(
+      IScanBookController scanBookController
+      , IBorrowController borrowController
+      , IBorrowingViewModel borrowingViewModel
+      , ICardReaderController cardReaderController
+      , ICardReaderViewModel cardReaderViewModel
+      , IScanBookViewModel scanBookViewModel
+      , IScannerController scannerController
+      , IScannerViewModel scannerViewModel)
+        {
+            PreConditions(borrowController, cardReaderViewModel);
+
+            // Arrange - User with existing loans.
+            const string borrowerId = "2";
+            cardReaderViewModel.BorrowerId = borrowerId;
+
+            // Act - Swipe the card.
+            cardReaderController.CardSwiped(borrowerId);
+
+            // Assert - ensure that the card reader is disabled.
+            scanBookViewModel.ExistingLoan.Should().Contain("author1");
+            scanBookViewModel.ExistingLoan.Should().Contain("title2 ");
+            scanBookViewModel.ExistingLoan.Should().Contain("fName2 lName2");
+            scanBookViewModel.ExistingLoan.Should().Contain("4/10/2015");
+            scanBookViewModel.ExistingLoan.Should().Contain("18/10/2015");
+        }
+
+        private void PreConditions(IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel)
+        {
+            // Arrange - cardReader visible and enabled
+            cardReaderViewModel.Enabled = true;
+
+            // BorrowBookCTL added as listener to cardReader.
+            borrowController.WaitForCardSwipe();
+
+            // Arrange - memberDAO exists.
+            borrowController.MemberDao.Should().NotBeNull();
+
+            // Arrange - BorrowBookCTL state == INITIALIZED
+            EborrowStateManager.CurrentState.ChangeState();
+            EborrowStateManager.CurrentState.Should().Be(EBorrowState.INITIALIZED);
+
+            // Mapping is enabled.
+            AutoMapperConfig.RegisterMaps();
+        }
     }
-
-    // Test borrowing restricted
-
-
 }
-
-public class ContainerSpecimenBuilder : ISpecimenBuilder
-{
-    readonly IContainer _container;
-    public ContainerSpecimenBuilder(IContainer container)
-    {
-        _container = container;
-
-    }
-
-    public object Create(object request, ISpecimenContext context)
-    {
-        ILog log = LogManager.GetLogger(typeof(ContainerSpecimenBuilder));
-
-        var type = request as Type;
-        if (type == null) return new NoSpecimen();
-
-        log.Debug(@"Container Specimen Builder Resolving type: " + request.GetType());
-
-        object service;
-
-        var res =
-            string.Join("==> ", _container.ComponentRegistry.Registrations.Select(
-                r => string.Join(",", r.Services.Select(x => x.Description))));
-        log.Debug(res);
-       
-        try
-        {
-            if (!_container.TryResolve(type, out service))
-            {
-                log.Debug(@"No Specimen found in the container");
-                return new NoSpecimen();
-            }
-        }
-        catch (Exception ex)
-        {
-            log.Warn("No Resolution error: "  +request.GetType() + " -->" + ex.Message );
-
-            return new NoSpecimen();
-            //log.Debug(@"Container Specimen Builder creating substitute for: " + request.GetType());
-            //var substitute = Substitute.For(new[] { type }, new object[] { });
-            //return substitute;
-        }
-
-
-        log.Debug(@"Container Specimen Builder Returning type: " + request.GetType());
-        return service;
-    }
-
-    public class LogRequestsModule : Module
-    {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Library.LogRequestsModule));
-        protected override void AttachToComponentRegistration(
-          IComponentRegistry componentRegistry,
-          IComponentRegistration registration)
-        {
-            registration.Preparing += (sender, args) =>
-              log.Debug($@"Resolving concrete type {args.Component.Activator.LimitType}");
-        }
-    }
-}
-

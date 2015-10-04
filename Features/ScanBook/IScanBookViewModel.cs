@@ -9,5 +9,8 @@ namespace Library.Features.ScanBook
         string ErrorMessage { get; set; }
         string PendingLoans { get; set; }
         string CurrentBook { get; set; }
+        bool HasOverDueLoans { get; set; }
+        bool HasReachedLoanLimit { get; set; }
+        bool HasReachedFineLimit { get; set; }
     }
 }

@@ -60,7 +60,7 @@
             <applicationInfratructure:ViewNames
             xmlns:infrastructure="clr-namespace:Library"
             x:Key="ViewNames" />
-
+            
         </ResourceDictionary>
     </Application.Resources>
 

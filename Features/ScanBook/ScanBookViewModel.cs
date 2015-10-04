@@ -1,18 +1,33 @@
-﻿using Prism.Mvvm;
+﻿using System;
+using System.Diagnostics;
+using System.Windows.Input;
+using Prism.Commands;
+using Prism.Mvvm;
 
 namespace Library.Features.ScanBook
 {
     public class ScanBookViewModel : BindableBase, IScanBookViewModel
     {
+        #region Bound Properties
+
         public IScanBookController Controller { get; set; }
+
+        #endregion
+
+        #region constructors
 
         public ScanBookViewModel(IScanBookController controller)
         {
             Controller = controller;
+            this.CompleteCommand = new DelegateCommand(controller.Complete).ObservesCanExecute(x => CanComplete);
         }
 
+        #endregion
+
+        #region Fields
         private string _existingLoan;
-        public string ExistingLoan {
+        public string ExistingLoan
+        {
             get { return _existingLoan; }
             set { SetProperty(ref _existingLoan, value); }
         }
@@ -54,11 +69,64 @@ namespace Library.Features.ScanBook
         }
 
         private string _currentBook;
+
         public string CurrentBook
         {
             get { return _currentBook; }
             set { SetProperty(ref _currentBook, value); }
         }
 
+        private bool _hasOverDueLoans;
+
+        public bool HasOverDueLoans
+        {
+            get { return _hasOverDueLoans; }
+            set
+            {
+                SetProperty(ref _hasOverDueLoans, value);
+                CanComplete = !(value || HasReachedLoanLimit || HasReachedFineLimit);
+            }
+        }
+
+        private bool _hasReachedLoanLimit;
+
+        public bool HasReachedLoanLimit
+        {
+            get { return _hasReachedLoanLimit; }
+            set
+            {
+                SetProperty(ref _hasReachedLoanLimit, value);
+                CanComplete = !(value || HasReachedFineLimit || HasOverDueLoans);
+            }
+        }
+
+        private bool _hasReachedFineLimit;
+
+        public bool HasReachedFineLimit
+        {
+            get { return _hasReachedFineLimit; }
+            set
+            {
+                SetProperty(ref _hasReachedFineLimit, value);
+                CanComplete = !(value || HasReachedLoanLimit || HasOverDueLoans);
+            }
+        }
+
+        private bool _canComplete;
+        public bool CanComplete
+        {
+            get { return _canComplete; }
+            set { SetProperty(ref _canComplete, value); }
+        }
+
+        #endregion
+
+        #region Commands
+
+        public ICommand CompleteCommand { get; set; }
+        #endregion
+
     }
+
+    
 }

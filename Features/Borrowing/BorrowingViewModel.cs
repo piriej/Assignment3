@@ -1,10 +1,6 @@
-﻿using System;
-using System.Windows.Input;
-using Library.ApplicationInfratructure;
+﻿using System.Windows.Input;
 using Library.Controllers.Borrow;
 using Library.Features.CardReader;
-using Library.Features.MainWindow;
-using Library.Interfaces.Controllers.Borrow;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -27,14 +23,23 @@ namespace Library.Features.Borrowing
         #region Bound Properties
 
         bool _active = true;
+
+
         public bool Active
         {
             get { return _active; }
             set { SetProperty(ref this._active, value);     }
         }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set { SetProperty(ref this._errorMessage, value); }
+        }
+
         #endregion
-              
+
         #region Commands
         public ICommand BorrowCommand { get; set; }
         #endregion

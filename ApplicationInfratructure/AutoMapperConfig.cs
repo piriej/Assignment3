@@ -16,6 +16,7 @@ namespace Library.ApplicationInfratructure
                 .ForMember(dest => dest.BorrowerId, opt => opt.MapFrom(src => src.ID))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Contact, opt => opt.MapFrom(src => src.ContactPhone));
+                
             //Mapper.AssertConfigurationIsValid();    
         }
     }

@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="ScanBookView"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="470">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </UserControl.Resources>
     <Grid>
         <Label x:Name="label" Content="Scanning"/>
         <GroupBox x:Name="groupBox" Header="Borrower Details" Margin="10,30,0,0">
@@ -19,9 +23,9 @@
                 <Label x:Name="ContactLabel" Content="{Binding Contact}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="328,0,0,0" FontSize="13.333" Foreground="#FF0D21F6" Height="26" Width="97" />
                 <GroupBox x:Name="groupBox1" Header="Borrowing Restrictions" HorizontalAlignment="Left" Height="97" Margin="0,31,0,0" VerticalAlignment="Top" Width="435">
                     <Grid Margin="0,0,0.4,-4.6">
-                        <Label x:Name="overDueLoanLabel" Content="{Binding Overdue}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C"/>
-                        <Label x:Name="loanLimitLabel" Content="{Binding LoanLimit}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C" Margin="0,24,0,0"/>
-                        <Label x:Name="outstandingFineLabel" Content="{Binding Oustanding}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Foreground="#FFFA0C0C" Margin="0,48,0,0"/>
+                        <Label x:Name="overDueLoanLabel" Content="Borrower has overdue loans." HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C" FontSize="12" Visibility="{Binding HasOverDueLoans, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}"/>
+                        <Label x:Name="loanLimitLabel" Content="Borrower has reached loan limit." HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C" Margin="0,24,0,0" FontSize="12" Visibility="{Binding HasReachedLoanLimit, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}"/>
+                        <Label x:Name="outstandingFineLabel" Content="Borrower has outstanding fines." HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Foreground="#FFFA0C0C" Margin="0,48,0,0" FontSize="12" Visibility="{Binding HasReachedFineLimit, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="groupBox2" Header="Existing Loans" HorizontalAlignment="Left" Margin="0,137,0,0" VerticalAlignment="Top" Height="123" Width="435">
@@ -43,7 +47,7 @@
                 </GroupBox>
             </Grid>
         </GroupBox>
-        <Button x:Name="completeButton" Content="Complete" HorizontalAlignment="Left" Margin="50,630,0,0" VerticalAlignment="Top" Width="75" />
+        <Button x:Name="completeButton" Content="Complete" HorizontalAlignment="Left" Margin="50,630,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CompleteCommand}" />
         <Button x:Name="cancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="345,630,0,0" VerticalAlignment="Top" Width="75" />
         <Label x:Name="errorMessage" Content="{Binding ErrorMessage}" HorizontalAlignment="Left" Margin="10,665,0,0" VerticalAlignment="Top" Width="450" Foreground="#FFF60C0C"/>
 
