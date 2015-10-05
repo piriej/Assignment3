@@ -12,7 +12,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
     </UserControl.Resources>
     <Grid>
-        <Label x:Name="label" Content="Scanning"/>
+        <Label x:Name="label" Content="{Binding Title, FallbackValue=Scanning}"/>
         <GroupBox x:Name="groupBox" Header="Borrower Details" Margin="10,30,0,0">
             <Grid HorizontalAlignment="Left" Height="260" Margin="0,5,0,0" VerticalAlignment="Top" Width="435">
                 <Label x:Name="label1" Content="Id:" HorizontalAlignment="Left" VerticalAlignment="Top"/>

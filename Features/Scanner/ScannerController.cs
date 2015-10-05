@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Library.Features.Borrowing;
 using Library.Features.ScanBook;
 using Library.Interfaces.Controllers.Borrow;

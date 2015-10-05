@@ -1,4 +1,5 @@
-﻿using Library;
+﻿using System;
+using Library;
 using Library.Features.CardReader;
 using Xunit.Extensions;
 using FluentAssertions;
@@ -142,17 +143,20 @@ namespace IntegrationTests
 
             // Act - Swipe the card.
             cardReaderController.CardSwiped(borrowerId);
+            
 
             // Assert - ensure that the card reader is disabled.
             scanBookViewModel.ExistingLoan.Should().Contain("author1");
             scanBookViewModel.ExistingLoan.Should().Contain("title2 ");
             scanBookViewModel.ExistingLoan.Should().Contain("fName2 lName2");
-            scanBookViewModel.ExistingLoan.Should().Contain("4/10/2015");
-            scanBookViewModel.ExistingLoan.Should().Contain("18/10/2015");
+            scanBookViewModel.ExistingLoan.Should().Contain(DateTime.Today.ToShortDateString());
+            scanBookViewModel.ExistingLoan.Should().Contain(DateTime.Today.AddDays(14).ToShortDateString());
         }
 
         private void PreConditions(IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel)
         {
+            EborrowStateManager.CurrentState.Reset();
+
             // Arrange - cardReader visible and enabled
             cardReaderViewModel.Enabled = true;
 

@@ -33,20 +33,37 @@ namespace Library.Features.ScanBook
             // Respond only to scanning books message.
             if (borrowingModel.BorrowingState == EBorrowState.INITIALIZED) return;
 
+            ViewModel.ErrorMessage = "";
+
             // Is this a valid user?
             _borrower = MemberDao.GetMemberByID(borrowingModel.ID);
             if (_borrower == null)
                 ViewModel.ErrorMessage = $"Member {borrowingModel.ID} is not known to the system.";
 
+            if (borrowingModel.HasOverDueLoans || borrowingModel.HasReachedLoanLimit || borrowingModel.HasReachedFineLimit)
+                ViewModel.ErrorMessage = $"Member {borrowingModel.ID} Cannot borrow at this time.";
             // Map the model onto the viewmodel.
 
             // Clear messages.
 
+            //var loansTaken =
+            //      LoanDao.LoanList.Where(x =>
+            //          x.Borrower.ID == _borrower.ID
+            //          && (x.State == LoanState.CURRENT || x.State == LoanState.OVERDUE));
+
+            var borrowerLoans = LoanDao.FindLoansByBorrower(_borrower);
+            if (borrowerLoans != null && borrowerLoans.Count > 0)
+            {
+                borrowerLoans = borrowerLoans.Where(x => (x.State == LoanState.CURRENT || x.State == LoanState.OVERDUE)).ToList();
+            }
+            //var test2 = test.Select(x => x.State);
+
+            ViewModel.ExistingLoan = string.Join(Environment.NewLine + Environment.NewLine, borrowerLoans);
+
+
             // Display details
             Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);
 
-            // DisplayOverDueMessage
-           
             EventAggregator.GetEvent<Messages.ScanningRecievedEvent>().Subscribe(Scanning);
             EventAggregator.GetEvent<Messages.ScanningEvent>().Publish(new ScanBookModel());
         }
@@ -81,6 +98,7 @@ namespace Library.Features.ScanBook
                 ViewModel.CurrentBook = loan.Book.ToString();
                 ViewModel.PendingLoans = loan.ToString() + Environment.NewLine + string.Join(Environment.NewLine, loansPending);
 
+              
                 if (_numScans < 5)
                     return;
 

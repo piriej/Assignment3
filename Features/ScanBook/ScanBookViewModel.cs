@@ -119,6 +119,14 @@ namespace Library.Features.ScanBook
             set { SetProperty(ref _canComplete, value); }
         }
 
+
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
+
         #endregion
 
         #region Commands

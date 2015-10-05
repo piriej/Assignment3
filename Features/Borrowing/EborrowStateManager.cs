@@ -26,6 +26,12 @@ namespace Library.Features.Borrowing
             //    public enum EBorrowState { CREATED, INITIALIZED, SCANNING_BOOKS, CONFIRMING_LOANS, COMPLETED, BORROWING_RESTRICTED, CANCELLED }
         }
 
+        public static EBorrowState Reset(this EBorrowState state) {
+            CurrentState = EBorrowState.CREATED;
+            return CurrentState;
+
+        }
+
         public static EBorrowState ChangeState(this EBorrowState state)
         {
             if (CurrentState == EBorrowState.CREATED)

@@ -104,7 +104,7 @@ namespace Library.ApplicationInfratructure.Modules
         {
             var checkDate = _dueDate.AddDays(1);
 
-            for (var i = 0; i < 2; i++)
+            for (var i = 0; i < 2; ++i)
             {
                 var loan = _loanDAO.CreateLoan(_members[1], _books[i], _borrowDate, _dueDate);
                 _loanDAO.CommitLoan(loan);
@@ -125,15 +125,11 @@ namespace Library.ApplicationInfratructure.Modules
 
         private void SetUpTestData()
         {
-            
-
-         
-
             //create a member with maxed out unpaid fines
             _members[2].AddFine(10.0f);
 
             //create a member with maxed out loans
-            for (int i = 2; i < 7; i++)
+            for (int i = 2; i < 7; ++i)
             {
                 var loan = _loanDAO.CreateLoan(_members[3], _books[i], _borrowDate, _dueDate);
                 _loanDAO.CommitLoan(loan);
@@ -143,7 +139,7 @@ namespace Library.ApplicationInfratructure.Modules
             _members[4].AddFine(5.0f);
 
             //a member with a couple of loans but not over the limit
-            for (var i = 7; i < 9; i++)
+            for (var i = 7; i < 9; ++i)
             {
                 var loan = _loanDAO.CreateLoan(_members[5], _books[i], _borrowDate, _dueDate);
                 _loanDAO.CommitLoan(loan);

@@ -15,7 +15,9 @@ namespace Library.ApplicationInfratructure
             Mapper.CreateMap<IBorrowingModel, ScanBookViewModel>()
                 .ForMember(dest => dest.BorrowerId, opt => opt.MapFrom(src => src.ID))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"))
-                .ForMember(dest => dest.Contact, opt => opt.MapFrom(src => src.ContactPhone));
+                .ForMember(dest => dest.Contact, opt => opt.MapFrom(src => src.ContactPhone))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src=> src.HasReachedFineLimit || src.HasReachedFineLimit || src.HasOverDueLoans ? "Restricted" : "Scanning" ));
+                 
                 
             //Mapper.AssertConfigurationIsValid();    
         }
