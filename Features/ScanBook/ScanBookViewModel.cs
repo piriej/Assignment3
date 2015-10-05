@@ -112,6 +112,16 @@ namespace Library.Features.ScanBook
             }
         }
 
+        private float _finesOwing;
+
+        public float FinesOwing
+        {
+            get { return _finesOwing; }
+            set { SetProperty(ref _finesOwing, value);}
+        }
+
+        
+
         private bool _canComplete;
         public bool CanComplete
         {

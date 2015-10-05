@@ -25,7 +25,8 @@
                     <Grid Margin="0,0,0.4,-4.6">
                         <Label x:Name="overDueLoanLabel" Content="Borrower has overdue loans." HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C" FontSize="12" Visibility="{Binding HasOverDueLoans, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}"/>
                         <Label x:Name="loanLimitLabel" Content="Borrower has reached loan limit." HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Foreground="#FFFA0C0C" Margin="0,24,0,0" FontSize="12" Visibility="{Binding HasReachedLoanLimit, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}"/>
-                        <Label x:Name="outstandingFineLabel" Content="Borrower has outstanding fines." HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Foreground="#FFFA0C0C" Margin="0,48,0,0" FontSize="12" Visibility="{Binding HasReachedFineLimit, Converter={StaticResource BoolToVisConverter}, FallbackValue=Hidden}"/>
+                        <Label x:Name="outstandingFineLabel" Content=" Borrower has outstanding fines. Amount owing " HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Foreground="#FFFA0C0C" Margin="0,48,0,0" FontSize="12" Visibility="{Binding DisplayFine, Converter={StaticResource BoolToVisConverter}, FallbackValue=V}"/>
+                        <Label x:Name="outstandingFineLabel2" Content="{Binding AmountOwing}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Foreground="#FFFA0C0C" Margin="266,48,0,0" FontSize="12" Visibility="{Binding DisplayFine, Converter={StaticResource BoolToVisConverter}, FallbackValue=v}" Width="33"/>
                     </Grid>
                 </GroupBox>
                 <GroupBox x:Name="groupBox2" Header="Existing Loans" HorizontalAlignment="Left" Margin="0,137,0,0" VerticalAlignment="Top" Height="123" Width="435">

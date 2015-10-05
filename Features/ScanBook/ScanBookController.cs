@@ -42,24 +42,13 @@ namespace Library.Features.ScanBook
 
             if (borrowingModel.HasOverDueLoans || borrowingModel.HasReachedLoanLimit || borrowingModel.HasReachedFineLimit)
                 ViewModel.ErrorMessage = $"Member {borrowingModel.ID} Cannot borrow at this time.";
-            // Map the model onto the viewmodel.
-
-            // Clear messages.
-
-            //var loansTaken =
-            //      LoanDao.LoanList.Where(x =>
-            //          x.Borrower.ID == _borrower.ID
-            //          && (x.State == LoanState.CURRENT || x.State == LoanState.OVERDUE));
 
             var borrowerLoans = LoanDao.FindLoansByBorrower(_borrower);
             if (borrowerLoans != null && borrowerLoans.Count > 0)
             {
                 borrowerLoans = borrowerLoans.Where(x => (x.State == LoanState.CURRENT || x.State == LoanState.OVERDUE)).ToList();
+                ViewModel.ExistingLoan = string.Join(Environment.NewLine + Environment.NewLine, borrowerLoans);
             }
-            //var test2 = test.Select(x => x.State);
-
-            ViewModel.ExistingLoan = string.Join(Environment.NewLine + Environment.NewLine, borrowerLoans);
-
 
             // Display details
             Mapper.Map(borrowingModel, (ScanBookViewModel) ViewModel);

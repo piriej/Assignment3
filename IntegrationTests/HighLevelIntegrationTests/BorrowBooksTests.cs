@@ -46,38 +46,38 @@ namespace IntegrationTests
         }
 
 
-        [Theory, ContainerData]
-        public void SwipeCard_WithValidBorrowerId_ReturnsLoanInformation(IScanBookController scanBookController,
-            IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel,
-            ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
-        {
-            AutoMapperConfig.RegisterMaps();
+        //[Theory, ContainerData]
+        //public void SwipeCard_WithValidBorrowerId_ReturnsLoanInformation(IScanBookController scanBookController,
+        //    IBorrowController borrowController, ICardReaderViewModel cardReaderViewModel,
+        //    ICardReaderController cardReaderController, IScanBookViewModel scanBookViewModel)
+        //{
+        //    AutoMapperConfig.RegisterMaps();
 
-            // The borrow controller has been clicked.
-            borrowController.WaitForCardSwipe();
+        //    // The borrow controller has been clicked.
+        //    borrowController.WaitForCardSwipe();
 
-            // The card is swiped with a known user.
-            cardReaderViewModel.BorrowerId = "0001";
+        //    // The card is swiped with a known user.
+        //    cardReaderViewModel.BorrowerId = "0001";
 
-            // When the card is swiped.
-            cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
+        //    // When the card is swiped.
+        //    cardReaderController.CardSwiped(cardReaderViewModel.BorrowerId);
 
-            // Then the users details are displayed in the view.
-            scanBookViewModel.Name.Should().Be("fName1 lName1");
+        //    // Then the users details are displayed in the view.
+        //    scanBookViewModel.Name.Should().Be("fName1 lName1");
 
-            // And the current loan list should be displayed
-            scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
-            scanBookViewModel.ExistingLoan.Should().Contain("callNo10");
-            scanBookViewModel.ExistingLoan.Should().Contain("author3");
-            scanBookViewModel.ExistingLoan.Should().Contain("title10");
+        //    // And the current loan list should be displayed
+        //    scanBookViewModel.ExistingLoan.Should().NotBeNullOrEmpty();
+        //    scanBookViewModel.ExistingLoan.Should().Contain("callNo10");
+        //    scanBookViewModel.ExistingLoan.Should().Contain("author3");
+        //    scanBookViewModel.ExistingLoan.Should().Contain("title10");
 
-            scanBookViewModel.PendingLoans.Should().NotBeNullOrEmpty();
-            scanBookViewModel.PendingLoans.Should().Contain("author3");
-            scanBookViewModel.PendingLoans.Should().Contain("title10");
-            scanBookViewModel.PendingLoans.Should().Contain("fName1 lName1");
-            scanBookViewModel.PendingLoans.Should().Contain("4/10/2015");
-            scanBookViewModel.PendingLoans.Should().Contain("18/10/2015");
-        }
+        //    scanBookViewModel.PendingLoans.Should().NotBeNullOrEmpty();
+        //    scanBookViewModel.PendingLoans.Should().Contain("author3");
+        //    scanBookViewModel.PendingLoans.Should().Contain("title10");
+        //    scanBookViewModel.PendingLoans.Should().Contain("fName1 lName1");
+        //    scanBookViewModel.PendingLoans.Should().Contain("4/10/2015");
+        //    scanBookViewModel.PendingLoans.Should().Contain("18/10/2015");
+        //}
 
 
         [Theory, ContainerData]
